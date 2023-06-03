@@ -36,6 +36,29 @@ const loginUserCtrl = asyncHandler(async (req, res) => {
   }
 });
 
+// Updata a user
+
+const updatedUser = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      {
+        firstname: req?.body.firstname,
+        lastname: req?.body.lastname,
+        email: req?.body.email,
+        mobile: req?.body.mobile,
+      },
+      {
+        new: true,
+      }
+    );
+    res.json(updatedUser);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 // Get all users
 
 const getAllUser = asyncHandler(async (req, res) => {
@@ -77,4 +100,5 @@ module.exports = {
   getAllUser,
   getaUser,
   deleteaUser,
+  updatedUser,
 };
