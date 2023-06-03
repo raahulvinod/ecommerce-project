@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const dbConnect = () => {
   try {
-    const conn = mongoose.connect('mongodb://127.0.0.1:27017/trendify');
+    const conn = mongoose.connect(process.env.MONGODB_URL);
     console.log('Database Connected Successfully');
   } catch (error) {
     // throw new Error(error);
