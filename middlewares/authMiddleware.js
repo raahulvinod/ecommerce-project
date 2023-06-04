@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 const authMiddleware = asyncHandler(async (req, res, next) => {
   let token;
@@ -20,15 +21,15 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
 });
 
 const isAdmin = asyncHandler(async (req, res, next) => {
-  const { email } = req.user;
-  const adminUser = await User.findOne({ email });
+  const { id } = req.params;
+  const userId = new mongoose.Types.ObjectId(id);
+  const adminUser = await User.findById(userId);
 
   if (adminUser.role !== 'admin') {
     throw new Error('You are not an admin');
   } else {
     next();
   }
-  next();
 });
 
 module.exports = { authMiddleware, isAdmin };
