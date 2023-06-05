@@ -2,6 +2,7 @@ const { generateToken } = require('../config/jwtToken');
 const User = require('../models/userModel');
 const asyncHandler = require('express-async-handler');
 const validateMongoDbId = require('../utils/validateMongodbid');
+const { generateRefreshToken } = require('../config/refreshToken');
 
 const createUser = asyncHandler(async (req, res) => {
   const email = req.body.email;
@@ -17,6 +18,8 @@ const createUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Login a user
+
 const loginUserCtrl = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -24,6 +27,18 @@ const loginUserCtrl = asyncHandler(async (req, res) => {
   const findUser = await User.findOne({ email });
 
   if (findUser && (await findUser.isPasswordMatched(password))) {
+    const refreshToken = await generateRefreshToken(findUser?._id);
+    const updateUser = await User.findByIdAndUpdate(
+      findUser.id,
+      {
+        refreshToken: refreshToken,
+      },
+      { new: true }
+    );
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      maxAge: 72 * 60 * 60 * 1000,
+    });
     res.json({
       _id: findUser._id,
       fistname: findUser?.firstname,
@@ -35,6 +50,18 @@ const loginUserCtrl = asyncHandler(async (req, res) => {
   } else {
     throw new Error('Invalid Credentials');
   }
+});
+
+// Handle refresh token
+
+const handleRefreshToken = asyncHandler(async (req, res) => {
+  const cookie = req.cookies;
+  if (!cookie?.refreshToken) throw new Error('No Refresh Token in Cookies');
+  const refreshToken = cookie.refreshToken;
+  console.log(refreshToken);
+  const user = await User.findOne({ refreshToken });
+  if (!user) throw new Error('No Refresh token present in db or not matched');
+  res.json(user);
 });
 
 // Updata a user
@@ -148,4 +175,5 @@ module.exports = {
   updatedUser,
   blockUser,
   unblockUser,
+  handleRefreshToken,
 };
