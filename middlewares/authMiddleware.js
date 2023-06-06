@@ -10,7 +10,8 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findById(decoded.id);
-      //   console.log(user);
+      // console.log(user);
+      req.user = user;
       next();
     } catch (error) {
       throw new Error('Not Autharized token expired, Please Login again');
@@ -21,9 +22,8 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
 });
 
 const isAdmin = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
-  const userId = new mongoose.Types.ObjectId(id);
-  const adminUser = await User.findById(userId);
+  const { email } = req.user;
+  const adminUser = await User.findOne({ email });
 
   if (adminUser.role !== 'admin') {
     throw new Error('You are not an admin');
