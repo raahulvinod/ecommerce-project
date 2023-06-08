@@ -13,7 +13,7 @@ const productRouter = require('./routes/productRoutes');
 const blogRouter = require('./routes/blogRoutes');
 const categoryRouter = require('./routes/prodcategoryRoutes');
 const blogCategoryRouter = require('./routes/blogCatRoutes');
-
+const brandRouter = require('./routes/brandRoute');
 dbConnect();
 
 app.use(morgan('dev'));
@@ -26,6 +26,7 @@ app.use('/api/product', productRouter);
 app.use('/api/blog', blogRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/blogcategory', blogCategoryRouter);
+app.use('/api/brand', brandRouter);
 
 app.use(notFound);
 app.use(errorHandler);
