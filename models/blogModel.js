@@ -38,11 +38,7 @@ var blogShema = new mongoose.Schema(
         ref: 'User',
       },
     ],
-    image: {
-      type: String,
-      default:
-        'https://blog.fuze32.com/hubfs/Imported_Blog_Media/How-To-Write-A-Blog-1.jpg',
-    },
+    images: [],
     author: {
       type: String,
       default: 'Admin',
