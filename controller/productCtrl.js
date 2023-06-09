@@ -113,15 +113,15 @@ const getAllProduct = asyncHandler(async (req, res) => {
 
 const addToWishList = asyncHandler(async (req, res) => {
   const { _id } = req.user;
-  const { proId } = req.body;
+  const { prodId } = req.body;
   try {
     const user = await User.findById(_id);
-    const alreadyAdded = user.whishlist.find((id) => id.toString() === proId);
+    const alreadyAdded = user.whishlist.find((id) => id.toString() === prodId);
     if (alreadyAdded) {
       let user = await User.findByIdAndUpdate(
         _id,
         {
-          $pull: { whishlist: proId },
+          $pull: { whishlist: prodId },
         },
         { new: true }
       );
@@ -130,7 +130,7 @@ const addToWishList = asyncHandler(async (req, res) => {
       let user = await User.findByIdAndUpdate(
         _id,
         {
-          $push: { whishlist: proId },
+          $push: { whishlist: prodId },
         },
         { new: true }
       );
@@ -161,7 +161,6 @@ const rating = asyncHandler(async (req, res) => {
           new: true,
         }
       );
-      res.json(updateRating);
     } else {
       const rateProduct = await Product.findByIdAndUpdate(
         prodId,
@@ -177,8 +176,21 @@ const rating = asyncHandler(async (req, res) => {
           new: true,
         }
       );
-      res.json(rateProduct);
     }
+    const getAllRatings = await Product.findById(prodId);
+    let totalRating = getAllRatings.ratings.length;
+    let ratingSum = getAllRatings.ratings
+      .map((item) => item.star)
+      .reduce((prev, curr) => prev + curr, 0);
+    let actualRating = Math.round(ratingSum / totalRating);
+    let finalProduct = await Product.findByIdAndUpdate(
+      prodId,
+      {
+        totalrating: actualRating,
+      },
+      { new: true }
+    );
+    res.json(finalProduct);
   } catch (error) {
     throw new Error(error);
   }
