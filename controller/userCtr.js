@@ -137,17 +137,37 @@ const logout = asyncHandler(async (req, res) => {
 // Updata a user
 
 const updatedUser = asyncHandler(async (req, res) => {
-  console.log(req.user);
   const { _id } = req.user;
   validateMongoDbId(_id);
   try {
     const updatedUser = await User.findByIdAndUpdate(
       _id,
       {
-        firstname: req?.body.firstname,
-        lastname: req?.body.lastname,
-        email: req?.body.email,
-        mobile: req?.body.mobile,
+        firstname: req?.body?.firstname,
+        lastname: req?.body?.lastname,
+        email: req?.body?.email,
+        mobile: req?.body?.mobile,
+      },
+      {
+        new: true,
+      }
+    );
+    res.json(updatedUser);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+// Save user address
+
+const saveAddress = asyncHandler(async (req, res, next) => {
+  const { _id } = req.user;
+  validateMongoDbId(_id);
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      _id,
+      {
+        address: req?.body?.address,
       },
       {
         new: true,
@@ -318,4 +338,5 @@ module.exports = {
   resetPassword,
   loginAdmin,
   getWishlist,
+  saveAddress,
 };
