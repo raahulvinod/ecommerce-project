@@ -21,6 +21,7 @@ const {
   applyCoupon,
   createOrder,
   getOrders,
+  updateOrderStatus,
 } = require('../controller/userCtr');
 const { authMiddleware, isAdmin } = require('../middlewares/authMiddleware');
 const { forgotPasswordToken } = require('../controller/userCtr');
@@ -52,5 +53,11 @@ router.put('/edit-user', authMiddleware, updatedUser);
 router.put('/save-address', authMiddleware, saveAddress);
 router.put('/block-user/:id', authMiddleware, isAdmin, blockUser);
 router.put('/unblock-user/:id', authMiddleware, isAdmin, unblockUser);
+router.put(
+  '/order/update-order/:id',
+  authMiddleware,
+  isAdmin,
+  updateOrderStatus
+);
 
 module.exports = router;
