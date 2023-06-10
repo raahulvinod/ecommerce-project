@@ -351,13 +351,26 @@ const userCart = asyncHandler(async (req, res) => {
       cartTotal = cartTotal + products[i].price * products[i].count;
     }
 
-    // console.log(products, cartTotal);
     let newCart = await new Cart({
       products,
       cartTotal,
       orderBy: user?._id,
     }).save();
     res.json(newCart);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+const getUserCart = asyncHandler(async (req, res) => {
+  const { _id } = req.user;
+  validateMongoDbId(_id);
+
+  try {
+    const cart = await Cart.findOne({ orderBy: _id }).populate(
+      'products.product'
+    );
+    res.json(cart);
   } catch (error) {
     throw new Error(error);
   }
@@ -381,4 +394,5 @@ module.exports = {
   getWishlist,
   saveAddress,
   userCart,
+  getUserCart,
 };
