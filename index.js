@@ -8,11 +8,11 @@ const PORT = process.env.PORT || 4000;
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 
-const authRouter = require('./routes/authRoutes');
-const productRouter = require('./routes/productRoutes');
-const blogRouter = require('./routes/blogRoutes');
-const categoryRouter = require('./routes/prodcategoryRoutes');
-const blogCategoryRouter = require('./routes/blogCatRoutes');
+const authRouter = require('./routes/authRoute');
+const productRouter = require('./routes/productRoute');
+const blogRouter = require('./routes/blogRoute');
+const categoryRouter = require('./routes/prodcategoryRoute');
+const blogCategoryRouter = require('./routes/blogCatRoute');
 const brandRouter = require('./routes/brandRoute');
 const colorRouter = require('./routes/colorRoute');
 const couponRouter = require('./routes/couponRoute');
