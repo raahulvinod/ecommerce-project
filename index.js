@@ -16,6 +16,7 @@ const blogCategoryRouter = require('./routes/blogCatRoutes');
 const brandRouter = require('./routes/brandRoute');
 const colorRouter = require('./routes/colorRoute');
 const couponRouter = require('./routes/couponRoute');
+const enquiryRouter = require('./routes/enqRoute');
 dbConnect();
 
 app.use(morgan('dev'));
@@ -31,6 +32,7 @@ app.use('/api/blogcategory', blogCategoryRouter);
 app.use('/api/brand', brandRouter);
 app.use('/api/coupon', couponRouter);
 app.use('/api/color', colorRouter);
+app.use('/api/enquiry', enquiryRouter);
 
 app.use(notFound);
 app.use(errorHandler);
