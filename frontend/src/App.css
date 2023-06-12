@@ -13,6 +13,7 @@ body {
   --color-3b4149: #3b4149;
   --color-febd69: #febd69;
   --color-232f3e: #232f3e;
+  --color-footer: #232f3e;
 }
 
 a {
@@ -91,4 +92,22 @@ a {
 .header-upper-links {
   height: 35px;
   height: 35px;
+}
+
+/* ******************************* */
+/* Footer */
+/* ******************************* */
+footer {
+  background-color: var(--color-footer);
+}
+
+footer:not(:first-child) {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+footer .input-group-text {
+  background-color: var(--color-232f3e);
+  color: white;
+  padding: 8px 17px;
+  font-weight: 400;
 }
