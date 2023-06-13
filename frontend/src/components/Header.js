@@ -5,7 +5,7 @@ import { BsSearch } from 'react-icons/bs';
 const Header = () => {
   return (
     <>
-      <header className="header-top-strip py-3">
+      {/* <header className="header-top-strip py-3">
         <div className="container-xxl">
           <div className="row">
             <div className="col-6">
@@ -23,7 +23,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </header>
+      </header> */}
       <header className="header-upper py-3">
         <div className="container-xxl">
           <div className="row align-items-center">
