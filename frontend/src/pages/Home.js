@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import BlogCard from '../components/BlogCard';
 
 const Home = () => {
   return (
@@ -230,7 +231,19 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="blog-wrapper py-5 home-wrapper-2"></section>
+      <section className="blog-wrapper py-5 home-wrapper-2">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="section-heading">Our Latest Blogs</h3>
+            </div>
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+          </div>
+        </div>
+      </section>
     </>
   );
 };
