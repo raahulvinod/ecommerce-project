@@ -20,13 +20,13 @@ const ProductCard = () => {
             FUJIFILM X-T3 Mirrorless Camera X-T3
           </h5>
           <ReactStars
-            value="3"
+            value={4}
             edit={false}
             count={5}
             size={24}
             activeColor="#ffd700"
           />
-          <p className="price">₹ 999</p>
+          <p className="price">₹ 999.00</p>
         </div>
         <div className="action-bar position-absolute">
           <div className="d-flex flex-column gap-15">

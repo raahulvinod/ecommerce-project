@@ -9,6 +9,9 @@ body {
 }
 
 :root {
+  --font-family: 'Rubik', sans-serif;
+  --font-heading-family: Rubik, sans-serif;
+
   --color-131921: #131921;
   --color-3b4149: #3b4149;
   --color-febd69: #febd69;
@@ -27,6 +30,7 @@ body {
   line-height: 32px;
   font-weight: 500;
   margin-bottom: 30px;
+  font-family: var(--font-family);
 }
 
 .card-wrapper {
@@ -43,6 +47,10 @@ a {
 .form-control {
   box-shadow: none;
   border-color: inherit;
+}
+
+.gap-5 {
+  gap: 5px;
 }
 
 .gap-10 {
@@ -169,6 +177,8 @@ footer .input-group-text {
   letter-spacing: -2px;
   font-weight: 500;
   text-transform: none;
+  font-family: var(--font-family);
+  letter-spacing: 0.3px;
 }
 
 .main-banner-content p {
@@ -199,6 +209,8 @@ footer .input-group-text {
   letter-spacing: -2px;
   font-weight: 500;
   text-transform: none;
+  font-family: var(--font-family);
+  letter-spacing: 0.3px;
 }
 
 .small-banner-content p {
@@ -352,4 +364,19 @@ footer .input-group-text {
 .wishlist-icon {
   top: 2%;
   right: 15px;
+}
+
+/* ------------------------------ */
+/* Special Product */
+/*-------------------------------- */
+
+.special-product-card {
+  padding: 20px 10px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.special-product-card .badge {
+  background-color: #ef3939 !important;
+  color: white;
 }
