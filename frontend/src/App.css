@@ -414,3 +414,71 @@ footer .input-group-text {
   font-weight: 100;
   color: white;
 }
+
+/* ------------------------------ */
+/* Our Store */
+/*-------------------------------- */
+
+.filter-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px 15px 25px;
+}
+
+.filter-title {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--color-1c1c1b);
+  margin-bottom: 20px;
+}
+
+.filter-card ul,
+.filter-card .form-check-label {
+  list-style: none;
+  font-size: 13px;
+  line-height: 30px;
+  color: var(--color-777777);
+  cursor: pointer;
+}
+
+.filter-card .form-check-input:checked {
+  background-color: var(--color-febd69);
+  border-color: var(--color-febd69);
+}
+
+.filter-card .form-check-input:focus {
+  box-shadow: none;
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+.sub-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-1c1c1b);
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.colors {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.colors li {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.random-products h5 {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.random-products:first-child {
+  border-bottom: 1px solid var(--color-ededed);
+}
