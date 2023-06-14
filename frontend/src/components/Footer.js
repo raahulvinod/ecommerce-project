@@ -39,8 +39,8 @@ const Footer = () => {
               <div>
                 <address className="text-white fs-6">
                   Trendfy Internet Private Limited,
-                  <br /> Bengaluru, 560103,
-                  <br /> Karnataka, India.
+                  <br /> Kollam, 691589,
+                  <br /> Kerala, India.
                 </address>
                 <a
                   href="tel:+9400000072"
