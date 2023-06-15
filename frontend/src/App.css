@@ -594,7 +594,8 @@ footer .input-group-text {
   border-radius: 10px;
 }
 
-.compare-product-card .cross {
+.compare-product-card .cross,
+.wishlist-card .cross {
   top: 3%;
   right: 8%;
   width: 25px;
@@ -607,12 +608,14 @@ footer .input-group-text {
   line-height: 22px;
   font-weight: 500;
   color: var(--color-1c1c1b);
+  font-family: var(--font-family);
 }
 .compare-product-details h6.price,
 .wishlist-card h6.price {
   font-size: 15px;
   line-height: 22px;
-  font-weight: 400;
+  font-weight: 500;
+  font-family: var(--font-family);
 }
 .compare-product-card .product-detail {
   display: flex;
