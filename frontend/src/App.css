@@ -305,6 +305,21 @@ footer .input-group-text {
   color: var(--color-777777);
 }
 
+.single-blog-card a {
+  font-size: 18px;
+  color: var(--color-777777);
+  margin-bottom: 20px;
+}
+.single-blog-card h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-1c1c1b);
+}
+.single-blog-card p {
+  color: var(--color-777777);
+  font-size: 14px;
+}
+
 /* ******************************* */
 /* Product Card */
 /* ******************************* */
@@ -666,4 +681,13 @@ footer .input-group-text {
 .signup:hover {
   background-color: var(--color-131921);
   color: white;
+}
+
+/* ------------------------------ */
+/* Policy pages */
+/*-------------------------------- */
+
+.policy {
+  background-color: white;
+  padding: 30px;
 }

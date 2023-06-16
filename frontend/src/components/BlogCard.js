@@ -14,7 +14,7 @@ const BlogCard = () => {
           Our Latest News You’re Only As Good As Your Last Collection, Which Is
           An Enormous Pressure.
         </p>
-        <Link to="/" className="button">
+        <Link to="/blog/:id" className="button">
           Read More
         </Link>
       </div>
