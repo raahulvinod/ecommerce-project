@@ -170,8 +170,8 @@ const SingleProduct = () => {
                   <div className="d-flex gap-10 flex-column my-3">
                     <h3 className="product-heading">Shipping & Returns :</h3>
                     <p className="product-data">
-                      Free shipping and returns available on all orders! <br />{' '}
-                      We ship all indian domestic orders within{' '}
+                      Free shipping and returns available on all orders! <br />
+                      We ship all indian domestic orders within
                       <b>5-10 business days!</b>
                     </p>
                   </div>
