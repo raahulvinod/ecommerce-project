@@ -871,13 +871,16 @@ footer .input-group-text {
 }
 
 /* ------------------------------ */
-/* Checlout */
+/* Checkout */
 /*-------------------------------- */
 .total {
   font-size: 14px;
   color: var(--color-1c1c1b);
+  font-weight: 500;
+  font-family: var(--font-family);
 }
 .total-price {
   font-size: 16px;
   color: var(--color-777777);
+  font-weight: 500;
 }

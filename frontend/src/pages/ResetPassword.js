@@ -3,6 +3,7 @@ import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
 import CustomInput from '../components/CustomInput';
 import { Link } from 'react-router-dom';
+import Container from '../components/Container';
 
 const ResetPassword = () => {
   return (
@@ -10,7 +11,7 @@ const ResetPassword = () => {
       <Meta title="Reset Password" />
       <BreadCrumb title="Reset Password" />
 
-      <div className="login-wrapper py-5 home-wrapper-2">
+      <Container class1="login-wrapper py-5 home-wrapper-2">
         <div className="container-xxl">
           <div className="row">
             <div className="col-12">
@@ -41,7 +42,7 @@ const ResetPassword = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </>
   );
 };
