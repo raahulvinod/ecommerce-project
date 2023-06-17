@@ -175,7 +175,7 @@ const OurStore = () => {
                     </p>
                     <select name="" id="" className="form-control form-select">
                       <option value="manual">Featured</option>
-                      <option value="best-selling" selected="selected">
+                      <option value="best-selling" defaultValue="selected">
                         Best selling
                       </option>
                       <option value="title-ascending">
