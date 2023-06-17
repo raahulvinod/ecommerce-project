@@ -788,7 +788,7 @@ footer .input-group-text {
 }
 
 .main-product-details {
-  padding: 20px;
+  padding: 30px 20px;
   background-color: white;
   border-radius: 10px;
 }
@@ -827,4 +827,9 @@ footer .input-group-text {
   font-size: 13px;
   columns: var(--color-777777);
   margin-bottom: 0px;
+}
+
+.main-product-details a {
+  font-size: 14px;
+  color: var(--color-777777);
 }

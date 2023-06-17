@@ -7,6 +7,7 @@ import ReactImageZoom from 'react-image-zoom';
 import Color from '../components/Color';
 import { TbGitCompare } from 'react-icons/tb';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { BsLink45Deg } from 'react-icons/bs';
 
 const SingleProduct = () => {
   const props = {
@@ -16,6 +17,15 @@ const SingleProduct = () => {
     img: 'https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_884x.jpg?v=1655095977',
   };
   const [orderedProduct, setOrderedProduct] = useState(true);
+  const copyToClipboard = (text) => {
+    console.log('text', text);
+    var textField = document.createElement('textarea');
+    textField.innerText = text;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand('copy');
+    textField.remove();
+  };
   return (
     <>
       <Meta title="Product Name" />
@@ -83,7 +93,7 @@ const SingleProduct = () => {
                     Write a Review
                   </a>
                 </div>
-                <div className="border-bottom py-3">
+                <div className="py-3">
                   <div className="d-flex gap-10 align-items-center mt-2 mb-3">
                     <h3 className="product-heading">Type:</h3>
                     <p className="product-data">Watch</p>
@@ -146,15 +156,41 @@ const SingleProduct = () => {
                   </div>
                   <div className="d-flex align-items-center gap-15">
                     <div>
-                      <a href="">
+                      <a href="/">
                         <TbGitCompare className="fs-5 me-2" /> Add to Compare
                       </a>
                     </div>
                     <div>
-                      <a href="">
+                      <a href="/">
                         <AiOutlineHeart className="fs-5 me-2" /> Add to Wishlist
                       </a>
                     </div>
+                  </div>
+
+                  <div className="d-flex gap-10 flex-column my-3">
+                    <h3 className="product-heading">Shipping & Returns :</h3>
+                    <p className="product-data">
+                      Free shipping and returns available on all orders! <br />{' '}
+                      We ship all indian domestic orders within{' '}
+                      <b>5-10 business days!</b>
+                    </p>
+                  </div>
+                  <div className="d-flex gap-10 align-items-center my-3">
+                    <h3 className="product-heading">
+                      <BsLink45Deg />
+                    </h3>
+                    <p className="product-data">
+                      <a
+                        href="javascript:void(0)"
+                        onClick={() => {
+                          copyToClipboard(
+                            'https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_00_884x.jpg?v=1655095991'
+                          );
+                        }}
+                      >
+                        Copy Link
+                      </a>
+                    </p>
                   </div>
                 </div>
               </div>
