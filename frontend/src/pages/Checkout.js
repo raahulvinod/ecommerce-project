@@ -54,8 +54,13 @@ const Checkout = () => {
                 className="d-flex gap-15 flex-wrap justify-content-between"
               >
                 <div className="w-100">
-                  <select name="" className="form-control form-select" id="">
-                    <option value="" selected disabled>
+                  <select
+                    name=""
+                    defaultValue={'selected'}
+                    className="form-control form-select"
+                    id=""
+                  >
+                    <option value="selected" disabled>
                       Select Country
                     </option>
                   </select>
@@ -97,7 +102,7 @@ const Checkout = () => {
                 </div>
                 <div className="flex-grow-1">
                   <select name="" className="form-control form-select" id="">
-                    <option value="" selected disabled>
+                    <option value="" defaultValue="selected" disabled>
                       Select State
                     </option>
                   </select>
