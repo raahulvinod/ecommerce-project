@@ -43,10 +43,10 @@ function App() {
             <Route path="signup" element={<Signup />} />
             <Route path="forgot-password" element={<Forgotpassword />} />
             <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="Terms-conditions" element={<TermsAndConditions />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="refund-policy" element={<RefundPolicy />} />
             <Route path="Shipping-policy" element={<ShippingPolicy />} />
-            <Route path="Terms-conditions" element={<TermsAndConditions />} />
           </Route>
         </Routes>
       </BrowserRouter>
