@@ -176,11 +176,11 @@ const SingleProduct = () => {
                   </p>
                 </div>
                 <div className="d-flex gap-10 flex-column my-3">
-                  <h3 className="product-heading">Shipping & Returns :</h3>
+                  <h3 className="product-heading">Easy Payment Options</h3>
                   <p className="product-data">
-                    Free shipping and returns available on all orders! <br />
-                    We ship all indian domestic orders within
-                    <b> 5-10 business days!</b>
+                    No cost EMI Available.
+                    <br />
+                    <b> Net banking & Credit/ Debit/ ATM card.</b>
                   </p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-3">
