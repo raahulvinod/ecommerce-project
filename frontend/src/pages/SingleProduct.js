@@ -13,7 +13,7 @@ import Container from '../components/Container';
 const SingleProduct = () => {
   const props = {
     width: 400,
-    height: 300,
+    height: 380,
     zoomWidth: 600,
     img: 'https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_884x.jpg?v=1655095977',
   };
@@ -126,7 +126,7 @@ const SingleProduct = () => {
                   </div>
                 </div>
                 <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                  <h3 className="product-heading">Color:</h3>
+                  <h3 className="product-heading">Color :</h3>
                   <Color />
                 </div>
                 <div className="d-flex gap-15 align-items-center flex-row mt-2 mb-3">
@@ -172,7 +172,15 @@ const SingleProduct = () => {
                   <p className="product-data">
                     Free shipping and returns available on all orders! <br />
                     We ship all indian domestic orders within
-                    <b>5-10 business days!</b>
+                    <b> 5-10 business days!</b>
+                  </p>
+                </div>
+                <div className="d-flex gap-10 flex-column my-3">
+                  <h3 className="product-heading">Shipping & Returns :</h3>
+                  <p className="product-data">
+                    Free shipping and returns available on all orders! <br />
+                    We ship all indian domestic orders within
+                    <b> 5-10 business days!</b>
                   </p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-3">
