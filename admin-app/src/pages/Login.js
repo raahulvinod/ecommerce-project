@@ -1,9 +1,57 @@
-import React from 'react'
+import React from 'react';
+import CustomInput from '../components/CustomInput';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
-    <div>Login</div>
-  )
-}
+    <>
+      <section className="formcard-section">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-md-6 text-center mb-3">
+              <h2 className="heading-section">Trendfy</h2>
+            </div>
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-md-7 col-lg-5">
+              <div className="login-wrap p-4 p-md-5">
+                <div className="icon d-flex align-items-center justify-content-center">
+                  <span className="fa fa-user-o"></span>
+                </div>
+                <h4 className="text-center mb-4">Login</h4>
+                <form action="#" className="login-form">
+                  <div className="form-group">
+                    <CustomInput type="text" label="Email Address" id="email" />
+                  </div>
+                  <div className="form-group ">
+                    <CustomInput
+                      type="password"
+                      label="Password"
+                      id="password"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <Link
+                      to="/admin"
+                      type="submit"
+                      className="form-control btn btn-dark rounded submit px-3"
+                    >
+                      Login
+                    </Link>
+                  </div>
+                  <div className="form-group d-md-flex">
+                    <div className="w-100 text-md-right">
+                      <a href="/">Forgot Password?</a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
 
-export default Login
+export default Login;
