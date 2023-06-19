@@ -16,7 +16,7 @@ const Home = () => {
             <div className="main-banner position-relative">
               <img
                 className="img-fluid rounded-3"
-                src="images/main-banner-1.jpg"
+                src="images/iphone-main.jpg"
                 alt="main banner"
               />
               <div className="main-banner-content position-absolute">
