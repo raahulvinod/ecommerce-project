@@ -45,7 +45,7 @@ const MainLayout = () => {
           }}
           items={[
             {
-              key: '1',
+              key: '',
               icon: <MdOutlineDashboardCustomize className="fs-4" />,
               label: 'Dashboard',
             },

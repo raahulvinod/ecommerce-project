@@ -154,16 +154,19 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="mt-4">
-        <h3 className="mt-4">Income Statics</h3>
+        <h3 className="my-4">Income Statics</h3>
         <div>
           <Column {...config} />
         </div>
       </div>
-      <div className="mb-4">
+      <div className="my-4">
         <h3 className="mb-4">Recent Orders</h3>
         <div>
           <Table columns={columns} dataSource={data1} />
         </div>
+      </div>
+      <div className="my-4">
+        <h3 className="mb-4">Recent Reviews</h3>
       </div>
     </div>
   );
