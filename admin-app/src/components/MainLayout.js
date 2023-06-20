@@ -65,7 +65,7 @@ const MainLayout = () => {
                   label: 'Add Product',
                 },
                 {
-                  key: 'product-list',
+                  key: 'list-product',
                   icon: <AiOutlineShoppingCart className="fs-4" />,
                   label: 'Product List',
                 },
@@ -85,7 +85,7 @@ const MainLayout = () => {
                   label: 'Category',
                 },
                 {
-                  key: 'category-list',
+                  key: 'list-category',
                   icon: <TbCategory className="fs-4" />,
                   label: 'Category List',
                 },
@@ -95,7 +95,7 @@ const MainLayout = () => {
                   label: 'Color',
                 },
                 {
-                  key: 'color-list',
+                  key: 'list-color',
                   icon: <AiOutlineBgColors className="fs-4" />,
                   label: 'Color List',
                 },
