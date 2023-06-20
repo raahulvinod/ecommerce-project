@@ -8,9 +8,7 @@ const Addcat = () => {
       <div>
         <form action="">
           <CustomInput type="text" label="Enter category" />
-          <button className="btn btn-success border-0 rounded-3 my-4">
-            Add Category
-          </button>
+          <button className="button my-3">Add Category</button>
         </form>
       </div>
     </div>

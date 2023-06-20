@@ -70,6 +70,10 @@ a:hover {
   min-width: 90px !important;
   width: 90px !important;
 }
+
+.ant-menu-item-selected {
+  background: radial-gradient(100% 100% at 100% 0%, #89e5ff 0%, #5468ff 100%);
+}
 .logo {
   background-color: #000;
   margin: 0;

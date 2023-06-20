@@ -8,9 +8,7 @@ const Addblogcat = () => {
       <div>
         <form action="">
           <CustomInput type="text" label="Enter blog category" />
-          <button className="btn btn-success border-0 rounded-3 my-4">
-            Add Blog Category
-          </button>
+          <button className="button rounded-3 my-4">Add Blog Category</button>
         </form>
       </div>
     </div>

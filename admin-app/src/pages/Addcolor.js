@@ -8,9 +8,7 @@ const Addcolor = () => {
       <div>
         <form action="">
           <CustomInput type="color" label="Enter color" />
-          <button className="btn btn-success border-0 rounded-3 my-4">
-            Add Color
-          </button>
+          <button className="button my-4">Add Color</button>
         </form>
       </div>
     </div>

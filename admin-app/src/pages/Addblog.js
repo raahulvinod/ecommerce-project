@@ -64,9 +64,7 @@ const Addblog = () => {
               handleDesc(event.target);
             }}
           />
-          <button className="btn btn-success border-0 rounded-3 my-4">
-            Add Blog
-          </button>
+          <button className="button rounded-3 my-4">Add Blog</button>
         </form>
       </div>
     </div>
