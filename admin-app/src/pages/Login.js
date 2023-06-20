@@ -13,7 +13,7 @@ const Login = () => {
                 <div className="icon d-flex align-items-center justify-content-center">
                   <span className="fa fa-user-o"></span>
                 </div>
-                <h4 className="text-center mb-4 title">Login</h4>
+                <h4 className="text-center mb-4 title">Admin Login</h4>
                 <form action="#" className="login-form">
                   <div className="form-group">
                     <CustomInput type="text" label="Email Address" id="email" />
@@ -29,7 +29,7 @@ const Login = () => {
                     <Link
                       to="/admin"
                       type="submit"
-                      className="form-control btn btn-dark rounded submit px-3 text-decoration-none"
+                      className="button form-control btn text-white text-decoration-none mb-0"
                     >
                       Login
                     </Link>

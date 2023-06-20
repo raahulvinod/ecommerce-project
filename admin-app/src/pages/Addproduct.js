@@ -72,7 +72,7 @@ const Addproduct = () => {
             </p>
           </Dragger>
 
-          <button className="button my-4">Add Product</button>
+          <button className="button my-4 px-3">Add Product</button>
         </form>
       </div>
     </div>

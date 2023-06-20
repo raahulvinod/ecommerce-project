@@ -8,7 +8,7 @@ const Addbrand = () => {
       <div>
         <form action="">
           <CustomInput type="text" label="Enter brand" />
-          <button className="button border-0  my-3">Add brand</button>
+          <button className="button border-0  my-3 px-3">Add brand</button>
         </form>
       </div>
     </div>

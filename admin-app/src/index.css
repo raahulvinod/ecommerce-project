@@ -34,7 +34,7 @@ a:hover {
 .login-wrap .icon {
   width: 80px;
   height: 80px;
-  background: #232f3e;
+  background: radial-gradient(100% 100% at 100% 0%, #89e5ff 0%, #5468ff 100%);
   border-radius: 50%;
   font-size: 30px;
   margin: 0 auto;

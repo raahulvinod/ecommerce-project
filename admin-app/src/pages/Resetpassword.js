@@ -29,9 +29,8 @@ const Resetpassword = () => {
                   </div>
                   <div className="form-group">
                     <Link
-                      to="/admin"
                       type="submit"
-                      className="form-control btn btn-dark rounded submit px-3 text-decoration-none"
+                      className="button submit form-control btn text-white text-decoration-none mb-0"
                     >
                       Reset
                     </Link>

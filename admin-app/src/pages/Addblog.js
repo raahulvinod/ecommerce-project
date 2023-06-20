@@ -64,7 +64,7 @@ const Addblog = () => {
               handleDesc(event.target);
             }}
           />
-          <button className="button rounded-3 my-4">Add Blog</button>
+          <button className="button rounded-3 my-4 px-3">Add Blog</button>
         </form>
       </div>
     </div>

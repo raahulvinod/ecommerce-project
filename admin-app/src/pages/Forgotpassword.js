@@ -1,5 +1,6 @@
 import React from 'react';
 import CustomInput from '../components/CustomInput';
+import { Link } from 'react-router-dom';
 
 const Forgotpassword = () => {
   return (
@@ -19,12 +20,12 @@ const Forgotpassword = () => {
                   </div>
 
                   <div className="form-group">
-                    <button
+                    <Link
                       type="submit"
-                      className="form-control btn btn-dark rounded submit px-3"
+                      className="button form-control btn text-white text-decoration-none mb-0"
                     >
                       Send Link
-                    </button>
+                    </Link>
                   </div>
                 </form>
               </div>
