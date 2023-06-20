@@ -34,8 +34,7 @@ a:hover {
 .login-wrap .icon {
   width: 80px;
   height: 80px;
-  /* background: #1089ff; */
-  background-color: #232f3e;
+  background: #232f3e;
   border-radius: 50%;
   font-size: 30px;
   margin: 0 auto;
@@ -56,4 +55,31 @@ a:hover {
 
 .form-control {
   padding: 0.7rem 0.75rem;
+}
+
+.ant-layout-sider {
+  flex: 0 0 250px !important;
+  max-width: 250px !important;
+  min-width: 250px !important;
+  width: 250px !important;
+}
+
+.ant-layout-sider-collapsed {
+  flex: 0 0 90px !important;
+  max-width: 90px !important;
+  min-width: 90px !important;
+  width: 90px !important;
+}
+.logo {
+  background-color: #000;
+  margin: 0;
+  height: 64px;
+}
+
+main {
+  overflow-y: scroll;
+}
+
+.ant-menu-title-content {
+  font-size: 16px;
 }

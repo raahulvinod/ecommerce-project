@@ -31,7 +31,7 @@ const Resetpassword = () => {
                     <Link
                       to="/admin"
                       type="submit"
-                      className="form-control btn btn-dark rounded submit px-3"
+                      className="form-control btn btn-dark rounded submit px-3 text-decoration-none"
                     >
                       Reset
                     </Link>

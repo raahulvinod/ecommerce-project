@@ -8,11 +8,6 @@ const Login = () => {
       <section className="formcard-section">
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-md-6 text-center mb-3">
-              <h2 className="heading-section">Trendfy</h2>
-            </div>
-          </div>
-          <div className="row justify-content-center">
             <div className="col-md-7 col-lg-5">
               <div className="login-wrap p-4 p-md-5">
                 <div className="icon d-flex align-items-center justify-content-center">
@@ -34,14 +29,14 @@ const Login = () => {
                     <Link
                       to="/admin"
                       type="submit"
-                      className="form-control btn btn-dark rounded submit px-3"
+                      className="form-control btn btn-dark rounded submit px-3 text-decoration-none"
                     >
                       Login
                     </Link>
                   </div>
-                  <div className="form-group d-md-flex">
+                  <div className="form-group d-md-flex text-end">
                     <div className="w-100 text-md-right">
-                      <a href="/">Forgot Password?</a>
+                      <Link to="/forgot-password">Forgot Password?</Link>
                     </div>
                   </div>
                 </form>

@@ -26,11 +26,6 @@ const Forgotpassword = () => {
                       Send Link
                     </button>
                   </div>
-                  <div className="form-group d-md-flex">
-                    <div className="w-100 text-md-right">
-                      <a href="/forgot-password">Forgot Password?</a>
-                    </div>
-                  </div>
                 </form>
               </div>
             </div>
