@@ -14,7 +14,7 @@ import { SiBrandfolder } from 'react-icons/si';
 import { TbCategory } from 'react-icons/tb';
 import { FaClipboardList, FaBlog } from 'react-icons/fa';
 import { Button, Layout, Menu, theme } from 'antd';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
@@ -166,7 +166,7 @@ const MainLayout = () => {
                 2
               </span>
             </div>
-            <div className="d-flex gap-3 align-items-center">
+            <div className="d-flex gap-3 align-items-center dropdown">
               <div>
                 <img
                   width={32}
@@ -175,10 +175,56 @@ const MainLayout = () => {
                   alt="user"
                 />
               </div>
-              <div>
+              <div
+                role="button"
+                id="dropdownMenuLink"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
                 <h5 className="mb-0">Rahul</h5>
                 <p className="mb-0">rahulvinod135@gmail.com</p>
               </div>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    to="/admin"
+                    style={{
+                      lineHeight: '20px',
+                      height: 'auto',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item py-1 mb-0"
+                    style={{
+                      lineHeight: '20px',
+                      height: 'auto',
+                      textDecoration: 'none',
+                    }}
+                    to="/reset-password"
+                  >
+                    Change Password
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item py-1 mb-0"
+                    style={{
+                      lineHeight: '20px',
+                      height: 'auto',
+                      textDecoration: 'none',
+                    }}
+                    to="/admin"
+                  >
+                    Signout
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
         </Header>

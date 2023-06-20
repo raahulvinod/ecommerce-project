@@ -13,7 +13,7 @@ const Login = () => {
                 <div className="icon d-flex align-items-center justify-content-center">
                   <span className="fa fa-user-o"></span>
                 </div>
-                <h4 className="text-center mb-4">Login</h4>
+                <h4 className="text-center mb-4 title">Login</h4>
                 <form action="#" className="login-form">
                   <div className="form-group">
                     <CustomInput type="text" label="Email Address" id="email" />

@@ -10,7 +10,7 @@ const Resetpassword = () => {
           <div className="row justify-content-center">
             <div className="col-md-7 col-lg-5">
               <div className="login-wrap p-4 p-md-5">
-                <h4 className="text-center mb-4">Reset Password</h4>
+                <h4 className="text-center mb-4 title">Reset Password</h4>
                 <p className="text-center mb-4">Please enter new password</p>
                 <form action="#" className="login-form">
                   <div className="form-group ">
