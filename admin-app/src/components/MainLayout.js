@@ -129,7 +129,7 @@ const MainLayout = () => {
                 {
                   key: 'blog-category-list',
                   icon: <FaBlog className="fs-4" />,
-                  label: 'Add Blog-Category List',
+                  label: 'Blog-Category List',
                 },
               ],
             },

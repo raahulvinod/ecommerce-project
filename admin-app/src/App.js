@@ -6,6 +6,8 @@ import Forgotpassword from './pages/Forgotpassword';
 import MainLayout from './components/MainLayout';
 import Dashboard from './pages/Dashboard';
 import Enquiries from './pages/Enquiries';
+import Bloglist from './pages/Bloglist';
+import Blogcatlist from './pages/Blogcatlist';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/admin" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="enquiries" element={<Enquiries />} />
+          <Route path="blog-list" element={<Bloglist />} />
+          <Route path="blog-category-list" element={<Blogcatlist />} />
         </Route>
       </Routes>
     </Router>
