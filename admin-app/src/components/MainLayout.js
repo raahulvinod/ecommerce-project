@@ -1,5 +1,8 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { MdOutlineDashboardCustomize } from 'react-icons/md';
+import {
+  MdOutlineDashboardCustomize,
+  MdNotificationsActive,
+} from 'react-icons/md';
 import {
   AiOutlineShoppingCart,
   AiOutlineUser,
@@ -156,7 +159,28 @@ const MainLayout = () => {
               height: 64,
             }}
           />
-          <div className="d-flex align-items-center gap-3">User</div>
+          <div className="d-flex align-items-center gap-4">
+            <div className="position-relative">
+              <MdNotificationsActive className="fs-4" />
+              <span className="badge bg-warning rounded-circle p-1 position-absolute">
+                2
+              </span>
+            </div>
+            <div className="d-flex gap-3 align-items-center">
+              <div>
+                <img
+                  width={32}
+                  height={32}
+                  src="https://stroyka-admin.html.themeforest.scompiler.ru/variants/ltr/images/customers/customer-4-64x64.jpg"
+                  alt="user"
+                />
+              </div>
+              <div>
+                <h5 className="mb-0">Rahul</h5>
+                <p className="mb-0">rahulvinod135@gmail.com</p>
+              </div>
+            </div>
+          </div>
         </Header>
         <Content
           style={{
