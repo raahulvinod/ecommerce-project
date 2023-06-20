@@ -171,7 +171,7 @@ const MainLayout = () => {
                 <img
                   width={32}
                   height={32}
-                  src="https://stroyka-admin.html.themeforest.scompiler.ru/variants/ltr/images/customers/customer-4-64x64.jpg"
+                  src="https://cdn-icons-png.flaticon.com/512/1053/1053244.png"
                   alt="user"
                 />
               </div>
