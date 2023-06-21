@@ -155,9 +155,7 @@ const Dashboard = () => {
       </div>
       <div className="mt-2">
         <h3 className="my-3 title">Income Statics</h3>
-        <div>
-          <Column {...config} />
-        </div>
+        <div>{/* <Column {...config} /> */}</div>
       </div>
       <div className="my-4">
         <h3 className="mb-4 title">Recent Orders</h3>

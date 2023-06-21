@@ -19,7 +19,7 @@ const initialState = {
 };
 
 export const login = createAsyncThunk(
-  'user/admin-login',
+  'auth/admin-login',
   async (user, thunkAPI) => {
     try {
       return await authService.login(user);
