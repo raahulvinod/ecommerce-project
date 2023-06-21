@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CustomInput = (props) => {
-  const { type, label, i_id, i_class } = props;
+  const { type, label, i_id, i_class, name, val, onCh } = props;
   return (
     <div className="form-floating my-3">
       <input
@@ -9,7 +9,10 @@ const CustomInput = (props) => {
         className={`form-control rounded-left ${i_class}`}
         placeholder={label}
         id={i_id}
-        required
+        name={name}
+        value={val}
+        onChange={onCh}
+        onBlur={onCh}
       />
       <label htmlFor="floatingInput">{label}</label>
     </div>
