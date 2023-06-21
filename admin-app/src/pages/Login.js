@@ -28,15 +28,15 @@ const Login = () => {
     },
   });
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  const authState = useSelector((state) => state);
+
+  const { user, isLoading, isError, isSuccess, message } = authState.auth;
 
   useEffect(() => {
-    if (!user === null || isSuccess) {
+    if (isSuccess) {
       navigate('admin');
     } else {
-      alert('Failed to login');
+      navigate('');
     }
   }, [user, isLoading, isError, isSuccess, message]);
   return (
@@ -50,6 +50,9 @@ const Login = () => {
                   <span className="fa fa-user-o"></span>
                 </div>
                 <h4 className="text-center mb-4 title">Admin Login</h4>
+                <div className="error text-center">
+                  {message.message === 'Rejected' ? 'You are not an Admin' : ''}
+                </div>
                 <form
                   action="#"
                   className="login-form"
