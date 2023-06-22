@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBrands } from '../features/brand/brandSlice';
+import { AiFillDelete } from 'react-icons/ai';
+import { FaRegEdit } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Brandlist = () => {
   const columns = [
@@ -10,25 +15,39 @@ const Brandlist = () => {
     {
       title: 'Name',
       dataIndex: 'name',
+      sorter: (a, b) => a.name.length - b.name.length,
     },
     {
-      title: 'Product',
-      dataIndex: 'product',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
+      title: 'Actions',
+      dataIndex: 'actions',
     },
   ];
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBrands());
+  }, []);
+
+  const brandState = useSelector((state) => state.brand.brands);
+
   const data1 = [];
-  for (let i = 0; i < 46; i++) {
+  for (let i = 0; i < brandState.length; i++) {
     data1.push({
-      key: i,
-      name: `Edward King ${i}`,
-      product: 'Apple Iphone 13 Pro',
-      status: 'Pending',
+      key: i + 1,
+      name: brandState[i].title,
+      actions: (
+        <>
+          <Link to="/admin">
+            <FaRegEdit className="fs-3 text-danger" />
+          </Link>
+          <Link className="ms-3 fs-3 text-danger" to="/admin">
+            <AiFillDelete />
+          </Link>
+        </>
+      ),
     });
   }
+
   return (
     <div>
       <h3 className="mb-3 title">Brands</h3>
