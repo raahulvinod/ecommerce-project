@@ -32,7 +32,7 @@ const Colorlist = () => {
   const data1 = [];
   for (let i = 0; i < colorState.length; i++) {
     data1.push({
-      key: i,
+      key: i + 1,
       name: colorState[i].title,
       actions: (
         <>

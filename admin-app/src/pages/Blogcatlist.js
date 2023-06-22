@@ -29,7 +29,6 @@ const Blogcatlist = () => {
   }, []);
 
   const bCatState = useSelector((state) => state.bCategory.bCategories);
-  console.log(bCatState);
 
   const data1 = [];
   for (let i = 0; i < bCatState.length; i++) {
