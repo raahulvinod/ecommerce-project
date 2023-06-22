@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 4000;
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const cors = require('cors');
 
 const authRouter = require('./routes/authRoute');
 const productRouter = require('./routes/productRoute');
@@ -20,6 +21,7 @@ const enquiryRouter = require('./routes/enqRoute');
 dbConnect();
 
 app.use(morgan('dev'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
