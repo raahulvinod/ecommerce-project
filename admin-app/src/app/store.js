@@ -21,4 +21,9 @@ export const store = configureStore({
     blog: blogReducer,
     enquiry: enquiryReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      immutableCheck: { warnAfter: 128 },
+      serializableCheck: { warnAfter: 128 },
+    }),
 });
