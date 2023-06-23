@@ -18,6 +18,7 @@ const brandRouter = require('./routes/brandRoute');
 const colorRouter = require('./routes/colorRoute');
 const couponRouter = require('./routes/couponRoute');
 const enquiryRouter = require('./routes/enqRoute');
+const uploadRouter = require('./routes/uploadRoute');
 dbConnect();
 
 app.use(morgan('dev'));
@@ -35,6 +36,7 @@ app.use('/api/brand', brandRouter);
 app.use('/api/coupon', couponRouter);
 app.use('/api/color', colorRouter);
 app.use('/api/enquiry', enquiryRouter);
+app.use('/api/upload', uploadRouter);
 
 app.use(notFound);
 app.use(errorHandler);
