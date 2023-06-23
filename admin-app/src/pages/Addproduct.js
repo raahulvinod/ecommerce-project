@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getBrands } from '../features/brand/brandSlice';
 import { getCategories } from '../features/pcategory/pcategorySlice';
 import { getcolors } from '../features/color/colorSlice';
+import { delImg, uploadImg } from '../features/upload/uploadSlice';
+import { createProducts } from '../features/product/productSlice';
 
 let userSchema = Yup.object({
   title: Yup.string().required('Title is Required'),
@@ -25,16 +27,19 @@ let userSchema = Yup.object({
 const Addproduct = () => {
   const dispatch = useDispatch();
   const [color, setColor] = useState([]);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     dispatch(getBrands());
     dispatch(getCategories());
     dispatch(getcolors());
-    formik.values.color = color;
   }, []);
+
   const brandState = useSelector((state) => state.brand.brands);
   const categoryState = useSelector((state) => state.pCategory.pCategories);
   const colorState = useSelector((state) => state.color.colors);
+  const imgState = useSelector((state) => state.upload.images);
+
   const colors = [];
   colorState.forEach((color) => {
     colors.push({
@@ -42,6 +47,19 @@ const Addproduct = () => {
       color: color.title,
     });
   });
+
+  const img = [];
+  imgState.forEach((image) => {
+    img.push({
+      public_id: image.public_id,
+      url: image.url,
+    });
+  });
+
+  useEffect(() => {
+    formik.values.color = color;
+    formik.values.images = img;
+  }, [color, img]);
 
   const formik = useFormik({
     initialValues: {
@@ -52,10 +70,11 @@ const Addproduct = () => {
       category: '',
       color: '',
       quantity: '',
+      images: '',
     },
     validationSchema: userSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      dispatch(createProducts(values));
     },
   });
 
@@ -160,8 +179,10 @@ const Addproduct = () => {
           <div className="error my-3">
             {formik.touched.quantity && formik.errors.quantity}
           </div>
-          <div className="bg-white border-1 p-5 text-center">
-            <Dropzone onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
+          <div className="bg-white border-1 p-5 text-center my-3">
+            <Dropzone
+              onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
+            >
               {({ getRootProps, getInputProps }) => (
                 <section>
                   <div {...getRootProps()}>
@@ -173,6 +194,21 @@ const Addproduct = () => {
                 </section>
               )}
             </Dropzone>
+          </div>
+          <div className="showimages d-flex flex-wrap gap-3">
+            {imgState?.map((image, index) => {
+              return (
+                <div key={index} className="position-relative">
+                  <button
+                    type="button"
+                    onClick={() => dispatch(delImg(image.public_id))}
+                    className="btn-close position-absolute"
+                    style={{ top: '5px', right: '5px' }}
+                  ></button>
+                  <img src={image.url} alt="" width={200} height={200} />
+                </div>
+              );
+            })}
           </div>
           <button type="submit" className="button w-100 my-4 px-3">
             Add Product
