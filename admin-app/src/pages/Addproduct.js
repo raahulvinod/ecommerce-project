@@ -12,7 +12,7 @@ import { getBrands } from '../features/brand/brandSlice';
 import { getCategories } from '../features/pcategory/pcategorySlice';
 import { getcolors } from '../features/color/colorSlice';
 import { delImg, uploadImg } from '../features/upload/uploadSlice';
-import { createProducts } from '../features/product/productSlice';
+import { createProducts, resetState } from '../features/product/productSlice';
 
 let userSchema = Yup.object({
   title: Yup.string().required('Title is Required'),
@@ -95,7 +95,7 @@ const Addproduct = () => {
       formik.resetForm();
       setColor(null);
       setTimeout(() => {
-        navigate('/admin/list-product');
+        dispatch(resetState());
       }, 3000);
     },
   });

@@ -5,7 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { createCategory } from '../features/pcategory/pcategorySlice';
+import {
+  createCategory,
+  resetState,
+} from '../features/pcategory/pcategorySlice';
 
 const Addcat = () => {
   const dispatch = useDispatch();
@@ -38,7 +41,7 @@ const Addcat = () => {
       formik.resetForm();
 
       setTimeout(() => {
-        navigate('/admin/list-category');
+        dispatch(resetState);
       }, 3000);
     },
   });
