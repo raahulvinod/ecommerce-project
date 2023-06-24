@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CustomInput from '../components/CustomInput';
 import ReactQuill from 'react-quill';
+import { toast } from 'react-toastify';
 import { Select } from 'antd';
 import { useFormik } from 'formik';
 import Dropzone from 'react-dropzone';
@@ -42,6 +43,18 @@ const Addproduct = () => {
   const categoryState = useSelector((state) => state.pCategory.pCategories);
   const colorState = useSelector((state) => state.color.colors);
   const imgState = useSelector((state) => state.upload.images);
+  const newProduct = useSelector((state) => state.product);
+
+  const { isSuccess, isLoading, isError, createdProduct } = newProduct;
+
+  useEffect(() => {
+    if (isSuccess && createdProduct) {
+      toast.success('Product Added Successfully!');
+    }
+    if (isError) {
+      toast.error('something Went Wrong!');
+    }
+  }, [isSuccess, isLoading, isError]);
 
   const colorOpt = [];
   colorState.forEach((color) => {

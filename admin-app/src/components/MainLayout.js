@@ -17,12 +17,14 @@ import { Button, Layout, Menu, theme } from 'antd';
 import { Link, Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-const { Header, Sider, Content } = Layout;
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const { Header, Sider, Content } = Layout;
   const navigate = useNavigate();
   return (
     <Layout>
@@ -236,6 +238,17 @@ const MainLayout = () => {
             background: colorBgContainer,
           }}
         >
+          <ToastContainer
+            position="top-right"
+            autoClose={250}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            theme="light"
+          />
           <Outlet />
         </Content>
       </Layout>
