@@ -7,12 +7,15 @@ import {
   AiOutlineShoppingCart,
   AiOutlineUser,
   AiOutlineBgColors,
+  AiFillFileAdd,
 } from 'react-icons/ai';
 import { FaBloggerB } from 'react-icons/fa';
 import { ImBlog } from 'react-icons/im';
+import { BiCartAdd } from 'react-icons/bi';
 import { SiBrandfolder } from 'react-icons/si';
 import { TbCategory } from 'react-icons/tb';
 import { FaClipboardList, FaBlog } from 'react-icons/fa';
+import { RiCoupon4Line, RiCoupon5Line } from 'react-icons/ri';
 import { Button, Layout, Menu, theme } from 'antd';
 import { Link, Outlet } from 'react-router-dom';
 import { useState } from 'react';
@@ -27,7 +30,7 @@ const MainLayout = () => {
   const { Header, Sider, Content } = Layout;
   const navigate = useNavigate();
   return (
-    <Layout>
+    <Layout /*onContextMenu={(e) => e.preventDefault()}*/>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <div className="logo ">
@@ -63,7 +66,7 @@ const MainLayout = () => {
               children: [
                 {
                   key: 'product',
-                  icon: <AiOutlineShoppingCart className="fs-4" />,
+                  icon: <BiCartAdd className="fs-4" />,
                   label: 'Add Product',
                 },
                 {
@@ -107,6 +110,23 @@ const MainLayout = () => {
               key: 'orders',
               icon: <FaClipboardList className="fs-4" />,
               label: 'Orders',
+            },
+            {
+              key: 'marketing',
+              icon: <RiCoupon5Line className="fs-4" />,
+              label: 'Marketing',
+              children: [
+                {
+                  key: 'Coupon',
+                  icon: <AiFillFileAdd className="fs-4" />,
+                  label: 'Add Coupon',
+                },
+                {
+                  key: 'coupon-list',
+                  icon: <RiCoupon4Line className="fs-4" />,
+                  label: 'Coupon List',
+                },
+              ],
             },
             {
               key: 'blogs',
