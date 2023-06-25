@@ -1,27 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBrands, resetState } from '../features/brand/brandSlice';
+import {
+  deleteABrand,
+  getBrands,
+  resetState,
+} from '../features/brand/brandSlice';
 import { AiFillDelete } from 'react-icons/ai';
 import { FaRegEdit } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import CustomModal from '../components/CustomModal';
+
+const columns = [
+  {
+    title: 'SNo',
+    dataIndex: 'key',
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    sorter: (a, b) => a.name.length - b.name.length,
+  },
+  {
+    title: 'Actions',
+    dataIndex: 'actions',
+  },
+];
 
 const Brandlist = () => {
-  const columns = [
-    {
-      title: 'SNo',
-      dataIndex: 'key',
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      sorter: (a, b) => a.name.length - b.name.length,
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'actions',
-    },
-  ];
+  const [open, setOpen] = useState(false);
+  const [brandId, setBrandId] = useState('');
+  const showModal = (e) => {
+    setOpen(true);
+    setBrandId(e);
+  };
+
+  const hideModal = () => {
+    setOpen(false);
+  };
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -41,13 +57,24 @@ const Brandlist = () => {
           <Link to={`/admin/brand/${brandState[i]._id}`}>
             <FaRegEdit className="fs-3 text-danger" />
           </Link>
-          <Link className="ms-3 fs-3 text-danger" to="/admin">
+          <button
+            className="ms-3 fs-3 text-danger border-0 bg-transparent"
+            onClick={() => showModal(brandState[i]._id)}
+          >
             <AiFillDelete />
-          </Link>
+          </button>
         </>
       ),
     });
   }
+
+  const deleteBrand = (e) => {
+    dispatch(deleteABrand(e));
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getBrands());
+    }, 100);
+  };
 
   return (
     <div>
@@ -55,6 +82,12 @@ const Brandlist = () => {
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModal
+        title="Are you sure want to delete this brand?"
+        hideModal={hideModal}
+        open={open}
+        performAction={() => deleteBrand(brandId)}
+      />
     </div>
   );
 };

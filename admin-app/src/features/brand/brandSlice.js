@@ -26,7 +26,6 @@ export const getABrand = createAsyncThunk(
 export const createBrand = createAsyncThunk(
   'brand/create-brand',
   async (brandData, thunkAPI) => {
-    console.log(brandData);
     try {
       return await brandService.createBrand(brandData);
     } catch (error) {
@@ -40,6 +39,17 @@ export const updateABrand = createAsyncThunk(
   async (brand, thunkAPI) => {
     try {
       return await brandService.updateBrand(brand);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteABrand = createAsyncThunk(
+  'brand/delete-brand',
+  async (id, thunkAPI) => {
+    try {
+      return await brandService.deleteBrand(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -117,6 +127,21 @@ export const brandSlice = createSlice({
         state.updatedBrand = action.payload;
       })
       .addCase(updateABrand.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(deleteABrand.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteABrand.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.deletedBrand = action.payload;
+      })
+      .addCase(deleteABrand.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
