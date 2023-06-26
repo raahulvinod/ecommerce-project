@@ -53,14 +53,6 @@ const Addbrand = () => {
     }
   }, [isSuccess, isLoading, isError]);
 
-  useEffect(() => {
-    if (getBrandId !== undefined) {
-      dispatch(getABrand(getBrandId));
-    } else {
-      dispatch(resetState());
-    }
-  }, [getBrandId]);
-
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
