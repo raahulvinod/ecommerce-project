@@ -25,7 +25,6 @@ const Login = () => {
     validationSchema: userSchema,
     onSubmit: (values) => {
       dispatch(login(values));
-      alert(JSON.stringify(values, null, 2));
     },
   });
 

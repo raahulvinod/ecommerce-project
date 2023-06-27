@@ -26,8 +26,6 @@ let userSchema = Yup.object({
 const Addblog = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [images, setImages] = useState([]);
-
   const location = useLocation();
   const getBlogId = location.pathname.split('/')[3];
 
@@ -43,8 +41,8 @@ const Addblog = () => {
     blogName,
     blogDescription,
     blogCategory,
-    updatedBlog,
     blogImages,
+    updatedBlog,
   } = blogState;
 
   useEffect(() => {
@@ -85,7 +83,6 @@ const Addblog = () => {
   useEffect(() => {
     formik.values.images = img;
   }, [blogImages]);
-  console.log(img);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -97,11 +94,13 @@ const Addblog = () => {
     },
     validationSchema: userSchema,
     onSubmit: (values) => {
+      console.log(values);
       if (getBlogId !== undefined) {
         const data = { id: getBlogId, blogData: values };
         dispatch(updateABlog(data));
         dispatch(resetState());
       } else {
+        console.log(values);
         dispatch(createBlogs(values));
         formik.resetForm();
 
