@@ -45,6 +45,8 @@ const Addblog = () => {
     updatedBlog,
   } = blogState;
 
+  const img = [];
+
   useEffect(() => {
     if (getBlogId !== undefined) {
       dispatch(getABlog(getBlogId));
@@ -72,7 +74,6 @@ const Addblog = () => {
     }
   }, [isSuccess, isLoading, isError]);
 
-  const img = [];
   imgState.forEach((image) => {
     img.push({
       public_id: image.public_id,
@@ -82,7 +83,7 @@ const Addblog = () => {
 
   useEffect(() => {
     formik.values.images = img;
-  }, [blogImages]);
+  }, [imgState]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -94,8 +95,8 @@ const Addblog = () => {
     },
     validationSchema: userSchema,
     onSubmit: (values) => {
-      console.log(values);
       if (getBlogId !== undefined) {
+        console.log(values);
         const data = { id: getBlogId, blogData: values };
         dispatch(updateABlog(data));
         dispatch(resetState());
