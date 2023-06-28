@@ -22,6 +22,7 @@ import Addbrand from './pages/Addbrand';
 import Addproduct from './pages/Addproduct';
 import Couponlist from './pages/Couponlist';
 import Addcoupon from './pages/Addcoupon';
+import ViewEnquiry from './pages/ViewEnquiry';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/admin" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="enquiries" element={<Enquiries />} />
+          <Route path="enquiries/:id" element={<ViewEnquiry />} />
           <Route path="blog-list" element={<Bloglist />} />
           <Route path="blog" element={<Addblog />} />
           <Route path="blog/:id" element={<Addblog />} />

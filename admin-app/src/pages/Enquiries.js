@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { Link } from 'react-router-dom';
-import { AiFillDelete } from 'react-icons/ai';
+import { AiFillDelete, AiOutlineEye } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEnquiries } from '../features/enquiry/enquirySlice';
+import { deleteAEnquiry, getEnquiries } from '../features/enquiry/enquirySlice';
+import CustomModal from '../components/CustomModal';
+import { resetState } from '../features/color/colorSlice';
 
 const columns = [
   {
@@ -38,8 +40,20 @@ const columns = [
 ];
 
 const Enquiries = () => {
+  const [open, setOpen] = useState(false);
+  const [enqId, setenqId] = useState('');
+  const showModal = (e) => {
+    setOpen(true);
+    setenqId(e);
+  };
+
+  const hideModal = () => {
+    setOpen(false);
+  };
+
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(resetState());
     dispatch(getEnquiries());
   }, []);
 
@@ -66,13 +80,30 @@ const Enquiries = () => {
       ),
       actions: (
         <>
-          <Link className="ms-3 fs-3 text-danger" to="/admin">
-            <AiFillDelete />
+          <Link
+            className="ms-3 fs-3 text-danger"
+            to={`/admin/enquiries/${enquiryState[i]._id}`}
+          >
+            <AiOutlineEye />
           </Link>
+          <button
+            className="ms-3 fs-3 text-danger border-0 bg-transparent"
+            onClick={() => showModal(enquiryState[i]._id)}
+          >
+            <AiFillDelete />
+          </button>
         </>
       ),
     });
   }
+
+  const deleteEnquiry = (e) => {
+    dispatch(deleteAEnquiry(e));
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getEnquiries());
+    }, 100);
+  };
 
   return (
     <div>
@@ -80,6 +111,12 @@ const Enquiries = () => {
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModal
+        title="Are you sure want to delete this enquiry?"
+        hideModal={hideModal}
+        open={open}
+        performAction={() => deleteEnquiry(enqId)}
+      />
     </div>
   );
 };
