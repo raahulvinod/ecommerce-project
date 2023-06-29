@@ -3,7 +3,11 @@ import { Table } from 'antd';
 import { Link } from 'react-router-dom';
 import { AiFillDelete, AiOutlineEye } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteAEnquiry, getEnquiries } from '../features/enquiry/enquirySlice';
+import {
+  deleteAEnquiry,
+  getEnquiries,
+  updateAEnquiry,
+} from '../features/enquiry/enquirySlice';
 import CustomModal from '../components/CustomModal';
 import { resetState } from '../features/color/colorSlice';
 
@@ -69,12 +73,21 @@ const Enquiries = () => {
       comment: enquiryState[i].comment,
       status: (
         <>
-          <select className="form-control form-select">
-            <option value="" defaultValue="selected">
-              Set status
-            </option>
-            <option value="">Submitted</option>
-            <option value="">Contacted</option>
+          <select
+            name=""
+            defaultValue={
+              enquiryState[i].status ? enquiryState[i].status : 'Submitted'
+            }
+            className="form-cotntrol form-select"
+            id=""
+            onChange={(e) =>
+              setEnquiryStatus(e.target.value, enquiryState[i]._id)
+            }
+          >
+            <option value="Submitted">Submitted</option>
+            <option value="Contacted">Contacted</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Resolved">Resolved</option>
           </select>
         </>
       ),
@@ -96,6 +109,10 @@ const Enquiries = () => {
       ),
     });
   }
+  const setEnquiryStatus = (e, i) => {
+    const data = { id: i, enqData: e };
+    dispatch(updateAEnquiry(data));
+  };
 
   const deleteEnquiry = (e) => {
     dispatch(deleteAEnquiry(e));

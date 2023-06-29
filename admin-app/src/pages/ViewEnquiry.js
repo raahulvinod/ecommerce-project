@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getAEnquiry } from '../features/enquiry/enquirySlice';
+import {
+  getAEnquiry,
+  resetState,
+  updateAEnquiry,
+} from '../features/enquiry/enquirySlice';
 import { BiArrowBack } from 'react-icons/bi';
 
 const ViewEnquiry = () => {
@@ -18,6 +22,15 @@ const ViewEnquiry = () => {
 
   const goBack = () => {
     navigate(-1);
+  };
+
+  const setEnquiryStatus = (e, i) => {
+    const data = { id: i, enqData: e };
+    dispatch(updateAEnquiry(data));
+    dispatch(resetState());
+    setTimeout(() => {
+      dispatch(getAEnquiry(getEnqId));
+    }, 100);
   };
 
   return (
@@ -54,15 +67,20 @@ const ViewEnquiry = () => {
         </div>
         <div className="d-flex align-items-center gap-3">
           <h6 className="mb-0">Status : </h6>
+          <p className="mb-0">{enqStatus}</p>
+        </div>
+        <div className="d-flex align-items-center gap-3">
+          <h6 className="mb-0">Change Status : </h6>
           <div>
             <select
               name=""
-              defaultValue={enqStatus ? enqStatus : 'Submitted'}
+              defaultValue={enqStatus ? enqStatus : 'Change'}
               className="form-cotntrol form-select"
               id=""
+              onChange={(e) => setEnquiryStatus(e.target.value, getEnqId)}
             >
               <option value="Submitted">Submitted</option>
-              <option value="In Progress">Contacted</option>
+              <option value="Contacted">Contacted</option>
               <option value="In Progress">In Progress</option>
               <option value="Resolved">Resolved</option>
             </select>
