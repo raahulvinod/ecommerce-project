@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import authService from './authService';
 
 const getUserFromLocalStorage = localStorage.getItem('user')
@@ -12,6 +12,7 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   message: '',
+  OrderByUser: [],
 };
 
 export const login = createAsyncThunk(
@@ -35,6 +36,19 @@ export const getOrders = createAsyncThunk(
     }
   }
 );
+
+export const getOrderByUser = createAsyncThunk(
+  'order/get-order',
+  async (id, thunkAPI) => {
+    try {
+      return await authService.getOrder(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const resetState = createAction('Reset_all');
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -71,7 +85,23 @@ export const authSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.user = null;
-      });
+      })
+      .addCase(getOrderByUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getOrderByUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.OrderByUser = action.payload.products;
+        state.message = 'success';
+      })
+      .addCase(getOrderByUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.user = null;
+      })
+      .addCase(resetState, () => initialState);
   },
 });
 

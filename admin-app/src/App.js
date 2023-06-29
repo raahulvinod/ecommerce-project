@@ -23,6 +23,7 @@ import Addproduct from './pages/Addproduct';
 import Couponlist from './pages/Couponlist';
 import Addcoupon from './pages/Addcoupon';
 import ViewEnquiry from './pages/ViewEnquiry';
+import ViewOrders from './pages/ViewOrder';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="coupon/:id" element={<Addcoupon />} />
           <Route path="coupon-list" element={<Couponlist />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="orders/:id" element={<ViewOrders />} />
           <Route path="customers" element={<Customers />} />
           <Route path="list-color" element={<Colorlist />} />
           <Route path="color" element={<Addcolor />} />

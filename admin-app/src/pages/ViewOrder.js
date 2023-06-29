@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrders } from '../features/auth/authSlice';
+import {
+  getOrderByUser,
+  getOrders,
+  resetState,
+} from '../features/auth/authSlice';
 
 const columns = [
   {
@@ -12,24 +16,24 @@ const columns = [
     dataIndex: 'key',
   },
   {
-    title: 'Name',
+    title: 'Product Name',
     dataIndex: 'name',
   },
   {
-    title: 'Product',
-    dataIndex: 'product',
+    title: 'Brand',
+    dataIndex: 'brand',
   },
   {
-    title: 'Amount',
-    dataIndex: 'amount',
+    title: 'Count',
+    dataIndex: 'count',
+  },
+  {
+    title: 'color',
+    dataIndex: 'color',
   },
   {
     title: 'Date',
     dataIndex: 'date',
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
   },
   {
     title: 'Actions',
@@ -37,28 +41,26 @@ const columns = [
   },
 ];
 
-const Orders = () => {
+const ViewOrders = () => {
+  const location = useLocation();
+  const getUserId = location.pathname.split('/')[3];
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getOrders());
-  }, []);
 
-  const orderState = useSelector((state) => state.auth.orders);
+  useEffect(() => {
+    dispatch(getOrderByUser(getUserId));
+  }, [getUserId]);
+
+  const orderState = useSelector((state) => state.auth.OrderByUser);
 
   const data1 = [];
   for (let i = 0; i < orderState.length; i++) {
     data1.push({
       key: i + 1,
-      name:
-        orderState[i].orderBy.firstname + ' ' + orderState[i].orderBy.lastname,
-      product: (
-        <Link to={`/admin/orders/${orderState[i].orderBy._id}`}>
-          View Orders
-        </Link>
-      ),
-      amount: orderState[i].paymentIntent.amount,
-      date: new Date(orderState[i].createdAt).toLocaleString(),
-      status: orderState[i].orderStatus,
+      name: orderState[i].product.slug,
+      brand: orderState[i].product.brand,
+      color: orderState[i].product.color,
+      date: new Date(orderState[i].product.createdAt).toLocaleString(),
+      count: orderState[i].count,
       actions: (
         <>
           <Link to="/admin">
@@ -73,7 +75,7 @@ const Orders = () => {
   }
   return (
     <div>
-      <h3 className="mb-3 title">Orders</h3>
+      <h3 className="mb-3 title">View User Order</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -81,4 +83,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default ViewOrders;
