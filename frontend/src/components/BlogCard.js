@@ -1,20 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const BlogCard = () => {
+const BlogCard = ({ id, title, description, image, date }) => {
   return (
     <div className="blog-card ">
       <div className="card-image">
-        <img className="img-fluid w-100" src="/images/blog-1.jpg" alt="blog" />
+        <img
+          className="w-100"
+          src={image ? image : '/images/blog-1.jpg'}
+          alt="blog"
+          height={190}
+        />
       </div>
       <div className="blog-content">
-        <p className="date">12 JUNE, 2023</p>
-        <h5 className="title"> Beautiful Sunday Morning renaissance</h5>
-        <p className="desc">
-          Our Latest News You’re Only As Good As Your Last Collection, Which Is
-          An Enormous Pressure.
-        </p>
-        <Link to="/blog/:id" className="button">
+        <p className="date">{date}</p>
+        <h5 className="title">{title}</h5>
+        <p
+          className="desc"
+          dangerouslySetInnerHTML={{
+            __html: description?.substr(0, 100) + '...',
+          }}
+        ></p>
+        <Link to={`/blog/${id}`} className="button">
           Read More
         </Link>
       </div>

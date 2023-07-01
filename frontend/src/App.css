@@ -278,6 +278,7 @@ footer .input-group-text {
 .blog-card {
   background-color: white;
   border-radius: 10px;
+  height: 450px;
 }
 
 .blog-card img {
