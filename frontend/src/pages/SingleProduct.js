@@ -189,7 +189,7 @@ const SingleProduct = () => {
                   </h3>
                   <p className="product-data">
                     <a
-                      href="javascript:void(0)"
+                      // href="javascript:void(0)"
                       onClick={() => {
                         copyToClipboard(
                           'https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_00_884x.jpg?v=1655095991'

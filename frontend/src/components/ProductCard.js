@@ -16,7 +16,6 @@ const ProductCard = (props) => {
   let location = useLocation();
 
   const addToWish = (id) => {
-    alert(id);
     dispatch(addToWishlist(id));
   };
 
