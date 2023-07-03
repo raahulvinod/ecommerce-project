@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
 import ProductCard from '../components/ProductCard';
@@ -9,13 +9,27 @@ import { TbGitCompare } from 'react-icons/tb';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsLink45Deg } from 'react-icons/bs';
 import Container from '../components/Container';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAProduct } from '../features/products/productSlice';
 
 const SingleProduct = () => {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const getProductId = location.pathname.split('/')[2];
+  const productState = useSelector((state) => state.product.singleProduct);
+
+  useEffect(() => {
+    dispatch(getAProduct(getProductId));
+  }, []);
+
   const props = {
     width: 400,
     height: 380,
     zoomWidth: 600,
-    img: 'https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_884x.jpg?v=1655095977',
+    img: productState?.images[0]?.url
+      ? productState?.images[0]?.url
+      : 'https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_00_884x.jpg?v=1655095991',
   };
   const [orderedProduct, setOrderedProduct] = useState(true);
   const copyToClipboard = (text) => {
@@ -39,49 +53,31 @@ const SingleProduct = () => {
                 <ReactImageZoom {...props} />
               </div>
               <div className="other-product-images d-flex flex-wrap gap-15">
-                <div>
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_00_884x.jpg?v=1655095991"
-                    alt="product"
-                    className="img-fluid"
-                  />
-                </div>
-                <div>
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_00_884x.jpg?v=1655095991"
-                    alt="product"
-                    className="img-fluid"
-                  />
-                </div>
-                <div>
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_00_884x.jpg?v=1655095991"
-                    alt="product"
-                    className="img-fluid"
-                  />
-                </div>
-                <div>
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_00_884x.jpg?v=1655095991"
-                    alt="product"
-                    className="img-fluid"
-                  />
-                </div>
+                {productState &&
+                  productState?.images.map((item, index) => {
+                    return (
+                      <div key={index}>
+                        <img
+                          src={item?.url}
+                          alt="product"
+                          className="img-fluid"
+                        />
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>
           <div className="col-6">
             <div className="main-product-details">
               <div className="border-bottom py-3">
-                <h3 className="title">
-                  Milanese Loop Watch Band For 42mm/44mm Apple Watch
-                </h3>
+                <h3 className="title">{productState?.title}</h3>
               </div>
               <div className="border-bottom">
-                <p className="price">₹ 200</p>
+                <p className="price">₹ {productState?.price}</p>
                 <div className="d-flex align-items-center gap-10">
                   <ReactStars
-                    value={4}
+                    value={3}
                     edit={false}
                     count={5}
                     size={24}
@@ -100,15 +96,15 @@ const SingleProduct = () => {
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Brand:</h3>
-                  <p className="product-data">Noise</p>
+                  <p className="product-data">{productState?.brand}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Category:</h3>
-                  <p className="product-data">Watch</p>
+                  <p className="product-data">{productState?.category}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Tags:</h3>
-                  <p className="product-data">Watches</p>
+                  <p className="product-data">{productState?.tags}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Availability:</h3>
@@ -191,9 +187,7 @@ const SingleProduct = () => {
                     <a
                       // href="javascript:void(0)"
                       onClick={() => {
-                        copyToClipboard(
-                          'https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_00_884x.jpg?v=1655095991'
-                        );
+                        copyToClipboard(window.location.href);
                       }}
                     >
                       Copy Link
@@ -209,13 +203,11 @@ const SingleProduct = () => {
             <div className="col-12">
               <h4>Description</h4>
               <div className="bg-white p-3">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Cupiditate itaque sed iusto minus accusantium totam
-                  perspiciatis non autem temporibus, dicta quidem culpa, eius
-                  dignissimos provident similique Qui repellat eligendi
-                  provident!
-                </p>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: productState?.description,
+                  }}
+                ></p>
               </div>
             </div>
           </div>
