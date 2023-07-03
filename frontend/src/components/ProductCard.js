@@ -48,19 +48,14 @@ const ProductCard = (props) => {
                 </button>
               </div>
 
-              <div className="product-image ">
+              <div className="product-image">
                 <img
                   src={item?.images[0].url}
                   alt="products"
-                  className="img-fluid"
-                  width={250}
+                  width={220}
+                  height={200}
                 />
-                <img
-                  src={cam2}
-                  alt="products"
-                  className="img-fluid"
-                  width={250}
-                />
+                <img src={cam2} alt="products" width={220} height={200} />
               </div>
               <div className="product-details">
                 <h6 className="brand">{item?.brand}</h6>
