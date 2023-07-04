@@ -12,16 +12,47 @@ import Container from '../components/Container';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAProduct } from '../features/products/productSlice';
+import { toast } from 'react-toastify';
+import { addProdToCart } from '../features/user/userSlice';
 
 const SingleProduct = () => {
+  const [color, setColor] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  console.log(color);
+
   const location = useLocation();
   const dispatch = useDispatch();
   const getProductId = location.pathname.split('/')[2];
   const productState = useSelector((state) => state.product.singleProduct);
+  // console.log(productState);
 
   useEffect(() => {
     dispatch(getAProduct(getProductId));
   }, []);
+
+  const uploadCart = () => {
+    // if (color === null) {
+    //   toast.error('Please choose color');
+    //   return false;
+    // } else {
+    //   dispatch(
+    //     addProdToCart({
+    //       productid: productState?._id,
+    //       price: productState?.price,
+    //       color,
+    //       quantity,
+    //     })
+    //   );
+    // }
+    dispatch(
+      addProdToCart({
+        productid: productState?._id,
+        price: productState?.price,
+        color,
+        quantity,
+      })
+    );
+  };
 
   const props = {
     width: 400,
@@ -121,10 +152,12 @@ const SingleProduct = () => {
                     </span>
                   </div>
                 </div>
+
                 <div className="d-flex gap-10 flex-column mt-2 mb-3">
                   <h3 className="product-heading">Color :</h3>
-                  <Color />
+                  <Color setColor={setColor} colorData={productState?.color} />
                 </div>
+
                 <div className="d-flex gap-15 align-items-center flex-row mt-2 mb-3">
                   <h3 className="product-heading">Quantity:</h3>
                   <div className="">
@@ -136,14 +169,19 @@ const SingleProduct = () => {
                       className="form-control"
                       style={{ width: '70px' }}
                       id=""
+                      onChange={(e) => setQuantity(e.target.value)}
+                      value={quantity}
                     />
                   </div>
                   <div className="d-flex align-items-center gap-30 ms-5">
                     <button
                       className="button border-0"
-                      data-bs-toggle="modal"
-                      data-bs-target="#staticBackdrop"
+                      // data-bs-toggle="modal"
+                      // data-bs-target="#staticBackdrop"
                       type="button"
+                      onClick={() => {
+                        uploadCart();
+                      }}
                     >
                       Add to Cart
                     </button>

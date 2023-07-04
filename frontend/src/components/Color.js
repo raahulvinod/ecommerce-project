@@ -1,13 +1,19 @@
 import React from 'react';
 
-const Color = () => {
+const Color = ({ colorData, setcolor }) => {
   return (
     <>
       <ul className="colors ps-0">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        {colorData &&
+          colorData?.map((color, index) => {
+            return (
+              <li
+                onClick={() => setcolor(color?._id)}
+                style={{ backgroundColor: color?.title }}
+                key={index}
+              ></li>
+            );
+          })}
       </ul>
     </>
   );

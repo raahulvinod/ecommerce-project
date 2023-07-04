@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
 import cam1 from '../images/cam1.avif';
 import { Link } from 'react-router-dom';
 import { AiFillDelete } from 'react-icons/ai';
 import Container from '../components/Container';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserCart } from '../features/user/userSlice';
 
 const Cart = () => {
+  const dispatch = useDispatch();
+  const userCartState = useSelector((state) => state.auth.cartProducts);
+  console.log(userCartState);
+
+  useEffect(() => {
+    dispatch(getUserCart());
+  }, []);
   return (
     <>
       <Meta title="Your Cart" />
@@ -20,39 +29,59 @@ const Cart = () => {
               <h4 className="cart-col-3">Quantity</h4>
               <h4 className="cart-col-4">Total</h4>
             </div>
-            <div className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
-              <div className="cart-col-1 gap-15 d-flex align-items-center">
-                <div className="w-25">
-                  <img src={cam1} className="img-fluid" alt="product" />
-                </div>
-                <div className="w-75">
-                  <p>Fuji Film Xt-4</p>
-                  <p>Size: full body</p>
-                  <p>Color: Black</p>
-                </div>
-              </div>
-              <div className="cart-col-2">
-                <h5 className="price">₹ 100</h5>
-              </div>
-              <div className="cart-col-3 d-flex align-items-center gap-15">
-                <div>
-                  <input
-                    className="form-control"
-                    type="number"
-                    name=""
-                    min={1}
-                    max={10}
-                    id=""
-                  />
-                </div>
-                <div>
-                  <AiFillDelete className="text-secondary" />
-                </div>
-              </div>
-              <div className="cart-col-4">
-                <h5 className="price">₹ 100</h5>
-              </div>
-            </div>
+
+            {userCartState &&
+              userCartState?.map((item, index) => {
+                return (
+                  <div className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
+                    <div className="cart-col-1 gap-15 d-flex align-items-center">
+                      <div className="w-25">
+                        <img
+                          src={item?.productId?.images[0]?.url}
+                          className="img-fluid"
+                          alt="product"
+                        />
+                      </div>
+                      <div className="w-75">
+                        <p>{item?.productId?.title}</p>
+                        <p>{item?.productId?.brand}</p>
+                        <p className="d-flex gap-3">
+                          Color:{' '}
+                          <ul className="colors ps-0">
+                            <li
+                              style={{ backgroundColor: item?.color?.title }}
+                            ></li>
+                          </ul>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="cart-col-2">
+                      <h5 className="price">₹ {item?.productId?.price}</h5>
+                    </div>
+                    <div className="cart-col-3 d-flex align-items-center gap-15">
+                      <div>
+                        <input
+                          className="form-control"
+                          type="number"
+                          name=""
+                          min={1}
+                          max={10}
+                          id=""
+                          value={item?.productId?.quantity}
+                        />
+                      </div>
+                      <div>
+                        <AiFillDelete className="text-secondary" />
+                      </div>
+                    </div>
+                    <div className="cart-col-4">
+                      <h5 className="price">
+                        ₹ {item?.productId?.price * item?.productId?.quantity}
+                      </h5>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
           <div className="col-12 py-2 mt-4">
             <div className="d-flex justify-content-between align-items-baseline">
