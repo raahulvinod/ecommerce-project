@@ -217,7 +217,7 @@ const Home = () => {
               if (item.tags === 'featured') {
                 return (
                   <div key={index} className={'col-3'}>
-                    <div className="product-card position-relative">
+                    <div className="product-card position-relative mb-3">
                       <div className="wishlist-icon position-absolute">
                         <button
                           className="border-0 bg-transparent"
@@ -229,13 +229,13 @@ const Home = () => {
 
                       <div className="product-image ">
                         <img
-                          src={item?.images[0].url}
+                          src={item?.images[0]?.url}
                           alt="products"
                           className="img-fluid"
                           width={250}
                         />
                         <img
-                          src={cam2}
+                          src={item?.images[1]?.url}
                           alt="products"
                           className="img-fluid"
                           width={250}
@@ -350,7 +350,7 @@ const Home = () => {
           <div className="row">
             {productState &&
               productState.map((item, index) => {
-                if (item.tags === 'featured') {
+                if (item.tags === 'special') {
                   return (
                     <SpecialProduct
                       key={index}
@@ -361,6 +361,7 @@ const Home = () => {
                       price={item?.price}
                       quantity={item?.quantity}
                       sold={item?.sold ? item?.sold : 0}
+                      images={item?.images[0]?.url}
                     />
                   );
                 }
@@ -378,7 +379,7 @@ const Home = () => {
         <div className="row">
           {productState &&
             productState.map((item, index) => {
-              if (item.tags === 'featured') {
+              if (item.tags === 'popular') {
                 return (
                   <div key={index} className={'col-3'}>
                     <div className="product-card position-relative">
@@ -393,16 +394,18 @@ const Home = () => {
 
                       <div className="product-image ">
                         <img
-                          src={item?.images[0].url}
+                          src={item?.images[0]?.url}
                           alt="products"
-                          className="img-fluid"
+                          className=""
                           width={250}
+                          height={200}
                         />
                         <img
-                          src={cam2}
+                          src={item?.images[1]?.url}
                           alt="products"
-                          className="img-fluid"
+                          className=""
                           width={250}
+                          height={200}
                         />
                       </div>
                       <div className="product-details">

@@ -41,12 +41,17 @@ const ProductCard = (props) => {
 
               <div className="product-image">
                 <img
-                  src={item?.images[0].url}
+                  src={item?.images[0]?.url}
                   alt="products"
                   width={220}
                   height={200}
                 />
-                <img src={cam2} alt="products" width={220} height={200} />
+                <img
+                  src={item?.images[1]?.url}
+                  alt="products"
+                  width={220}
+                  height={200}
+                />
               </div>
               <div className="product-details">
                 <h6 className="brand">{item?.brand}</h6>

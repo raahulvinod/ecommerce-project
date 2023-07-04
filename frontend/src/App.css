@@ -764,8 +764,9 @@ footer .input-group-text {
 
 .main-product-image img {
   width: 100% !important;
-  height: 400px !important;
-  object-fit: cover;
+  height: 500px !important;
+  /* object-fit: cover; */
+  padding: 10px;
 }
 
 .other-product-images {
@@ -773,8 +774,8 @@ footer .input-group-text {
 }
 
 .other-product-images img {
-  width: 100% !important;
-  height: 152px !important;
+  width: 50% !important;
+  height: 160px !important;
   object-fit: cover;
 }
 

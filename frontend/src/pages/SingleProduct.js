@@ -31,19 +31,19 @@ const SingleProduct = () => {
   }, []);
 
   const uploadCart = () => {
-    // if (color === null) {
-    //   toast.error('Please choose color');
-    //   return false;
-    // } else {
-    //   dispatch(
-    //     addProdToCart({
-    //       productid: productState?._id,
-    //       price: productState?.price,
-    //       color,
-    //       quantity,
-    //     })
-    //   );
-    // }
+    if (color === null) {
+      toast.error('Please choose color');
+      return false;
+    } else {
+      dispatch(
+        addProdToCart({
+          productid: productState?._id,
+          price: productState?.price,
+          color,
+          quantity,
+        })
+      );
+    }
     dispatch(
       addProdToCart({
         productid: productState?._id,
@@ -55,7 +55,7 @@ const SingleProduct = () => {
   };
 
   const props = {
-    width: 400,
+    width: 200,
     height: 380,
     zoomWidth: 600,
     img: productState?.images[0]?.url
