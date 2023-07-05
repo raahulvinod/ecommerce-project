@@ -13,6 +13,7 @@ import {
 
 const Cart = () => {
   const [productUpdateDetail, setProductUpdateDetail] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   const dispatch = useDispatch();
   const userCartState = useSelector((state) => state.auth.cartProducts);
@@ -42,11 +43,16 @@ const Cart = () => {
     }, 200);
   };
 
-  // const updateACartProduct = (productUpdateDetail) => {
-  //   setTimeout(() => {
-  //     dispatch(getUserCart());
-  //   }, 200);
-  // };
+  useEffect(() => {
+    let sum = 0;
+    for (let index = 0; index < userCartState?.length; index++) {
+      sum =
+        sum +
+        Number(userCartState[index].quantity) *
+          Number(userCartState[index].price);
+      setTotalAmount(sum);
+    }
+  }, [userCartState]);
 
   return (
     <>
@@ -55,12 +61,22 @@ const Cart = () => {
       <Container class1="cart-wrapper home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
-            <div className="cart-header py-3 d-flex justify-content-between align-items-center">
-              <h4 className="cart-col-1">Product</h4>
-              <h4 className="cart-col-2">Price</h4>
-              <h4 className="cart-col-3">Quantity</h4>
-              <h4 className="cart-col-4">Total</h4>
-            </div>
+            {userCartState?.length !== 0 ? (
+              <div className="cart-header py-3 d-flex justify-content-between align-items-center">
+                <h4 className="cart-col-1">Product</h4>
+                <h4 className="cart-col-2">Price</h4>
+                <h4 className="cart-col-3">Quantity</h4>
+                <h4 className="cart-col-4">Total</h4>
+              </div>
+            ) : (
+              <div className="text-center">
+                <h4>Your cart is empty!</h4>
+                <p>Add items to it now.</p>
+                <Link to="/" className="button">
+                  Shop now
+                </Link>
+              </div>
+            )}
 
             {userCartState &&
               userCartState?.map((item, index) => {
@@ -118,6 +134,7 @@ const Cart = () => {
                       </div>
                       <div>
                         <AiFillDelete
+                          role="button"
                           className="text-secondary"
                           onClick={() => {
                             deleteACartProduct(item?._id);
@@ -136,16 +153,25 @@ const Cart = () => {
           </div>
           <div className="col-12 py-2 mt-4">
             <div className="d-flex justify-content-between align-items-baseline">
-              <Link to="/store" className="button">
-                Continue To Shopping
-              </Link>
-              <div className="d-flex flex-column align-items-end">
-                <h4>Total Amount : ₹ 1000</h4>
-                <p>Taxes and shipping calculated at checkout</p>
-                <Link to="/checkout" className="button">
-                  Checkout
+              {userCartState?.length !== 0 && (
+                <Link to="/" className="button">
+                  Continue To Shopping
                 </Link>
-              </div>
+              )}
+
+              {totalAmount !== 0 && (
+                <div className="d-flex flex-column align-items-end">
+                  {userCartState?.length !== 0 && (
+                    <>
+                      <h4>Total Amount : ₹ {totalAmount}</h4>
+                      <p>Taxes and shipping calculated at checkout</p>
+                      <Link to="/checkout" className="button">
+                        Checkout
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

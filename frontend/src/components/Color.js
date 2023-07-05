@@ -8,6 +8,7 @@ const Color = ({ colorData, setColor }) => {
           colorData?.map((color, index) => {
             return (
               <li
+                role="button"
                 className="border border-secondary"
                 onClick={() => setColor(color?._id)}
                 style={{ backgroundColor: color?.title }}
