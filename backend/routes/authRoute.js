@@ -24,6 +24,8 @@ const {
   updateOrderStatus,
   getAllOrders,
   getOrderByUserId,
+  removeProductFromCart,
+  updateProductQuantityFromCart,
 } = require('../controller/userCtr');
 const { authMiddleware, isAdmin } = require('../middlewares/authMiddleware');
 const { forgotPasswordToken } = require('../controller/userCtr');
@@ -50,6 +52,16 @@ router.get('/wishlist', authMiddleware, getWishlist);
 router.get('/cart', authMiddleware, getUserCart);
 
 router.delete('/empty-cart', authMiddleware, emptyCart);
+router.delete(
+  '/delete-product-cart/:cartItemId',
+  authMiddleware,
+  removeProductFromCart
+);
+router.delete(
+  '/update-product-cart/:cartItemId/:newQuantity',
+  authMiddleware,
+  updateProductQuantityFromCart
+);
 router.delete('/:id', deleteaUser);
 
 router.get('/:id', authMiddleware, isAdmin, getaUser);
