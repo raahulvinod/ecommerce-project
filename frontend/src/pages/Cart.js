@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
-import cam1 from '../images/cam1.avif';
 import { Link } from 'react-router-dom';
 import { AiFillDelete } from 'react-icons/ai';
 import Container from '../components/Container';
@@ -11,7 +10,6 @@ import { getUserCart } from '../features/user/userSlice';
 const Cart = () => {
   const dispatch = useDispatch();
   const userCartState = useSelector((state) => state.auth.cartProducts);
-  console.log(userCartState);
 
   useEffect(() => {
     dispatch(getUserCart());
@@ -33,7 +31,10 @@ const Cart = () => {
             {userCartState &&
               userCartState?.map((item, index) => {
                 return (
-                  <div className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
+                  <div
+                    key={index}
+                    className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center"
+                  >
                     <div className="cart-col-1 gap-15 d-flex align-items-center">
                       <div className="w-25">
                         <img
@@ -45,14 +46,14 @@ const Cart = () => {
                       <div className="w-75">
                         <p>{item?.productId?.title}</p>
                         <p>{item?.productId?.brand}</p>
-                        <p className="d-flex gap-3">
-                          Color:{' '}
-                          <ul className="colors ps-0">
+                        <div className="d-flex gap-3">
+                          <p> Color:</p>
+                          <div className="colors ps-0">
                             <li
                               style={{ backgroundColor: item?.color?.title }}
                             ></li>
-                          </ul>
-                        </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div className="cart-col-2">
@@ -67,7 +68,7 @@ const Cart = () => {
                           min={1}
                           max={10}
                           id=""
-                          value={item?.productId?.quantity}
+                          defaultValue={item?.quantity}
                         />
                       </div>
                       <div>
@@ -76,7 +77,7 @@ const Cart = () => {
                     </div>
                     <div className="cart-col-4">
                       <h5 className="price">
-                        ₹ {item?.productId?.price * item?.productId?.quantity}
+                        ₹ {item?.productId?.price * item?.quantity}
                       </h5>
                     </div>
                   </div>

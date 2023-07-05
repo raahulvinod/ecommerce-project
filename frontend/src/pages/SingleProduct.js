@@ -18,13 +18,11 @@ import { addProdToCart } from '../features/user/userSlice';
 const SingleProduct = () => {
   const [color, setColor] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  console.log(color);
 
   const location = useLocation();
   const dispatch = useDispatch();
   const getProductId = location.pathname.split('/')[2];
   const productState = useSelector((state) => state.product.singleProduct);
-  // console.log(productState);
 
   useEffect(() => {
     dispatch(getAProduct(getProductId));
@@ -37,21 +35,13 @@ const SingleProduct = () => {
     } else {
       dispatch(
         addProdToCart({
-          productid: productState?._id,
+          productId: productState?._id,
           price: productState?.price,
           color,
           quantity,
         })
       );
     }
-    dispatch(
-      addProdToCart({
-        productid: productState?._id,
-        price: productState?.price,
-        color,
-        quantity,
-      })
-    );
   };
 
   const props = {

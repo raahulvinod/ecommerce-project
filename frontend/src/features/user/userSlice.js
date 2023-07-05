@@ -38,6 +38,9 @@ export const getUserProductWishlist = createAsyncThunk(
 export const addProdToCart = createAsyncThunk(
   'user/cart/add',
   async (cartData, thunkAPI) => {
+    if (cartData.productId === undefined) {
+      return false;
+    }
     try {
       return await authService.addToCart(cartData);
     } catch (error) {

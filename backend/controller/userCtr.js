@@ -351,9 +351,9 @@ const getUserCart = asyncHandler(async (req, res) => {
   validateMongoDbId(_id);
 
   try {
-    const cart = await Cart.findOne({ orderBy: _id }).populate(
-      'products.product'
-    );
+    const cart = await Cart.find({ userId: _id })
+      .populate('productId')
+      .populate('color');
     res.json(cart);
   } catch (error) {
     throw new Error(error);
