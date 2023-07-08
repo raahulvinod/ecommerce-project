@@ -29,6 +29,7 @@ const {
 } = require('../controller/userCtr');
 const { authMiddleware, isAdmin } = require('../middlewares/authMiddleware');
 const { forgotPasswordToken } = require('../controller/userCtr');
+const { checkout, paymentVerification } = require('../controller/paymentCtrl');
 const router = express.Router();
 
 router.post('/register', createUser);
@@ -40,6 +41,8 @@ router.put('/password', authMiddleware, updatePassword);
 router.post('/login', loginUserCtrl);
 router.post('/admin-login', loginAdmin);
 router.post('/cart', authMiddleware, userCart);
+router.post('/order/checkout', authMiddleware, checkout);
+router.post('/order/paymentVerification', authMiddleware, paymentVerification);
 // router.post('/cart/applycoupon', authMiddleware, applyCoupon);
 router.post('/cart/create-order', authMiddleware, createOrder);
 router.get('/all-users', getAllUser);

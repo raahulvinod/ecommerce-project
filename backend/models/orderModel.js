@@ -28,7 +28,7 @@ var orderSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
-      other: {
+      landmark: {
         type: String,
         required: true,
       },
