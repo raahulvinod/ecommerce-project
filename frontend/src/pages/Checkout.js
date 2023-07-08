@@ -27,10 +27,10 @@ const Checkout = () => {
   const cartState = useSelector((state) => state?.auth?.cartProducts);
   const [totalAmount, setTotalAmount] = useState(0);
   const [shippingInfo, setShippingInfo] = useState(null);
-  const [paymentInfo, setPaymentInfo] = useState({
-    razorpayOrderId: '',
-    razorpayOrderId: '',
-  });
+  // const [paymentInfo, setPaymentInfo] = useState({
+  //   razorpayOrderId: '',
+  //   razorpayOrderId: '',
+  // });
   const [cartProductState, setCartProductState] = useState([]);
 
   // console.log(cartState);
@@ -93,7 +93,7 @@ const Checkout = () => {
     const { amount, id: order_id, currency } = result.data.order;
 
     const options = {
-      key: 'rzp_test_YwwuJHnvhEjABY', // Enter the Key ID generated from the Dashboard
+      key: process.env.REACT_APP_RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
       amount: amount.toString(),
       currency: currency,
       name: 'Trendfy',
@@ -113,16 +113,17 @@ const Checkout = () => {
           config
         );
 
-        setPaymentInfo({
-          razorpayPaymentId: response.razorpay_payment_id,
-          razorpayOrderId: response.razorpay_order_id,
-        });
+        // await setPaymentInfo({
+        //   razorpayPaymentId: response.razorpay_payment_id,
+        //   razorpayOrderId: response.razorpay_order_id,
+        // });
+
         dispatch(
           createAnOrder({
-            totalAmount: totalAmount,
+            totalPrice: totalAmount,
             totalPriceAfterDiscount: totalAmount,
             orderItems: cartProductState,
-            paymentInfo: paymentInfo,
+            paymentInfo: result.data,
             shippingInfo: shippingInfo,
           })
         );
@@ -156,8 +157,8 @@ const Checkout = () => {
       pincode: '',
     },
     validationSchema: shippingSchema,
-    onSubmit: (values) => {
-      setShippingInfo(values);
+    onSubmit: async (values) => {
+      await setShippingInfo(values);
       setTimeout(() => {
         checkoutHandler();
       }, 300);
