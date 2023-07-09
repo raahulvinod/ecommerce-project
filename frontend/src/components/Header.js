@@ -8,6 +8,7 @@ import { getUserCart } from '../features/user/userSlice';
 const Header = () => {
   const dispatch = useDispatch();
   const cartState = useSelector((state) => state?.auth?.cartProducts);
+  const authState = useSelector((state) => state?.auth);
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
@@ -79,14 +80,18 @@ const Header = () => {
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="/images/user.svg" alt="user" />
-                    <p className="mb-0">
-                      Login <br /> My account
-                    </p>
+                    {authState?.user === null ? (
+                      <p className="mb-0">
+                        Login <br /> My account
+                      </p>
+                    ) : (
+                      <p className="mb-0">{authState?.user?.fistname}</p>
+                    )}
                   </Link>
                 </div>
                 <div>
                   <Link
-                    to="/cart"
+                    to={authState?.user === null ? '/login' : '/cart'}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="/images/cart.svg" alt="cart" />

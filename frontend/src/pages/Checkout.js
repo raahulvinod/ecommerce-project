@@ -27,14 +27,7 @@ const Checkout = () => {
   const cartState = useSelector((state) => state?.auth?.cartProducts);
   const [totalAmount, setTotalAmount] = useState(0);
   const [shippingInfo, setShippingInfo] = useState(null);
-  // const [paymentInfo, setPaymentInfo] = useState({
-  //   razorpayOrderId: '',
-  //   razorpayOrderId: '',
-  // });
   const [cartProductState, setCartProductState] = useState([]);
-
-  // console.log(cartState);
-  // console.log(paymentInfo, shippingInfo);
 
   useEffect(() => {
     let sum = 0;
@@ -98,7 +91,7 @@ const Checkout = () => {
       currency: currency,
       name: 'Trendfy',
       description: 'Test Transaction',
-      // image: { logo },
+      // image: logo,
       order_id: order_id,
       handler: async function (response) {
         const data = {
@@ -157,10 +150,13 @@ const Checkout = () => {
       pincode: '',
     },
     validationSchema: shippingSchema,
-    onSubmit: async (values) => {
-      await setShippingInfo(values);
+    onSubmit: (values) => {
+      setShippingInfo(values);
+
       setTimeout(() => {
-        checkoutHandler();
+        if (shippingInfo !== null) {
+          checkoutHandler();
+        }
       }, 300);
     },
   });

@@ -21,6 +21,8 @@ import TermsAndConditions from './pages/TermsAndConditions';
 import SingleProduct from './pages/SingleProduct';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import { PrivateRoutes } from './routing/privateRoutes';
+import { OpenRoutes } from './routing/openRoutes';
 
 function App() {
   return (
@@ -36,11 +38,46 @@ function App() {
             <Route path="/blog/:id" element={<SingleBlog />} />
             <Route path="about" element={<About />} />
             <Route path="compare-product" element={<CompareProduct />} />
-            <Route path="wishlist" element={<Wishlist />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="checkout" element={<Checkout />} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
+            <Route
+              path="wishlist"
+              element={
+                <PrivateRoutes>
+                  <Wishlist />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="cart"
+              element={
+                <PrivateRoutes>
+                  <Cart />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="checkout"
+              element={
+                <PrivateRoutes>
+                  <Checkout />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <OpenRoutes>
+                  <Login />
+                </OpenRoutes>
+              }
+            />
+            <Route
+              path="signup"
+              element={
+                <OpenRoutes>
+                  <Signup />
+                </OpenRoutes>
+              }
+            />
             <Route path="forgot-password" element={<Forgotpassword />} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="Terms-conditions" element={<TermsAndConditions />} />
