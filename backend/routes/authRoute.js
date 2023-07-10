@@ -17,15 +17,10 @@ const {
   saveAddress,
   userCart,
   getUserCart,
-  emptyCart,
-  applyCoupon,
   createOrder,
-  getOrders,
-  updateOrderStatus,
-  getAllOrders,
-  getOrderByUserId,
   removeProductFromCart,
   updateProductQuantityFromCart,
+  getMyOrders,
 } = require('../controller/userCtr');
 const { authMiddleware, isAdmin } = require('../middlewares/authMiddleware');
 const { forgotPasswordToken } = require('../controller/userCtr');
@@ -46,7 +41,7 @@ router.post('/order/paymentVerification', authMiddleware, paymentVerification);
 // router.post('/cart/applycoupon', authMiddleware, applyCoupon);
 router.post('/cart/create-order', authMiddleware, createOrder);
 router.get('/all-users', getAllUser);
-// router.get('/get-orders', authMiddleware, getOrders);
+router.get('/getmyorders', authMiddleware, getMyOrders);
 // router.get('/getallorders', authMiddleware, isAdmin, getAllOrders);
 // router.get('/getorderbyuser/:id', authMiddleware, isAdmin, getOrderByUserId);
 router.get('/refresh', handleRefreshToken);
