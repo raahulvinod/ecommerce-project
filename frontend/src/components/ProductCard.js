@@ -1,9 +1,7 @@
 import ReactStars from 'react-rating-stars-component';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import prodcompare from '../images/prodcompare.svg';
 import wish from '../images/wish.svg';
-import cam1 from '../images/cam1.avif';
-import cam2 from '../images/cam2.avif';
 import addcart from '../images/add-cart.svg';
 import view from '../images/view.svg';
 import { useDispatch } from 'react-redux';
@@ -11,6 +9,7 @@ import { addToWishlist } from '../features/products/productSlice';
 
 const ProductCard = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { grid, data } = props;
 
   let location = useLocation();
@@ -77,7 +76,11 @@ const ProductCard = (props) => {
                     <img src={prodcompare} alt="compare" />
                   </button>
                   <button className="border-0 bg-transparent">
-                    <img src={view} alt="view" />
+                    <img
+                      src={view}
+                      alt="view"
+                      onClick={() => navigate('/product/' + item?._id)}
+                    />
                   </button>
                   <Link
                     to={'/product/' + item?._id}
