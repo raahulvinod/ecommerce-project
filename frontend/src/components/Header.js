@@ -76,7 +76,7 @@ const Header = () => {
                 </div>
                 <div>
                   <Link
-                    to="/login"
+                    to={authState?.user === null ? '/login' : '/my-profile'}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="/images/user.svg" alt="user" />
