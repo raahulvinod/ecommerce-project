@@ -97,7 +97,7 @@ function App() {
               }
             />
             <Route path="forgot-password" element={<Forgotpassword />} />
-            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="reset-password/:token" element={<ResetPassword />} />
             <Route path="Terms-conditions" element={<TermsAndConditions />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="refund-policy" element={<RefundPolicy />} />
