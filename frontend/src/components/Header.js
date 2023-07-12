@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserCart } from '../features/user/userSlice';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
+import { getAProduct } from '../features/products/productSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -69,6 +70,7 @@ const Header = () => {
                   minLength={2}
                   onChange={(selected) => {
                     navigate(`/product/${selected[0]?.prod}`);
+                    dispatch(getAProduct(selected[0]?.prod));
                   }}
                 />
                 <span className="input-group-text p-3" id="basic-addon2">
