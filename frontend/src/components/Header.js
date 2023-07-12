@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs';
 import menu from '../images/menu.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserCart } from '../features/user/userSlice';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartState = useSelector((state) => state?.auth?.cartProducts);
   const authState = useSelector((state) => state?.auth);
+  const productState = useSelector((state) => state?.product?.product);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [productOpt, setProductOpt] = useState([]);
+  const [paginate, setPaginate] = useState(true);
 
   useEffect(() => {
     dispatch(getUserCart());
   }, []);
+
+  useEffect(() => {
+    let data = [];
+    for (let index = 0; index < productState.length; index++) {
+      const element = productState[index];
+      data.push({ id: index, prod: element?._id, name: element?.title });
+    }
+    setProductOpt(data);
+  }, [productState]);
 
   useEffect(() => {
     let sum = 0;
@@ -44,12 +59,17 @@ const Header = () => {
             </div>
             <div className="col-5">
               <div className="input-group ">
-                <input
-                  type="text"
-                  className="form-control py-2"
-                  placeholder="Search products"
-                  aria-label="Search Products"
-                  aria-describedby="basic-addon2"
+                <Typeahead
+                  id="pagination-example"
+                  onPaginate={() => console.log('Results paginated')}
+                  options={productOpt}
+                  paginate={paginate}
+                  placeholder="Search products..."
+                  labelKey={'name'}
+                  minLength={2}
+                  onChange={(selected) => {
+                    navigate(`/product/${selected[0]?.prod}`);
+                  }}
                 />
                 <span className="input-group-text p-3" id="basic-addon2">
                   <BsSearch className="fs-6" />
