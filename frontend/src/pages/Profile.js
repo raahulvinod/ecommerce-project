@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BreadCrumb from '../components/BreadCrumb';
 import Container from '../components/Container';
 import { useFormik } from 'formik';
@@ -36,6 +36,7 @@ const Profile = () => {
       setEdit(true);
     },
   });
+
   return (
     <>
       <BreadCrumb title="My Profile" />
