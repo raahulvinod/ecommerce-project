@@ -4,9 +4,9 @@ import { productService } from './productService';
 
 export const getAllProducts = createAsyncThunk(
   'product/get-products',
-  async (thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
-      return productService.getProducts();
+      return productService.getProducts(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
