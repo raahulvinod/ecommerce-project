@@ -12,13 +12,20 @@ const login = async (userData) => {
 
 const getOrders = async () => {
   const response = await axios.get(`${base_url}user/getallorders`, config);
-
   return response.data;
 };
 
 const getOrder = async (id) => {
   const response = await axios.get(`${base_url}user/getaorder/${id}`, config);
+  return response.data;
+};
 
+const updateOrder = async (data) => {
+  const response = await axios.put(
+    `${base_url}user/updateorder/${data.id}`,
+    { status: data.status },
+    config
+  );
   return response.data;
 };
 
@@ -33,7 +40,6 @@ const getMothlyOrders = async () => {
 
 const getYearlyStats = async () => {
   const response = await axios.get(`${base_url}user/getyearlyorders`, config);
-
   return response.data;
 };
 
@@ -43,6 +49,7 @@ const authService = {
   getOrder,
   getMothlyOrders,
   getYearlyStats,
+  updateOrder,
 };
 
 export default authService;

@@ -70,6 +70,17 @@ export const getOrder = createAsyncThunk(
   }
 );
 
+export const updateAOrder = createAsyncThunk(
+  'order/update-order',
+  async (data, thunkAPI) => {
+    try {
+      return await authService.updateOrder(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const resetState = createAction('Reset_all');
 
 export const authSlice = createSlice({
@@ -148,6 +159,21 @@ export const authSlice = createSlice({
         state.message = 'success';
       })
       .addCase(getYearlyData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.user = null;
+      })
+      .addCase(updateAOrder.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateAOrder.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.updatedOrder = action.payload;
+        state.message = 'success';
+      })
+      .addCase(updateAOrder.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

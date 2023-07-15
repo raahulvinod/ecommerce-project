@@ -47,20 +47,20 @@ const ViewOrders = () => {
   }, [orderid]);
 
   const orderState = useSelector((state) => state?.auth?.singleOrder?.orders);
-  console.log(orderState);
 
   const data1 = [];
   for (let i = 0; i < orderState?.orderItems?.length; i++) {
     data1.push({
       key: i + 1,
-      name: orderState?.orderItems[0]?.product?.slug,
-      brand: orderState?.orderItems[0]?.product?.brand,
-      color: orderState?.orderItems[0]?.color?.title,
+      name: orderState?.orderItems[i]?.product?.title,
+      brand: orderState?.orderItems[i]?.product?.brand,
+      color: orderState?.orderItems[i]?.color?.title,
       date: new Date(orderState?.createdAt).toLocaleString(),
       count: orderState?.orderItems[i]?.quantity,
-      amount: orderState?.orderItems[0]?.price,
+      amount: orderState?.orderItems[i]?.price,
     });
   }
+
   return (
     <div>
       <h3 className="mb-3 title">View User Order</h3>

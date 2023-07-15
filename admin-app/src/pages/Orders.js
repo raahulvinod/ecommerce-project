@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrders } from '../features/auth/authSlice';
+import { getOrders, updateAOrder } from '../features/auth/authSlice';
 
 const columns = [
   {
@@ -60,16 +60,29 @@ const Orders = () => {
       status: orderState[i]?.orderStatus,
       actions: (
         <>
-          <Link to="/admin">
-            <FaRegEdit className="fs-3 text-danger" />
-          </Link>
-          <Link className="ms-3 fs-3 text-danger" to="/admin">
-            <AiFillDelete />
-          </Link>
+          <select
+            name=""
+            defaultValue={orderState[i]?.orderStatus}
+            className="form-control form-selected"
+            onChange={(e) =>
+              updateOrderStatus(orderState[i]?._id, e.target.value)
+            }
+          >
+            <option value="Ordered" disabled>
+              Order Confirmed
+            </option>
+            <option value="Shipped">Shipped</option>
+            <option value="Out for delivery">Out For Delivery</option>
+            <option value="Delivered">Delivered</option>
+          </select>
         </>
       ),
     });
   }
+
+  const updateOrderStatus = (a, b) => {
+    dispatch(updateAOrder({ id: a, status: b }));
+  };
   return (
     <div>
       <h3 className="mb-3 title">Orders</h3>
