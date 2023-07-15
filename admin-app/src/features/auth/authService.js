@@ -34,11 +34,18 @@ const getMothlyOrders = async () => {
   return response.data;
 };
 
+const getYearlyStats = async () => {
+  const response = await axios.get(`${base_url}user/getyearlyorders`, config);
+
+  return response.data;
+};
+
 const authService = {
   login,
   getOrders,
   getOrder,
   getMothlyOrders,
+  getYearlyStats,
 };
 
 export default authService;

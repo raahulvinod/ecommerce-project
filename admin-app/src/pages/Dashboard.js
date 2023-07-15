@@ -3,7 +3,7 @@ import { BsArrowDownRight, BsArrowUpRight } from 'react-icons/bs';
 import { Column } from '@ant-design/plots';
 import { Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMonthlyData } from '../features/auth/authSlice';
+import { getMonthlyData, getYearlyData } from '../features/auth/authSlice';
 
 const columns = [
   {
@@ -36,11 +36,13 @@ for (let i = 0; i < 46; i++) {
 const Dashboard = () => {
   const dispatch = useDispatch();
   const monthlyDataState = useSelector((state) => state.auth.monthlyData);
+  const yearlyDataState = useSelector((state) => state.auth.yearlyData);
   const [dataMonthly, setDataMonthly] = useState([]);
   const [dataMonthlySales, setDataMonthlySales] = useState([]);
 
   useEffect(() => {
     dispatch(getMonthlyData());
+    dispatch(getYearlyData());
   }, []);
 
   useEffect(() => {
@@ -130,38 +132,20 @@ const Dashboard = () => {
       <div className="d-flex justify-content-between align-items-center gap-3">
         <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
           <div>
-            <p className="description">Total</p>
-            <h4 className="mb-0 sub-title">₹20000</h4>
+            <p className="description">Total Income</p>
+            <h4 className="mb-0 sub-title">₹ {yearlyDataState[0]?.amount}</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
-            <h6 className="red">
-              <BsArrowDownRight /> 32%
-            </h6>
-            <p className="mb-0 description">Compared to June 2022</p>
+            <p className="mb-0 description">Income in last year form today</p>
           </div>
         </div>
         <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
           <div>
-            <p className="description">Total</p>
-            <h4 className="mb-0 sub-title">₹20000</h4>
+            <p className="description">Total Sales</p>
+            <h4 className="mb-0 sub-title">{yearlyDataState[0]?.count}</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
-            <h6 className="green">
-              <BsArrowUpRight /> 62%
-            </h6>
-            <p className="mb-0 description">Compared to June 2022</p>
-          </div>
-        </div>
-        <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
-          <div>
-            <p className="description">Total</p>
-            <h4 className="mb-0 sub-title">₹20000</h4>
-          </div>
-          <div className="d-flex flex-column align-items-end">
-            <h6 className="red">
-              <BsArrowDownRight /> 32%
-            </h6>
-            <p className="mb-0 description">Compared to June 2022</p>
+            <p className="mb-0 description">Sales in last year form today</p>
           </div>
         </div>
       </div>
