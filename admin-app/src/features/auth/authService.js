@@ -17,10 +17,7 @@ const getOrders = async () => {
 };
 
 const getOrder = async (id) => {
-  const response = await axios.get(
-    `${base_url}user/getorderbyuser/${id}`,
-    config
-  );
+  const response = await axios.get(`${base_url}user/getaorder/${id}`, config);
 
   return response.data;
 };

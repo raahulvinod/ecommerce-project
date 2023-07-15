@@ -4,11 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getOrderByUser,
-  getOrders,
-  resetState,
-} from '../features/auth/authSlice';
+import { getOrder } from '../features/auth/authSlice';
 
 const columns = [
   {
@@ -36,41 +32,33 @@ const columns = [
     dataIndex: 'date',
   },
   {
-    title: 'Actions',
-    dataIndex: 'actions',
+    title: 'Amount',
+    dataIndex: 'amount',
   },
 ];
 
 const ViewOrders = () => {
   const location = useLocation();
-  const getUserId = location.pathname.split('/')[3];
+  const orderid = location.pathname.split('/')[3];
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOrderByUser(getUserId));
-  }, [getUserId]);
+    dispatch(getOrder(orderid));
+  }, [orderid]);
 
-  const orderState = useSelector((state) => state.auth.OrderByUser);
+  const orderState = useSelector((state) => state?.auth?.singleOrder?.orders);
+  console.log(orderState);
 
   const data1 = [];
-  for (let i = 0; i < orderState.length; i++) {
+  for (let i = 0; i < orderState?.orderItems?.length; i++) {
     data1.push({
       key: i + 1,
-      name: orderState[i].product.slug,
-      brand: orderState[i].product.brand,
-      color: orderState[i].product.color,
-      date: new Date(orderState[i].product.createdAt).toLocaleString(),
-      count: orderState[i].count,
-      actions: (
-        <>
-          <Link to="/admin">
-            <FaRegEdit className="fs-3 text-danger" />
-          </Link>
-          <Link className="ms-3 fs-3 text-danger" to="/admin">
-            <AiFillDelete />
-          </Link>
-        </>
-      ),
+      name: orderState?.orderItems[0]?.product?.slug,
+      brand: orderState?.orderItems[0]?.product?.brand,
+      color: orderState?.orderItems[0]?.color?.title,
+      date: new Date(orderState?.createdAt).toLocaleString(),
+      count: orderState?.orderItems[i]?.quantity,
+      amount: orderState?.orderItems[0]?.price,
     });
   }
   return (
