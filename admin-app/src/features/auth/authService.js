@@ -25,10 +25,20 @@ const getOrder = async (id) => {
   return response.data;
 };
 
+const getMothlyOrders = async () => {
+  const response = await axios.get(
+    `${base_url}user/getMonthWiseOrderIncome`,
+    config
+  );
+
+  return response.data;
+};
+
 const authService = {
   login,
   getOrders,
   getOrder,
+  getMothlyOrders,
 };
 
 export default authService;

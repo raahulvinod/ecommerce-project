@@ -26,6 +26,17 @@ export const login = createAsyncThunk(
   }
 );
 
+export const getMonthlyData = createAsyncThunk(
+  'orders/monthlydata',
+  async (thunkAPI) => {
+    try {
+      return await authService.getMothlyOrders();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const getOrders = createAsyncThunk(
   'order/get-orders',
   async (thunkAPI) => {
@@ -96,6 +107,21 @@ export const authSlice = createSlice({
         state.message = 'success';
       })
       .addCase(getOrderByUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.user = null;
+      })
+      .addCase(getMonthlyData.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getMonthlyData.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.monthlyData = action.payload;
+        state.message = 'success';
+      })
+      .addCase(getMonthlyData.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

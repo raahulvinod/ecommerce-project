@@ -1,90 +1,70 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsArrowDownRight, BsArrowUpRight } from 'react-icons/bs';
 import { Column } from '@ant-design/plots';
 import { Table } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMonthlyData } from '../features/auth/authSlice';
+
+const columns = [
+  {
+    title: 'SNo',
+    dataIndex: 'key',
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+  },
+  {
+    title: 'Product',
+    dataIndex: 'product',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+  },
+];
+const data1 = [];
+for (let i = 0; i < 46; i++) {
+  data1.push({
+    key: i,
+    name: `Edward King ${i}`,
+    product: 'Apple Iphone 13 Pro',
+    status: 'Pending',
+  });
+}
 
 const Dashboard = () => {
-  const columns = [
-    {
-      title: 'SNo',
-      dataIndex: 'key',
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Product',
-      dataIndex: 'product',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-    },
-  ];
-  const data1 = [];
-  for (let i = 0; i < 46; i++) {
-    data1.push({
-      key: i,
-      name: `Edward King ${i}`,
-      product: 'Apple Iphone 13 Pro',
-      status: 'Pending',
-    });
-  }
-  const data = [
-    {
-      type: 'Jan',
-      sales: 38,
-    },
-    {
-      type: 'Feb',
-      sales: 52,
-    },
-    {
-      type: 'March',
-      sales: 61,
-    },
-    {
-      type: 'April',
-      sales: 145,
-    },
-    {
-      type: 'May',
-      sales: 48,
-    },
-    {
-      type: 'June',
-      sales: 38,
-    },
-    {
-      type: 'Jul',
-      sales: 55,
-    },
-    {
-      type: 'Aug',
-      sales: 38,
-    },
-    {
-      type: 'Sep',
-      sales: 66,
-    },
-    {
-      type: 'Oct',
-      sales: 22,
-    },
-    {
-      type: 'Nov',
-      sales: 38,
-    },
-    {
-      type: 'Dec',
-      sales: 44,
-    },
-  ];
+  const dispatch = useDispatch();
+  const monthlyDataState = useSelector((state) => state.auth.monthlyData);
+  const [dataMonthly, setDataMonthly] = useState([]);
+  const [dataMonthlySales, setDataMonthlySales] = useState([]);
+
+  useEffect(() => {
+    dispatch(getMonthlyData());
+  }, []);
+
+  useEffect(() => {
+    let data = [];
+    let monthlyOrderCount = [];
+    for (let index = 0; index < monthlyDataState?.length; index++) {
+      const element = monthlyDataState[index];
+      data.push({
+        type: element?._id?.month,
+        income: element?.amount,
+      });
+      monthlyOrderCount.push({
+        type: element?._id?.month,
+        sales: element?.count,
+      });
+    }
+    setDataMonthly(data);
+    setDataMonthlySales(monthlyOrderCount);
+  }, [monthlyDataState]);
+
   const config = {
-    data,
+    data: dataMonthly,
     xField: 'type',
-    yField: 'sales',
+    yField: 'income',
     color: ({ type }) => {
       return '#5468ff';
     },
@@ -109,6 +89,38 @@ const Dashboard = () => {
       },
       sales: {
         alias: 'Income',
+      },
+    },
+  };
+
+  const config2 = {
+    data: dataMonthlySales,
+    xField: 'type',
+    yField: 'sales',
+    color: ({ type }) => {
+      return '#ffd333'; //#5468ff
+    },
+
+    label: {
+      position: 'middle',
+      // 'top', 'bottom', 'middle',
+      style: {
+        fill: '#FFFFFF',
+        opacity: 1,
+      },
+    },
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    },
+    meta: {
+      type: {
+        alias: 'Month',
+      },
+      sales: {
+        alias: 'Sales',
       },
     },
   };
@@ -153,10 +165,18 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="mt-2">
-        <h3 className="my-3 title">Income Statics</h3>
-        <div>
-          <Column {...config} />
+      <div className="d-flex justify-content-between gap-3">
+        <div className="mt-2 flex-grow-1 w-50">
+          <h3 className="my-3 title">Income Statics</h3>
+          <div>
+            <Column {...config} />
+          </div>
+        </div>
+        <div className="mt-2 flex-grow-1 w-50">
+          <h3 className="my-3 title">Sales Statics</h3>
+          <div>
+            <Column {...config2} />
+          </div>
         </div>
       </div>
       <div className="my-4">
