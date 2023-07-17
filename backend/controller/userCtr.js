@@ -279,7 +279,6 @@ const updatePassword = asyncHandler(async (req, res) => {
 });
 
 const forgotPasswordToken = asyncHandler(async (req, res) => {
-  console.log(req.body);
   const { email } = req.body;
   const user = await User.findOne({ email });
   if (!user) throw new Error('User not found with this email');
@@ -287,11 +286,18 @@ const forgotPasswordToken = asyncHandler(async (req, res) => {
   try {
     const token = await user.createPasswordResetToken();
     await user.save();
-    const resetURL = `Hi, Please follow this link to reset Your Password. This link is valid till 10 minutes from now. <a href='http://localhost:5000/api/user/reset-password/${token}'>click here</a>`;
+    const resetURL = `To authenticate, Please follow this link to reset Your Password. 
+    This link is valid till 10 minutes from now. <a href='http://localhost:3000/reset-password/${token}'>click here</a>
+    <br/>
+    <br/>
+    Don't share this link with anyone. Our customer service team will never ask you for your password, OTP, credit card, or banking info.
+    <br/>
+    <br/>
+    We hope to see you again soon.`;
     const data = {
       to: email,
-      text: 'Hey User',
-      subject: 'Forgot Password Link',
+      text: 'Trendfy.com',
+      subject: 'Trendfy password assistance',
       html: resetURL,
     };
 
@@ -434,6 +440,130 @@ const getMyOrders = asyncHandler(async (req, res) => {
   }
 });
 
+const getAllOrders = asyncHandler(async (req, res) => {
+  try {
+    const orders = await Order.find().populate('user');
+    res.json({ orders });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+const getSingleOrder = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  try {
+    const orders = await Order.findOne({ _id: id })
+      .populate('orderItems.product')
+      .populate('user')
+      .populate('orderItems.color');
+    res.json({ orders });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+const updateOrder = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  try {
+    const orders = await Order.findById(id);
+    orders.orderStatus = req.body.status;
+    orders.save();
+    res.json({ orders });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+const getMonthWiseOrderIncome = asyncHandler(async (req, res) => {
+  let monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  let d = new Date();
+  let endDate = '';
+  d.setDate(1);
+  for (let index = 0; index < 11; index++) {
+    d.setMonth(d.getMonth() - 1);
+    endDate = monthNames[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  const data = await Order.aggregate([
+    {
+      $match: {
+        createdAt: {
+          $lte: new Date(),
+          $gte: new Date(endDate),
+        },
+      },
+    },
+    {
+      $group: {
+        _id: {
+          month: '$month',
+        },
+        amount: { $sum: '$totalPriceAfterDiscount' },
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+
+  res.json(data);
+});
+
+const getYearlyTotalOrder = asyncHandler(async (req, res) => {
+  let monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  let d = new Date();
+  let endDate = '';
+  d.setDate(1);
+  for (let index = 0; index < 11; index++) {
+    d.setMonth(d.getMonth() - 1);
+    endDate = monthNames[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  const data = await Order.aggregate([
+    {
+      $match: {
+        createdAt: {
+          $lte: new Date(),
+          $gte: new Date(endDate),
+        },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        count: { $sum: 1 },
+        amount: { $sum: '$totalPriceAfterDiscount' },
+      },
+    },
+  ]);
+
+  res.json(data);
+});
+
 module.exports = {
   createUser,
   loginUserCtrl,
@@ -457,4 +587,9 @@ module.exports = {
   removeProductFromCart,
   updateProductQuantityFromCart,
   getMyOrders,
+  getMonthWiseOrderIncome,
+  getYearlyTotalOrder,
+  getAllOrders,
+  getSingleOrder,
+  updateOrder,
 };

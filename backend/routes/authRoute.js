@@ -21,6 +21,11 @@ const {
   removeProductFromCart,
   updateProductQuantityFromCart,
   getMyOrders,
+  getMonthWiseOrderIncome,
+  getYearlyTotalOrder,
+  getAllOrders,
+  getSingleOrder,
+  updateOrder,
 } = require('../controller/userCtr');
 const { authMiddleware, isAdmin } = require('../middlewares/authMiddleware');
 const { forgotPasswordToken } = require('../controller/userCtr');
@@ -42,12 +47,16 @@ router.post('/order/paymentVerification', authMiddleware, paymentVerification);
 router.post('/cart/create-order', authMiddleware, createOrder);
 router.get('/all-users', getAllUser);
 router.get('/getmyorders', authMiddleware, getMyOrders);
-// router.get('/getallorders', authMiddleware, isAdmin, getAllOrders);
-// router.get('/getorderbyuser/:id', authMiddleware, isAdmin, getOrderByUserId);
+router.get('/getallorders', authMiddleware, isAdmin, getAllOrders);
+router.get('/getaorder/:id', authMiddleware, isAdmin, getSingleOrder);
+router.put('/updateorder/:id', authMiddleware, isAdmin, updateOrder);
+
 router.get('/refresh', handleRefreshToken);
 router.get('/logout', logout);
 router.get('/wishlist', authMiddleware, getWishlist);
 router.get('/cart', authMiddleware, getUserCart);
+router.get('/getMonthWiseOrderIncome', authMiddleware, getMonthWiseOrderIncome);
+router.get('/getyearlyorders', authMiddleware, getYearlyTotalOrder);
 
 // router.delete('/empty-cart', authMiddleware, emptyCart);
 router.delete(
