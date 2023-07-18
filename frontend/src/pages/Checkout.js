@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 import Container from '../components/Container';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,11 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 import { config } from '../utils/AxiosConfig';
-import { createAnOrder } from '../features/user/userSlice';
+import {
+  createAnOrder,
+  deleteUserCart,
+  resetState,
+} from '../features/user/userSlice';
 
 const shippingSchema = yup.object({
   firstName: yup.string().required('First name is required'),
@@ -24,7 +28,9 @@ const shippingSchema = yup.object({
 
 const Checkout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartState = useSelector((state) => state?.auth?.cartProducts);
+  const authState = useSelector((state) => state.auth);
   const [totalAmount, setTotalAmount] = useState(0);
   const [shippingInfo, setShippingInfo] = useState(null);
   const [cartProductState, setCartProductState] = useState([]);
@@ -38,6 +44,15 @@ const Checkout = () => {
       setTotalAmount(sum);
     }
   }, [cartState]);
+
+  useEffect(() => {
+    if (
+      authState?.orderedProduct?.order !== null &&
+      authState?.orderedProduct?.success === true
+    ) {
+      navigate('/my-orders');
+    }
+  }, [authState]);
 
   useEffect(() => {
     let items = [];
@@ -117,9 +132,12 @@ const Checkout = () => {
             totalPriceAfterDiscount: totalAmount,
             orderItems: cartProductState,
             paymentInfo: result.data,
-            shippingInfo: shippingInfo,
+            shippingInfo: JSON.parse(localStorage.getItem('address')),
           })
         );
+        dispatch(deleteUserCart());
+        localStorage.removeItem('address');
+        dispatch(resetState());
       },
       prefill: {
         name: 'Trendfy',
@@ -152,11 +170,9 @@ const Checkout = () => {
     validationSchema: shippingSchema,
     onSubmit: (values) => {
       setShippingInfo(values);
-
+      localStorage.setItem('address', JSON.stringify(values));
       setTimeout(() => {
-        if (shippingInfo !== null) {
-          checkoutHandler();
-        }
+        checkoutHandler();
       }, 300);
     },
   });

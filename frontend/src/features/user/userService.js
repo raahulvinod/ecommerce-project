@@ -48,6 +48,13 @@ const removeProductFromCart = async (cartItemId) => {
   }
 };
 
+const emptyCart = async () => {
+  const response = await axios.delete(`${base_url}user/empty-cart`, config);
+  if (response.data) {
+    return response.data;
+  }
+};
+
 const updateProductQuantityFromCart = async (cartDetail) => {
   const response = await axios.delete(
     `${base_url}user/update-product-cart/${cartDetail.cartItemId}/${cartDetail.newQuantity}`,
@@ -120,4 +127,5 @@ export const authService = {
   updateUser,
   forgotPassToken,
   resetPass,
+  emptyCart,
 };

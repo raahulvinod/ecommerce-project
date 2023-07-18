@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import BlogCard from '../components/BlogCard';
-import ProductCard from '../components/ProductCard';
 import Marquee from 'react-fast-marquee';
 import SpecialProduct from '../components/SpecialProduct';
 import Container from '../components/Container';
@@ -19,7 +18,6 @@ import wish from '../images/wish.svg';
 import addcart from '../images/add-cart.svg';
 import view from '../images/view.svg';
 import prodcompare from '../images/prodcompare.svg';
-import cam2 from '../images/cam2.avif';
 
 const Home = () => {
   const dispatch = useDispatch();
