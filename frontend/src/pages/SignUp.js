@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
 import CustomInput from '../components/CustomInput';
 import Container from '../components/Container';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../features/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const signupSchema = yup.object({
   firstname: yup.string().required('First name is required'),
@@ -20,7 +21,9 @@ const signupSchema = yup.object({
 });
 
 const Signup = () => {
+  const authState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       firstname: '',
@@ -35,6 +38,12 @@ const Signup = () => {
       formik.resetForm();
     },
   });
+
+  useEffect(() => {
+    if (authState.createdUser !== null && authState.isError === false) {
+      navigate('/login');
+    }
+  }, [authState]);
 
   return (
     <>
