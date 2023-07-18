@@ -26,6 +26,7 @@ const {
   getAllOrders,
   getSingleOrder,
   updateOrder,
+  emptyCart,
 } = require('../controller/userCtr');
 const { authMiddleware, isAdmin } = require('../middlewares/authMiddleware');
 const { forgotPasswordToken } = require('../controller/userCtr');
@@ -58,7 +59,7 @@ router.get('/cart', authMiddleware, getUserCart);
 router.get('/getMonthWiseOrderIncome', authMiddleware, getMonthWiseOrderIncome);
 router.get('/getyearlyorders', authMiddleware, getYearlyTotalOrder);
 
-// router.delete('/empty-cart', authMiddleware, emptyCart);
+router.delete('/empty-cart', authMiddleware, emptyCart);
 router.delete(
   '/delete-product-cart/:cartItemId',
   authMiddleware,
