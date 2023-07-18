@@ -190,13 +190,17 @@ const Header = () => {
                     <NavLink to="/my-orders">My orders</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
                     <NavLink to="/contact">Contact</NavLink>
-                    <button
-                      className="border border-0 bg-transparent text-white text-uppercase"
-                      type="button"
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </button>
+                    {authState?.user !== null ? (
+                      <button
+                        className="border border-0 bg-transparent text-white text-uppercase"
+                        type="button"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    ) : (
+                      ''
+                    )}
                   </div>
                 </div>
               </div>

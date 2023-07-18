@@ -18,17 +18,13 @@ import wish from '../images/wish.svg';
 import addcart from '../images/add-cart.svg';
 import view from '../images/view.svg';
 import prodcompare from '../images/prodcompare.svg';
+import { getUserCart } from '../features/user/userSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const blogState = useSelector((state) => state?.blog?.blog);
   const productState = useSelector((state) => state.product.product);
-
-  useEffect(() => {
-    getBlogs();
-    getProducts();
-  }, []);
 
   const getBlogs = () => {
     dispatch(getAllBlogs());
@@ -41,6 +37,16 @@ const Home = () => {
   const addToWish = (id) => {
     dispatch(addToWishlist(id));
   };
+
+  const getCartItems = () => {
+    dispatch(getUserCart());
+  };
+
+  useEffect(() => {
+    getBlogs();
+    getProducts();
+    getCartItems();
+  }, []);
 
   return (
     <>

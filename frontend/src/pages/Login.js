@@ -37,6 +37,7 @@ const Login = () => {
   useEffect(() => {
     if (authState.user !== null && authState.isError === false) {
       navigate('/');
+      window.location.reload();
     }
   }, [authState]);
 
