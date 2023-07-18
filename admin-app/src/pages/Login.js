@@ -4,7 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../features/auth/authSlice';
+import {
+  getMonthlyData,
+  getOrders,
+  getYearlyData,
+  login,
+} from '../features/auth/authSlice';
 
 let userSchema = Yup.object({
   email: Yup.string()

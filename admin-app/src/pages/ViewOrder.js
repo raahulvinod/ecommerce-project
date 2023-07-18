@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
-import { FaRegEdit } from 'react-icons/fa';
-import { AiFillDelete } from 'react-icons/ai';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrder } from '../features/auth/authSlice';
 

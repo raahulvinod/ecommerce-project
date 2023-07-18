@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
 import { Link } from 'react-router-dom';
-import { FaRegEdit } from 'react-icons/fa';
-import { AiFillDelete } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders, updateAOrder } from '../features/auth/authSlice';
 
@@ -39,12 +37,25 @@ const columns = [
 
 const Orders = () => {
   const dispatch = useDispatch();
+
+  const getTokenFromLocalStorage = localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user'))
+    : null;
+
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${
+        getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ''
+      }`,
+      Accept: 'application/json',
+    },
+  };
+
   useEffect(() => {
-    dispatch(getOrders());
+    dispatch(getOrders(axiosConfig));
   }, []);
 
   const orderState = useSelector((state) => state.auth.orders.orders);
-  console.log(orderState);
 
   const data1 = [];
   for (let i = 0; i < orderState?.length; i++) {

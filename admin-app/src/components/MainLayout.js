@@ -14,7 +14,7 @@ import { ImBlog } from 'react-icons/im';
 import { BiCartAdd } from 'react-icons/bi';
 import { SiBrandfolder } from 'react-icons/si';
 import { TbCategory } from 'react-icons/tb';
-import { FaClipboardList, FaBlog } from 'react-icons/fa';
+import { FaClipboardList, FaBlog, FaSignOutAlt } from 'react-icons/fa';
 import { RiCoupon4Line, RiCoupon5Line } from 'react-icons/ri';
 import { Button, Layout, Menu, theme } from 'antd';
 import { Link, Outlet } from 'react-router-dom';
@@ -22,6 +22,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from 'react-redux';
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
@@ -29,6 +30,7 @@ const MainLayout = () => {
   } = theme.useToken();
   const { Header, Sider, Content } = Layout;
   const navigate = useNavigate();
+  const authState = useSelector((state) => state?.auth?.user);
   return (
     <Layout /*onContextMenu={(e) => e.preventDefault()}*/>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -44,6 +46,8 @@ const MainLayout = () => {
           defaultSelectedKeys={['']}
           onClick={({ key }) => {
             if (key === 'signout') {
+              localStorage.clear();
+              window.location.reload();
             } else {
               navigate(key);
             }
@@ -160,6 +164,11 @@ const MainLayout = () => {
               icon: <FaClipboardList className="fs-4" />,
               label: 'Enquiries',
             },
+            {
+              key: 'signout',
+              icon: <FaSignOutAlt className="fs-4" />,
+              label: 'Sign out',
+            },
           ]}
         />
       </Sider>
@@ -203,10 +212,16 @@ const MainLayout = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <h5 className="mb-0">Rahul</h5>
-                <p className="mb-0">rahulvinod135@gmail.com</p>
+                <h5 className="mb-0">
+                  {authState
+                    ? authState?.fistname + ' ' + authState?.lastname
+                    : 'Admin'}
+                </h5>
+                <p className="mb-0">
+                  {authState ? authState?.email : 'Trendfy.com'}
+                </p>
               </div>
-              <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              {/* <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li>
                   <Link
                     className="dropdown-item"
@@ -246,7 +261,7 @@ const MainLayout = () => {
                     Signout
                   </Link>
                 </li>
-              </ul>
+              </ul> */}
             </div>
           </div>
         </Header>

@@ -44,12 +44,23 @@ const Dashboard = () => {
   const [dataMonthlySales, setDataMonthlySales] = useState([]);
   const [orderData, setOrderData] = useState([]);
 
-  console.log(orderState);
+  const getTokenFromLocalStorage = localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user'))
+    : null;
+
+  const config3 = {
+    headers: {
+      Authorization: `Bearer ${
+        getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ''
+      }`,
+      Accept: 'application/json',
+    },
+  };
 
   useEffect(() => {
-    dispatch(getMonthlyData());
-    dispatch(getYearlyData());
-    dispatch(getOrders());
+    dispatch(getMonthlyData(config3));
+    dispatch(getYearlyData(config3));
+    dispatch(getOrders(config3));
   }, []);
 
   useEffect(() => {
@@ -97,7 +108,7 @@ const Dashboard = () => {
 
       setOrderData(data1);
     }
-  }, [monthlyDataState]);
+  }, [monthlyDataState, orderState, yearlyDataState]);
 
   const config = {
     data: dataMonthly,
@@ -208,9 +219,6 @@ const Dashboard = () => {
         <div>
           <Table columns={columns} dataSource={orderData} />
         </div>
-      </div>
-      <div className="my-4">
-        <h3 className="mb-4">Recent Reviews</h3>
       </div>
     </div>
   );
