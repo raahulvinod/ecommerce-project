@@ -497,7 +497,7 @@ const Home = () => {
           {blogState?.map((blog, index) => {
             if (index < 4) {
               return (
-                <div className="col-3 mb-3" key={index}>
+                <div className="col-lg-3 col-md-6 col-sm-12 mb-4" key={index}>
                   <BlogCard
                     id={blog?._id}
                     title={blog?.title}
