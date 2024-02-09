@@ -126,15 +126,22 @@ const Home = () => {
       </Container>
       <Container class1={'home-wrapper-2 py-5'}>
         <div className="row">
-          <div className="col-12">
-            <div className="services d-flex align-items-center justify-content-between">
+          <div className="col-lg-12 col-md-12">
+            <div className="services d-flex flex-wrap align-items-center justify-content-between">
               {services?.map((service, index) => {
                 return (
-                  <div className="d-flex align-items-center gap-10" key={index}>
-                    <img src={service.image} alt="services" />
+                  <div
+                    className="d-flex flex-column align-items-center gap-10 mb-4"
+                    key={index}
+                  >
+                    <img
+                      src={service.image}
+                      alt="services"
+                      className="img-fluid"
+                    />
                     <div>
-                      <h6>{service.title}</h6>
-                      <p className="mb-0">{service.tagline}</p>
+                      <h6 className="text-center">{service.title}</h6>
+                      <p className="text-center mb-0">{service.tagline}</p>
                     </div>
                   </div>
                 );
@@ -450,35 +457,67 @@ const Home = () => {
         </div>
       </Container>
 
-      <Container class1={'marque-wrapper py-5'}>
+      <Container className={'marque-wrapper py-5'}>
         <div className="row">
           <div className="col-12">
             <div className="marquee-inner-wrapper card-wrapper">
               <Marquee>
                 <div className="d-flex">
-                  <div className="mx-4 w-25">
-                    <img src="images/brand-01.png" alt="brand" />
+                  <div className="mx-2 mx-sm-4 w-25">
+                    <img
+                      src="images/brand-01.png"
+                      alt="brand"
+                      className="img-fluid"
+                    />
                   </div>
-                  <div className="mx-4 w-25">
-                    <img src="images/brand-02.png" alt="brand" />
+                  <div className="mx-2 mx-sm-4 w-25">
+                    <img
+                      src="images/brand-02.png"
+                      alt="brand"
+                      className="img-fluid"
+                    />
                   </div>
-                  <div className="mx-4 w-25">
-                    <img src="images/brand-03.png" alt="brand" />
+                  <div className="mx-2 mx-sm-4 w-25">
+                    <img
+                      src="images/brand-03.png"
+                      alt="brand"
+                      className="img-fluid"
+                    />
                   </div>
-                  <div className="mx-4 w-25">
-                    <img src="images/brand-04.png" alt="brand" />
+                  <div className="mx-2 mx-sm-4 w-25">
+                    <img
+                      src="images/brand-04.png"
+                      alt="brand"
+                      className="img-fluid"
+                    />
                   </div>
-                  <div className="mx-4 w-25">
-                    <img src="images/brand-05.png" alt="brand" />
+                  <div className="mx-2 mx-sm-4 w-25">
+                    <img
+                      src="images/brand-05.png"
+                      alt="brand"
+                      className="img-fluid"
+                    />
                   </div>
-                  <div className="mx-4 w-25">
-                    <img src="images/brand-06.png" alt="brand" />
+                  <div className="mx-2 mx-sm-4 w-25">
+                    <img
+                      src="images/brand-06.png"
+                      alt="brand"
+                      className="img-fluid"
+                    />
                   </div>
-                  <div className="mx-4 w-25">
-                    <img src="images/brand-07.png" alt="brand" />
+                  <div className="mx-2 mx-sm-4 w-25">
+                    <img
+                      src="images/brand-07.png"
+                      alt="brand"
+                      className="img-fluid"
+                    />
                   </div>
-                  <div className="mx-4 w-25">
-                    <img src="images/brand-08.png" alt="brand" />
+                  <div className="mx-2 mx-sm-4 w-25">
+                    <img
+                      src="images/brand-08.png"
+                      alt="brand"
+                      className="img-fluid"
+                    />
                   </div>
                 </div>
               </Marquee>
