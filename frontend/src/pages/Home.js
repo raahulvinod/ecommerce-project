@@ -149,83 +149,17 @@ const Home = () => {
         </div>
       </Container>
 
-      <Container class1={'home-wrapper-2 py-5'}>
-        <div className="row">
-          <div className="col-12">
-            <div className="categories d-flex flex-wrap align-items-center justify-content-between">
-              <div className="d-flex gap-10 align-items-center">
-                <div>
-                  <h6>Camera</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/camera.jpg" alt="camera" />
-              </div>
-              <div className="d-flex gap-10 align-items-center">
-                <div>
-                  <h6>Smart Tv</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/tv.jpg" alt="tv" />
-              </div>
-              <div className="d-flex gap-10 align-items-center">
-                <div>
-                  <h6>HeadPhones</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/headphone.jpg" alt="headpone" />
-              </div>
-              <div className="d-flex gap-10 align-items-center">
-                <div>
-                  <h6>laptop</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/laptop.jpg" alt="laptop" />
-              </div>
-
-              <div className="d-flex gap-10 align-items-center">
-                <div>
-                  <h6>Camera</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/camera.jpg" alt="camera" />
-              </div>
-              <div className="d-flex gap-10 align-items-center">
-                <div>
-                  <h6>Smart Tv</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/tv.jpg" alt="tv" />
-              </div>
-              <div className="d-flex gap-10 align-items-center">
-                <div>
-                  <h6>HeadPhones</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/headphone.jpg" alt="headpone" />
-              </div>
-              <div className="d-flex gap-10 align-items-center">
-                <div>
-                  <h6>laptop</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/laptop.jpg" alt="laptop" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </Container>
-
-      <Container class1={'featured-wrapper py-5 home-wrapper-2'}>
+      <Container class1={'featured-wrapper py-2 home-wrapper-2'}>
         <div className="row">
           <div className="col-12">
             <h3 className="section-heading">Featured Collection</h3>
           </div>
 
           {productState &&
-            productState?.map((item, index) => {
+            productState.map((item, index) => {
               if (item.tags === 'featured') {
                 return (
-                  <div key={index} className={'col-3'}>
+                  <div key={index} className="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div className="product-card position-relative mb-3">
                       <div className="wishlist-icon position-absolute">
                         <button
@@ -236,18 +170,16 @@ const Home = () => {
                         </button>
                       </div>
 
-                      <div className="product-image ">
+                      <div className="product-image">
                         <img
                           src={item?.images[0]?.url}
                           alt="products"
                           className="img-fluid"
-                          width={250}
                         />
                         <img
                           src={item?.images[1]?.url}
                           alt="products"
                           className="img-fluid"
-                          width={250}
                         />
                       </div>
                       <div className="product-details">
@@ -260,7 +192,6 @@ const Home = () => {
                           size={24}
                           activeColor="#ffd700"
                         />
-
                         <p className="price">₹{item.price}</p>
                       </div>
                       <div className="action-bar position-absolute">

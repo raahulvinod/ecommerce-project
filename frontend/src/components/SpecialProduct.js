@@ -7,17 +7,11 @@ const SpecialProduct = (props) => {
     props;
 
   return (
-    <div className="col-6 mb-3">
+    <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
       <div className="special-product-card">
-        <div className="d-flex gap-3">
+        <div className="d-flex flex-column flex-sm-row gap-3">
           <div>
-            <img
-              src={images}
-              className=""
-              alt="mobile"
-              height={250}
-              width={250}
-            />
+            <img src={images} className="img-fluid" alt="mobile" />
           </div>
           <div className="special-product-content">
             <h5 className="brand">{brand}</h5>
@@ -30,8 +24,7 @@ const SpecialProduct = (props) => {
               activeColor="#ffd700"
             />
             <p className="price">
-              <span className="red-p">₹{price}</span>&nbsp;
-              {/* <strike>₹55000</strike> */}
+              <span className="red-p">₹{price}</span>
             </p>
             <div className="discount-till d-flex align-items-center gap-10">
               <p className="mb-0">
@@ -49,10 +42,10 @@ const SpecialProduct = (props) => {
                 <div
                   className="progress-bar bg-danger"
                   role="progressbar"
-                  style={{ width: (quantity / quantity + sold) * 100 + '%' }}
-                  aria-valuenow={(quantity / quantity + sold) * 100}
+                  style={{ width: (quantity / (quantity + sold)) * 100 + '%' }}
+                  aria-valuenow={(quantity / (quantity + sold)) * 100}
                   aria-valuemin={quantity}
-                  aria-valuemax={sold + quantity}
+                  aria-valuemax={quantity + sold}
                 ></div>
               </div>
             </div>
