@@ -79,6 +79,37 @@ const Home = () => {
     },
   ];
 
+  const famousItemsData = [
+    {
+      imageSrc: '/images/famous-1.webp',
+      title: 'Big screen',
+      subTitle: 'Smart Watch Series 7',
+      description: 'From ₹999 or ₹160/mo. for 24 mo.*',
+      color: '',
+    },
+    {
+      imageSrc: '/images/famous-2.webp',
+      title: 'Macbook',
+      subTitle: 'Apple Macbook Air M1',
+      description: 'Apple M1 Processor',
+      color: 'text-dark',
+    },
+    {
+      imageSrc: '/images/famous-3.webp',
+      title: 'Smartphones',
+      subTitle: 'APPLE iPhone 14 Pro',
+      description: 'Super Retina XDR Display',
+      color: 'text-dark',
+    },
+    {
+      imageSrc: '/images/famous-4.webp',
+      title: 'Home Speakers',
+      subTitle: 'Room Filling Sound',
+      description: 'EMI starts at ₹167. No Cost EMI available',
+      color: 'text-dark',
+    },
+  ];
+
   return (
     <>
       <Container className={'home-wrapper-1 py-5'}>
@@ -221,62 +252,24 @@ const Home = () => {
 
       <Container class1={'famous-wrapper py-5 home-wrapper-2'}>
         <div className="row">
-          <div className="col-3">
-            <div className="famous-card position-relative">
-              <img
-                src="/images/famous-1.webp"
-                alt="famous"
-                className="img-fluid"
-              />
-              <div className="famous-content position-absolute">
-                <h5>Big screen</h5>
-                <h6>Smart Watch Series 7</h6>
-                <p>From ₹999or ₹160/mo. for 24 mo.*</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-3">
-            <div className="famous-card position-relative">
-              <img
-                src="/images/famous-2.webp"
-                alt="famous"
-                className="img-fluid"
-              />
-              <div className="famous-content position-absolute">
-                <h5 className="text-dark">Macbook</h5>
-                <h6 className="text-dark">Apple Macbook Air M1</h6>
-                <p className="text-dark">Apple M1 Processor</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-3">
-            <div className="famous-card position-relative">
-              <img
-                src="/images/famous-3.webp"
-                alt="famous"
-                className="img-fluid"
-              />
-              <div className="famous-content position-absolute">
-                <h5 className="text-dark">Smartphones</h5>
-                <h6 className="text-dark">APPLE iPhone 14 Pro</h6>
-                <p className="text-dark">Super Retina XDR Display</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-3">
-            <div className="famous-card position-relative">
-              <img
-                src="/images/famous-4.webp"
-                alt="famous"
-                className="img-fluid"
-              />
-              <div className="famous-content position-absolute">
-                <h5 className="text-dark">Home Speakers</h5>
-                <h6 className="text-dark">Room Filling Sound</h6>
-                <p className="text-dark">
-                  EMI starts at ₹167. No Cost EMI available
-                </p>
-              </div>
+          <div className="container famous-wrapper py-5 home-wrapper-2">
+            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+              {famousItemsData.map((item, index) => (
+                <div className="col" key={index}>
+                  <div className="famous-card position-relative">
+                    <img
+                      src={item.imageSrc}
+                      alt="famous"
+                      className="img-fluid"
+                    />
+                    <div className="famous-content position-absolute">
+                      <h5 className={item.color}>{item.title}</h5>
+                      <h6 className={item.color}>{item.subTitle}</h6>
+                      <p className={item.color}>{item.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
