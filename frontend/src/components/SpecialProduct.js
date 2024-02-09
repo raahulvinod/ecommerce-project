@@ -23,19 +23,6 @@ const SpecialProduct = (props) => {
               size={24}
               activeColor="#ffd700"
             />
-            <p className="price">
-              <span className="red-p">₹{price}</span>
-            </p>
-            <div className="discount-till d-flex align-items-center gap-10">
-              <p className="mb-0">
-                <b>5 </b>days
-              </p>
-              <div className="d-flex gap-10 align-items-center">
-                <span className="badge rounded-circle p-2">11</span>:
-                <span className="badge rounded-circle p-2">11</span>:
-                <span className="badge rounded-circle p-2">11</span>
-              </div>
-            </div>
             <div className="prod-count mt-3">
               <p>Products: {quantity}</p>
               <div className="progress">
