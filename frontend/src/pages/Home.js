@@ -48,11 +48,42 @@ const Home = () => {
     getCartItems();
   }, []);
 
+  const smallBanners = [
+    {
+      image: 'images/catbanner-01.jpg',
+      alt: 'best sale',
+      title: 'best sale',
+      subtitle: 'Laptops',
+      price: 'From $999.00.',
+    },
+    {
+      image: 'images/catbanner-02.jpg',
+      alt: '15% off',
+      title: '15% off',
+      subtitle: 'Smart Watches',
+      price: 'From $999.00.',
+    },
+    {
+      image: 'images/catbanner-03.jpg',
+      alt: 'new arrivals',
+      title: 'new arrivals',
+      subtitle: 'Buy iPads',
+      price: 'From $999.00.',
+    },
+    {
+      image: 'images/catbanner-04.jpg',
+      alt: 'free engraving',
+      title: 'free engraving',
+      subtitle: 'Headphones',
+      price: 'From $999.00.',
+    },
+  ];
+
   return (
     <>
-      <Container class1={'home-wrapper-1 py-5'}>
+      <Container className={'home-wrapper-1 py-5'}>
         <div className="row">
-          <div className="col-6">
+          <div className="col-lg-6">
             <div className="main-banner position-relative">
               <img
                 className="img-fluid rounded-3"
@@ -67,63 +98,30 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="col-6">
-            <div className="d-flex flex-wrap gap-10 justify-content-between align-items-center">
-              <div className="small-banner position-relative">
-                <img
-                  className="img-fluid rounded-3"
-                  src="images/catbanner-01.jpg"
-                  alt="main banner"
-                />
-                <div className="small-banner-content position-absolute">
-                  <h4>best sale</h4>
-                  <h5>Laptops</h5>
-                  <p>From $999.00.</p>
+          <div className="col-lg-6">
+            <div className="d-flex flex-wrap gap-10 justify-content-between">
+              {smallBanners.map((banner, index) => (
+                <div
+                  className="small-banner position-relative mb-2 mt-2"
+                  key={index}
+                >
+                  <img
+                    className="img-fluid rounded-3"
+                    src={banner.image}
+                    alt={banner.alt}
+                  />
+                  <div className="small-banner-content position-absolute">
+                    <h4>{banner.title}</h4>
+                    <h5>{banner.subtitle}</h5>
+                    <p>{banner.price}</p>
+                  </div>
                 </div>
-              </div>
-
-              <div className="small-banner position-relative">
-                <img
-                  className="img-fluid rounded-3"
-                  src="images/catbanner-02.jpg"
-                  alt="main banner"
-                />
-                <div className="small-banner-content position-absolute">
-                  <h4>15% off</h4>
-                  <h5>Smart Watches</h5>
-                  <p>From $999.00.</p>
-                </div>
-              </div>
-
-              <div className="small-banner position-relative">
-                <img
-                  className="img-fluid rounded-3"
-                  src="images/catbanner-03.jpg"
-                  alt="main banner"
-                />
-                <div className="small-banner-content position-absolute">
-                  <h4>new arrivals</h4>
-                  <h5>Buy IPads</h5>
-                  <p>From $999.00.</p>
-                </div>
-              </div>
-
-              <div className="small-banner position-relative">
-                <img
-                  className="img-fluid rounded-3"
-                  src="images/catbanner-04.jpg"
-                  alt="main banner"
-                />
-                <div className="small-banner-content position-absolute">
-                  <h4>free engraving</h4>
-                  <h5>HeadPhones</h5>
-                  <p>From $999.00 </p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </Container>
+
       <Container class1={'home-wrapper-2 py-5'}>
         <div className="row">
           <div className="col-lg-12 col-md-12">
