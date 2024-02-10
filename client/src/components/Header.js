@@ -17,9 +17,12 @@ const Header = () => {
   const productState = useSelector((state) => state?.product?.product);
   const [totalAmount, setTotalAmount] = useState(0);
   const [productOpt, setProductOpt] = useState([]);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     dispatch(getUserCart());
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
@@ -34,11 +37,9 @@ const Header = () => {
   useEffect(() => {
     let sum = 0;
     for (let index = 0; index < cartState?.length; index++) {
-      sum =
-        sum +
-        Number(cartState[index].quantity) * Number(cartState[index].price);
-      setTotalAmount(sum);
+      sum += Number(cartState[index].quantity) * Number(cartState[index].price);
     }
+    setTotalAmount(sum);
   }, [cartState]);
 
   const handleLogout = () => {
@@ -46,9 +47,13 @@ const Header = () => {
     window.location.reload();
   };
 
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth < 768);
+  };
+
   return (
     <>
-      <header className="header-upper py-3">
+      <header className={`header-upper py-3`}>
         <div className="container-xxl">
           <div className="row align-items-center">
             <div className="col-2">
@@ -58,26 +63,32 @@ const Header = () => {
                 </Link>
               </h2>
             </div>
-            <div className="col-5">
-              <div className="input-group ">
-                <Typeahead
-                  id="pagination-example"
-                  onPaginate={() => console.log('Results paginated')}
-                  options={productOpt}
-                  placeholder="Search products..."
-                  labelKey={'name'}
-                  minLength={2}
-                  onChange={(selected) => {
-                    navigate(`/product/${selected[0]?.prod}`);
-                    dispatch(getAProduct(selected[0]?.prod));
-                  }}
-                />
-                <span className="input-group-text p-3" id="basic-addon2">
-                  <BsSearch className="fs-6" />
-                </span>
+            {!isSmallScreen && (
+              <div className="col-5">
+                <div className="input-group">
+                  <Typeahead
+                    id="pagination-example"
+                    onPaginate={() => console.log('Results paginated')}
+                    options={productOpt}
+                    placeholder="Search products..."
+                    labelKey={'name'}
+                    minLength={2}
+                    onChange={(selected) => {
+                      navigate(`/product/${selected[0]?.prod}`);
+                      dispatch(getAProduct(selected[0]?.prod));
+                    }}
+                  />
+                  <span className="input-group-text p-3" id="basic-addon2">
+                    <BsSearch className="fs-6" />
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className="col-5 d-flex justify-content-end gap-4">
+            )}
+            <div
+              className={`${
+                isSmallScreen ? 'col-10' : 'col-5'
+              } d-flex justify-content-end gap-4`}
+            >
               <Link
                 to="/wishlist"
                 className="d-flex align-items-center gap-10 text-white"
@@ -123,6 +134,29 @@ const Header = () => {
             </div>
           </div>
         </div>
+      </header>
+      <header>
+        {isSmallScreen && (
+          <div className="col-12 p-2">
+            <div className="input-group">
+              <Typeahead
+                id="pagination-example"
+                onPaginate={() => console.log('Results paginated')}
+                options={productOpt}
+                placeholder="Search products..."
+                labelKey={'name'}
+                minLength={2}
+                onChange={(selected) => {
+                  navigate(`/product/${selected[0]?.prod}`);
+                  dispatch(getAProduct(selected[0]?.prod));
+                }}
+              />
+              <span className="input-group-text p-3" id="basic-addon2">
+                <BsSearch className="fs-6" />
+              </span>
+            </div>
+          </div>
+        )}
       </header>
       <header className="header-bottom py-3">
         <div className="container-xxl">
