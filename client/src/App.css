@@ -192,6 +192,11 @@ footer .input-group-text {
   color: var(--color-131921);
 }
 
+.small-banner {
+  position: relative;
+  width: 46%;
+}
+
 .small-banner-content {
   top: 25%;
   left: 10%;
@@ -224,8 +229,18 @@ footer .input-group-text {
   color: var(--color-131921);
 }
 
-.small-banner {
-  width: 46%;
+@media (max-width: 480px) {
+  .small-banner-content h4 {
+    font-size: 10px;
+    margin-bottom: 0;
+  }
+  .small-banner-content h5 {
+    font-size: 12px;
+    margin-bottom: 0;
+  }
+  .small-banner-content p {
+    font-size: 8px;
+  }
 }
 
 /* ------------------------------ */

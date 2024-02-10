@@ -112,7 +112,7 @@ const Home = () => {
 
   return (
     <>
-      <Container className={'home-wrapper-1 py-5'}>
+      <Container className="home-wrapper-1 py-5">
         <div className="row">
           <div className="col-lg-6">
             <div className="main-banner position-relative">

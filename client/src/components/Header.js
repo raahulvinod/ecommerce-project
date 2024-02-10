@@ -93,7 +93,11 @@ const Header = () => {
                 to="/wishlist"
                 className="d-flex align-items-center gap-10 text-white"
               >
-                <img src="/images/wishlist.svg" alt="wishist" />
+                <img
+                  src="/images/wishlist.svg"
+                  alt="wishist"
+                  style={{ width: isSmallScreen ? '20px' : '30px' }}
+                />
                 <p className="mb-0 d-none d-lg-block">wishlist</p>
               </Link>
 
@@ -101,7 +105,11 @@ const Header = () => {
                 to={authState?.user === null ? '/login' : '/my-profile'}
                 className="d-flex align-items-center gap-10 text-white"
               >
-                <img src="/images/user.svg" alt="user" />
+                <img
+                  src="/images/user.svg"
+                  alt="user"
+                  style={{ width: isSmallScreen ? '20px' : '30px' }}
+                />
                 {authState?.user === null ? (
                   <p className="mb-0 d-none d-lg-block">Login</p>
                 ) : (
@@ -113,10 +121,13 @@ const Header = () => {
 
               <Link
                 to={authState?.user === null ? '/login' : '/cart'}
-                className="d-flex align-items-center gap-10 text-white position-relative" // Add position-relative class
+                className="d-flex align-items-center gap-10 text-white position-relative"
               >
                 <div className="d-flex flex-column gap-10 align-items-end">
-                  <span className="badge bg-white text-dark position-absolute top-0 end-0">
+                  <span
+                    className="badge bg-white text-dark position-absolute top-0 end-0"
+                    style={{ fontSize: isSmallScreen ? '7px' : '10px' }}
+                  >
                     {cartState?.length ? cartState?.length : 0}
                   </span>
                   {cartState?.length !== 0 ? (
@@ -129,7 +140,11 @@ const Header = () => {
                     </div>
                   )}
                 </div>
-                <img src="/images/cart.svg" alt="cart" />
+                <img
+                  src="/images/cart.svg"
+                  alt="cart"
+                  style={{ width: isSmallScreen ? '20px' : '30px' }}
+                />
               </Link>
             </div>
           </div>
