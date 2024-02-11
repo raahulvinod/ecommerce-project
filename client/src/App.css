@@ -456,6 +456,11 @@ footer .input-group-text {
 /* Famous Card */
 /*-------------------------------- */
 
+.famous-card {
+  position: relative;
+  overflow: hidden;
+}
+
 .famous-card .famous-content {
   top: 10%;
   left: 10%;

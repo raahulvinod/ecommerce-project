@@ -54,28 +54,28 @@ const Home = () => {
       alt: 'best sale',
       title: 'best sale',
       subtitle: 'Laptops',
-      price: 'From $999.00.',
+      price: 'From ₹20,999',
     },
     {
       image: 'images/catbanner-02.jpg',
       alt: '15% off',
       title: '15% off',
       subtitle: 'Smart Watches',
-      price: 'From $999.00.',
+      price: 'From ₹999',
     },
     {
       image: 'images/catbanner-03.jpg',
       alt: 'new arrivals',
       title: 'new arrivals',
       subtitle: 'Buy iPads',
-      price: 'From $999.00.',
+      price: 'From ₹19,999',
     },
     {
       image: 'images/catbanner-04.jpg',
       alt: 'free engraving',
       title: 'free engraving',
       subtitle: 'Headphones',
-      price: 'From $999.00.',
+      price: 'From ₹399',
     },
   ];
 
@@ -122,9 +122,9 @@ const Home = () => {
                 alt="main banner"
               />
               <div className="main-banner-content position-absolute">
-                <h4>SUPERCHARGED FOR PROS.</h4>
-                <h5>iPad S13+ Pro.</h5>
-                <p>From $999.00 or $41.62/mo. </p>
+                <h4>BIGGEST NEW YEAR DEAL</h4>
+                <h5>iPhone 15</h5>
+                <p>From ₹68,999* or Pay only ₹11,500/m </p>
                 <Link className="button">BUY NOW</Link>
               </div>
             </div>
