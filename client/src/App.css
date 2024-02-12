@@ -705,15 +705,18 @@ footer .input-group-text {
   margin: 30px auto;
   border-radius: 10px;
 }
+
 .auth-card h3 {
   font-size: 19px;
   font-weight: 500;
   color: var(--color-777777);
 }
+
 .auth-card p {
   font-size: 13px;
   color: var(--color-777777);
 }
+
 .auth-card .form-control {
   height: 50px;
   background-color: var(--color-f5f5f7);
@@ -722,11 +725,26 @@ footer .input-group-text {
   border-radius: 10px;
   border-color: transparent;
 }
+
 .auth-card a {
   font-size: 14px;
   font-weight: 400;
   color: var(--color-1c1c1b);
 }
+
+@media (max-width: 768px) {
+  .auth-card {
+    width: 80%;
+  }
+}
+
+@media (max-width: 576px) {
+  .auth-card {
+    width: 90%;
+    padding: 15px;
+  }
+}
+
 .signup {
   background-color: var(--color-febd69);
   color: var(--color-131921);
