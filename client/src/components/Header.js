@@ -132,11 +132,11 @@ const Header = () => {
                   </span>
                   {cartState?.length !== 0 ? (
                     <div>
-                      <p className="mb-0">₹ {totalAmount}</p>
+                      <p className="mb-0 d-none d-lg-block">₹ {totalAmount}</p>
                     </div>
                   ) : (
                     <div>
-                      <p className="mb-0">₹ 0</p>
+                      <p className="mb-0 d-none d-lg-block">₹ 0</p>
                     </div>
                   )}
                 </div>
