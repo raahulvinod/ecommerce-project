@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import BreadCrumb from '../components/BreadCrumb';
-import Meta from '../components/Meta';
-import ProductCard from '../components/ProductCard';
 import ReactStars from 'react-rating-stars-component';
 import ReactImageZoom from 'react-image-zoom';
-import Color from '../components/Color';
 import { TbGitCompare } from 'react-icons/tb';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsLink45Deg } from 'react-icons/bs';
-import Container from '../components/Container';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
+import BreadCrumb from '../components/BreadCrumb';
+import Meta from '../components/Meta';
+import ProductCard from '../components/ProductCard';
+import Color from '../components/Color';
+import Container from '../components/Container';
 import {
   addRating,
   getAProduct,
   getAllProducts,
 } from '../features/products/productSlice';
-import { toast } from 'react-toastify';
 import { addProdToCart, getUserCart } from '../features/user/userSlice';
 
 const SingleProduct = () => {
@@ -85,7 +86,7 @@ const SingleProduct = () => {
   };
 
   const props = {
-    width: 200,
+    width: 100,
     height: 380,
     zoomWidth: 600,
     img: productState?.images[0]?.url
@@ -93,6 +94,7 @@ const SingleProduct = () => {
       : 'https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_00_884x.jpg?v=1655095991',
   };
   const [orderedProduct, setOrderedProduct] = useState(true);
+
   const copyToClipboard = (text) => {
     console.log('text', text);
     var textField = document.createElement('textarea');
@@ -120,20 +122,21 @@ const SingleProduct = () => {
       <BreadCrumb title={productState?.title} />
       <Container class1="main-product-wrapper py-5 home-wrapper-2">
         <div className="row">
-          <div className="col-6">
+          <div className="col-lg-6 col-md-12 mb-4">
             <div className="main-product-image">
               <div className="main-image mb-3">
                 <ReactImageZoom {...props} />
               </div>
-              <div className="other-product-images d-flex flex-wrap gap-15">
+              <div className="other-product-images">
                 {productState &&
                   productState?.images.map((item, index) => {
                     return (
-                      <div key={index}>
+                      <div key={index} className="other-image">
                         <img
                           src={item?.url}
                           alt="product"
                           className="img-fluid"
+                          style={{ maxWidth: '100%', height: 'auto' }}
                         />
                       </div>
                     );
@@ -141,7 +144,7 @@ const SingleProduct = () => {
               </div>
             </div>
           </div>
-          <div className="col-6">
+          <div className="col-lg-6 col-md-12">
             <div className="main-product-details">
               <div className="border-bottom py-3">
                 <h3 className="title">{productState?.title}</h3>
