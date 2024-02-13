@@ -331,17 +331,8 @@ const SingleProduct = () => {
                       <p className="mb-0">Based on 2 reviews</p>
                     </div>
                   </div>
-                  {orderedProduct && (
-                    <div>
-                      <a
-                        className="text-dark text-decoration-underline"
-                        href="/"
-                      >
-                        Write a Review
-                      </a>
-                    </div>
-                  )}
                 </div>
+
                 <div className="review-form py-4">
                   <h4>Write a Review</h4>
 
@@ -380,6 +371,7 @@ const SingleProduct = () => {
                     </button>
                   </div>
                 </div>
+
                 <div className="reviews mt-4">
                   {productState &&
                     productState?.ratings?.map((item, index) => {
@@ -404,6 +396,7 @@ const SingleProduct = () => {
             </div>
           </div>
         </Container>
+
         <Container class1="popular-wrapper py-5 home-wrapper-2">
           <div className="row">
             <div className="col-12">

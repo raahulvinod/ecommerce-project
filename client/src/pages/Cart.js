@@ -97,7 +97,7 @@ const Cart = () => {
                         <p>{item?.productId?.title}</p>
                         <p>{item?.productId?.brand}</p>
                         <div className="d-flex gap-3">
-                          <p> Color:</p>
+                          <p>Color:</p>
                           <div className="colors ps-0">
                             <li
                               className="border border-secondary"
@@ -148,25 +148,26 @@ const Cart = () => {
               })}
           </div>
           <div className="col-12 py-2 mt-4">
-            <div className="d-flex justify-content-between align-items-baseline">
+            <div className="d-flex flex-column justify-content-center align-items-center">
               {userCartState?.length !== 0 && (
-                <Link to="/" className="button">
+                <Link to="/" className="button mb-4 text-center">
                   Continue To Shopping
                 </Link>
               )}
 
               {totalAmount !== 0 && (
-                <div className="d-flex flex-column align-items-end">
-                  {userCartState?.length !== 0 && (
-                    <>
-                      <h4>Total Amount : ₹ {totalAmount}</h4>
-                      <p>Taxes and shipping calculated at checkout</p>
-                      <Link to="/checkout" className="button">
-                        Checkout
-                      </Link>
-                    </>
-                  )}
+                <div className="total-amount text-center mb-2">
+                  <h4>Total Amount: ₹ {totalAmount}</h4>
+                  <p className="small-text">
+                    Taxes and shipping calculated at checkout
+                  </p>
                 </div>
+              )}
+
+              {userCartState?.length !== 0 && (
+                <Link to="/checkout" className="button text-center">
+                  Checkout
+                </Link>
               )}
             </div>
           </div>
