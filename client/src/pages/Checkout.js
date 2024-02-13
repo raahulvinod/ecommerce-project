@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Meta from '../components/Meta';
-import BreadCrumb from '../components/BreadCrumb';
 import { Link, useNavigate } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 import Container from '../components/Container';
@@ -8,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
+
+import Meta from '../components/Meta';
+import BreadCrumb from '../components/BreadCrumb';
 import { config } from '../utils/AxiosConfig';
 import {
   createAnOrder,
@@ -183,7 +184,7 @@ const Checkout = () => {
       <BreadCrumb title="Checkout" />
       <Container class1="checkout-wrapper py-5 home-wrapper-2">
         <div className="row">
-          <div className="col-7">
+          <div className="col-lg-7 mb-4">
             <div className="checkout-left-data">
               <h3 className="website-name">Trendfy</h3>
               <nav
@@ -223,7 +224,7 @@ const Checkout = () => {
                 onSubmit={formik.handleSubmit}
                 className="d-flex gap-15 flex-wrap justify-content-between"
               >
-                <div className="w-100">
+                <div className="flex-grow-1">
                   <select
                     className="form-control form-select"
                     id=""
@@ -322,7 +323,7 @@ const Checkout = () => {
                       Select State
                     </option>
                     <option value="Kerala">Kerala</option>
-                    <option value="Kerala">Tamilnadu</option>
+                    <option value="tamilnadu">Tamilnadu</option>
                   </select>
                   <div className="error">
                     {formik.touched.state && formik.errors.state}
@@ -343,17 +344,18 @@ const Checkout = () => {
                   </div>
                 </div>
                 <div className="w-100">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <Link to="/cart" className="text-dark">
+                  <div className="d-grid gap-2">
+                    <Link
+                      to="/cart"
+                      className="text-dark btn btn-outline-secondary"
+                    >
                       <BiArrowBack className="me-2" />
                       Return to Cart
                     </Link>
-                    <Link to="/cart" className="button">
-                      Continue to Shipping
-                    </Link>
                     <button
                       type="submit"
-                      className="button border-0 align-item-center"
+                      className="button border-0"
+                      style={{ width: '100%' }}
                     >
                       Place order
                     </button>
@@ -363,7 +365,7 @@ const Checkout = () => {
             </div>
           </div>
 
-          <div className="col-5">
+          <div className="col-lg-5">
             <div className="border-bottom py-4">
               {cartState &&
                 cartState?.map((item, index) => {
@@ -372,33 +374,33 @@ const Checkout = () => {
                       key={index}
                       className="d-flex gap-10 mb-2 align-align-items-center"
                     >
-                      <div className="w-75 d-flex gap-10">
-                        <div className="w-25 position-relative">
-                          <span
-                            style={{ top: '-10px', right: '2px' }}
-                            className="badge bg-secondary text-white rounded-circle p-2 position-absolute"
-                          >
-                            {item?.quantity}
-                          </span>
-                          <img
-                            className=""
-                            src={item?.productId?.images[0]?.url}
-                            alt="product"
-                            width={100}
-                            height={100}
-                          />
-                        </div>
-                        <div>
-                          <h5 className="total-price">
-                            {item?.productId.title}
-                          </h5>
-                          <p className="total-price">{item?.productId.brand}</p>
-                        </div>
+                      <div className="w-25 position-relative">
+                        <span
+                          style={{ top: '-10px', right: '2px' }}
+                          className="badge bg-secondary d-none d-lg-block text-white rounded-circle p-2 position-absolute"
+                        >
+                          {item?.quantity}
+                        </span>
+                        <img
+                          className=""
+                          src={item?.productId?.images[0]?.url}
+                          alt="product"
+                          width={100}
+                          height={100}
+                          style={{
+                            width: '100%',
+                            height: 'auto',
+                          }}
+                        />
                       </div>
-                      <div className="flex-grow-1">
-                        <h5 className="total">
-                          ₹ {item?.quantity * item?.price}
-                        </h5>
+                      <div className="w-75 d-flex flex-column gap-2">
+                        <h5 className="total-price">{item?.productId.title}</h5>
+                        <p className="total-price">{item?.productId.brand}</p>
+                        <div className="flex-grow-1">
+                          <h5 className="total">
+                            ₹ {item?.quantity * item?.price}
+                          </h5>
+                        </div>
                       </div>
                     </div>
                   );
@@ -418,7 +420,7 @@ const Checkout = () => {
                 </p>
               </div>
             </div>
-            <div className="d-flex justify-content-between align-items-center border-bootom py-4">
+            <div className="d-flex justify-content-between align-items-center border-bottom py-4">
               <h4 className="total">Total Amount</h4>
               <h5 className="total">₹ {totalAmount ? totalAmount : 0}</h5>
             </div>
