@@ -20,7 +20,6 @@ import view from '../images/view.svg';
 import prodcompare from '../images/prodcompare.svg';
 import { getUserCart } from '../features/user/userSlice';
 
-
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -126,7 +125,9 @@ const Home = () => {
                 <h4>BIGGEST NEW YEAR DEAL</h4>
                 <h5>iPhone 15</h5>
                 <p>From ₹68,999* or Pay only ₹11,500/m </p>
-                <Link className="button">BUY NOW</Link>
+                <Link to="/product" className="button">
+                  BUY NOW
+                </Link>
               </div>
             </div>
           </div>
@@ -142,11 +143,14 @@ const Home = () => {
                     src={banner.image}
                     alt={banner.alt}
                   />
-                  <div className="small-banner-content position-absolute">
+                  <Link
+                    to="/product"
+                    className="small-banner-content position-absolute"
+                  >
                     <h4>{banner.title}</h4>
-                    <h5>{banner.subtitle}</h5>
+                    <h5 className="text-black">{banner.subtitle}</h5>
                     <p>{banner.price}</p>
-                  </div>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -202,7 +206,10 @@ const Home = () => {
                         </button>
                       </div>
 
-                      <div className="product-image">
+                      <div
+                        className="product-image"
+                        onClick={() => navigate('/product/' + item?._id)}
+                      >
                         <img
                           src={item?.images[0]?.url}
                           alt="products"

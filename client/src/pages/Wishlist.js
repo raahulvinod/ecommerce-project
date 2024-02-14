@@ -6,9 +6,11 @@ import BreadCrumb from '../components/BreadCrumb';
 import Container from '../components/Container';
 import { getUserProductWishlist } from '../features/user/userSlice';
 import { addToWishlist } from '../features/products/productSlice';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Wishlist = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getWishlistFromDb();
@@ -32,14 +34,14 @@ const Wishlist = () => {
       <Meta title="Wishlist" />
       <BreadCrumb title="Wishlist" />
       <Container class1="wishlist-wrapper home-wrapper-2 py-5">
-        <div className="row">
+        <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
           {wishlistState && wishlistState?.length === 0 && (
-            <div className="text-center fs-3">No Items</div>
+            <div className="col text-center fs-3">No Items</div>
           )}
           {wishlistState &&
             wishlistState?.map((item, index) => {
               return (
-                <div className="col-3" key={index}>
+                <div className="col" key={index}>
                   <div className="wishlist-card position-relative">
                     <img
                       onClick={() => removeFromWislist(item?._id)}
@@ -47,22 +49,32 @@ const Wishlist = () => {
                       alt="cross"
                       className="position-absolute cross img-fluid"
                     />
-                    <div className="wishlist-card-image w-100">
+                    <div
+                      className="wishlist-card-image cursor-pointer"
+                      onClick={() => navigate(`/product/${item?._id}`)}
+                    >
                       <img
                         src={
                           item?.images[0].url
                             ? item?.images[0].url
                             : 'images/watch.jpg'
                         }
-                        className="w-100"
+                        className="img-fluid"
                         alt="watch"
-                        height={250}
                       />
                     </div>
                     <div className="py-3 px-3">
                       <h5 className="title">{item?.title}</h5>
                       <h6 className="price">₹ {item?.price}</h6>
                     </div>
+                  </div>
+                  <div>
+                    <button
+                      className="button border-0"
+                      onClick={() => navigate(`/product/${item?._id}`)}
+                    >
+                      View product
+                    </button>
                   </div>
                 </div>
               );
