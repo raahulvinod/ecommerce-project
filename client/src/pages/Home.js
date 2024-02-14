@@ -125,9 +125,10 @@ const Home = () => {
                 <h4>BIGGEST NEW YEAR DEAL</h4>
                 <h5>iPhone 15</h5>
                 <p>From ₹68,999* or Pay only ₹11,500/m </p>
-                <Link to="/product" className="button">
+
+                <button className="button buy border-0 text-center">
                   BUY NOW
-                </Link>
+                </button>
               </div>
             </div>
           </div>

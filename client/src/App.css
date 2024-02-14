@@ -78,6 +78,10 @@ a {
   color: #131921;
 }
 
+.buy {
+  max-width: 130px;
+}
+
 .error {
   color: red;
 }
