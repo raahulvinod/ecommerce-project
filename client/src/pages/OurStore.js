@@ -153,55 +153,6 @@ const OurStore = () => {
                 </div>
               </div>
             </div>
-            <div className="filter-card mb-3">
-              <h3 className="filter-title">Random Product</h3>
-              <div>
-                <div className="random-products mb-3 d-flex">
-                  <div className="w-20">
-                    <img
-                      src="images/camera.jpg"
-                      className="img-fluid"
-                      alt="camera"
-                    />
-                  </div>
-                  <div className="w-50">
-                    <h5>
-                      Canon EOS 3000D DSLR Camera 1 Camera Body, 18 - 55 mm Lens
-                    </h5>
-                    <ReactStars
-                      value={4}
-                      edit={false}
-                      count={5}
-                      size={24}
-                      activeColor="#ffd700"
-                    />
-                    <b>₹20000</b>
-                  </div>
-                </div>
-                <div className="random-products d-flex">
-                  <div className="w-20">
-                    <img
-                      src="images/camera.jpg"
-                      className="img-fluid"
-                      alt="camera"
-                    />
-                  </div>
-                  <div className="w-50">
-                    <h5>
-                      Canon EOS 3000D DSLR Camera 1 Camera Body, 18 - 55 mm Lens
-                    </h5>
-                    <ReactStars
-                      value={4}
-                      edit={false}
-                      count={5}
-                      size={24}
-                      activeColor="#ffd700"
-                    />
-                    <b>₹20000</b>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
           <div className="col-lg-9 col-md-12">
             <div className="filter-sort-grid mb-4">
