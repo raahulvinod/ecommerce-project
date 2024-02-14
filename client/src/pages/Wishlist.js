@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
 import Container from '../components/Container';
-import { useDispatch, useSelector } from 'react-redux';
 import { getUserProductWishlist } from '../features/user/userSlice';
 import { addToWishlist } from '../features/products/productSlice';
 

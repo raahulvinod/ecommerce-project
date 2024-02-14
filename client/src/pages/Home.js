@@ -1,24 +1,25 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import BlogCard from '../components/BlogCard';
 import Marquee from 'react-fast-marquee';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import ReactStars from 'react-rating-stars-component';
+
+import BlogCard from '../components/BlogCard';
 import SpecialProduct from '../components/SpecialProduct';
 import Container from '../components/Container';
 import { services } from '../utils/Data';
-import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
 import { getAllBlogs } from '../features/blogs/blogSlice';
 import {
   addToWishlist,
   getAllProducts,
 } from '../features/products/productSlice';
-
-import ReactStars from 'react-rating-stars-component';
 import wish from '../images/wish.svg';
 import addcart from '../images/add-cart.svg';
 import view from '../images/view.svg';
 import prodcompare from '../images/prodcompare.svg';
 import { getUserCart } from '../features/user/userSlice';
+
 
 const Home = () => {
   const dispatch = useDispatch();

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import Container from '../components/Container';
 import BreadCrumb from '../components/BreadCrumb';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +10,6 @@ const Orders = () => {
   const orderState = useSelector(
     (state) => state.auth?.getOrderedProduct?.orders
   );
-  console.log(orderState);
 
   useEffect(() => {
     dispatch(getOrders());

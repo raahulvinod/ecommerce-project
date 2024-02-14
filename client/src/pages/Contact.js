@@ -1,13 +1,12 @@
-import React from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
 import { BiPhoneCall } from 'react-icons/bi';
 import { AiOutlineMail } from 'react-icons/ai';
 import { BiInfoCircle } from 'react-icons/bi';
-import Container from '../components/Container';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 
+import Container from '../components/Container';
 import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
 import { createQuery } from '../features/contact/contactSlice';

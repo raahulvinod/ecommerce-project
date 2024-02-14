@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { base_url, config } from '../../utils/AxiosConfig';
 
 const register = async (userData) => {

@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
-import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
 import { HiOutlineArrowLeft } from 'react-icons/hi';
 import { Link, useLocation } from 'react-router-dom';
+
 import blog from '../images/blog-1.jpg';
-import Container from '../components/Container';
 import { useDispatch, useSelector } from 'react-redux';
 import { getABlog } from '../features/blogs/blogSlice';
+import Meta from '../components/Meta';
+import Container from '../components/Container';
 
 const SingleBlog = () => {
   const dispatch = useDispatch();

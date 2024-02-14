@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 import menu from '../images/menu.svg';
 import { getUserCart } from '../features/user/userSlice';
-import { Typeahead } from 'react-bootstrap-typeahead';
-import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { getAProduct } from '../features/products/productSlice';
 
 const Header = () => {

@@ -1,12 +1,13 @@
 import React from 'react';
 import Meta from '../components/Meta';
-import BreadCrumb from '../components/BreadCrumb';
-import CustomInput from '../components/CustomInput';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Container from '../components/Container';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+
+import BreadCrumb from '../components/BreadCrumb';
+import CustomInput from '../components/CustomInput';
 import { resetPassword } from '../features/user/userSlice';
 
 const passwordSchema = yup.object({

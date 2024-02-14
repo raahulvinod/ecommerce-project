@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import BreadCrumb from '../components/BreadCrumb';
 import Container from '../components/Container';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { updateProfile } from '../features/user/userSlice';
 import { FaRegEdit } from 'react-icons/fa';
 

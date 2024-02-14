@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import Meta from '../components/Meta';
-import BreadCrumb from '../components/BreadCrumb';
-import CustomInput from '../components/CustomInput';
-import Container from '../components/Container';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+
+import Container from '../components/Container';
+import BreadCrumb from '../components/BreadCrumb';
+import CustomInput from '../components/CustomInput';
 
 const signupSchema = yup.object({
   firstname: yup.string().required('First name is required'),

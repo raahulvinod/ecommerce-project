@@ -1,4 +1,3 @@
-import React from 'react';
 import { BsLinkedin, BsYoutube, BsInstagram, BsFacebook } from 'react-icons/bs';
 
 const Footer = () => {

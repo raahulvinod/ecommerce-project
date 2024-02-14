@@ -1,10 +1,11 @@
 import ReactStars from 'react-rating-stars-component';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import prodcompare from '../images/prodcompare.svg';
 import wish from '../images/wish.svg';
 import addcart from '../images/add-cart.svg';
 import view from '../images/view.svg';
-import { useDispatch } from 'react-redux';
 import { addToWishlist } from '../features/products/productSlice';
 
 const ProductCard = (props) => {

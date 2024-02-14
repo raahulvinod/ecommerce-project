@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { base_url } from '../../utils/AxiosConfig';
 
 const postQuery = async (contactData) => {

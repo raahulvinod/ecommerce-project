@@ -1,12 +1,12 @@
-import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+
 import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
 import CustomInput from '../components/CustomInput';
-import { Link, useNavigate } from 'react-router-dom';
 import Container from '../components/Container';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
 import { forgotPasswordToken } from '../features/user/userSlice';
 
 const emailSchema = yup.object({
