@@ -560,6 +560,27 @@ footer .input-group-text {
   border-bottom: 1px solid var(--color-ededed);
 }
 
+.random-products {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 576px) {
+  .random-products {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 768px) {
+  .random-products .w-50 {
+    width: 50%;
+  }
+
+  .random-products .w-25 {
+    width: 20%;
+  }
+}
+
 .filter-sort-grid {
   padding: 10px;
   border-radius: 10px;
@@ -611,6 +632,77 @@ footer .input-group-text {
 
 .gr-12 .action-bar {
   top: 17%;
+}
+
+/* Media Queries */
+@media (max-width: 1199.98px) {
+  .gr-6 {
+    width: 49%;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .gr-4 {
+    width: 49%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .gr-6 {
+    width: 100%;
+  }
+
+  .gr-4 {
+    width: 100%;
+  }
+
+  .gr-3 {
+    width: 28%;
+  }
+
+  .gr-12 .product-card {
+    flex-direction: column;
+  }
+
+  .gr-12 .product-card .product-image {
+    width: 100%;
+  }
+
+  .gr-12 .action-bar {
+    top: auto;
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .gr-4 {
+    width: 50%;
+  }
+
+  .gr-3 {
+    width: 50%;
+  }
+
+  .gr-12 .product-card {
+    flex-direction: column;
+  }
+
+  .gr-12 .product-card .product-image {
+    width: 100%;
+  }
+
+  .gr-12 .action-bar {
+    top: auto;
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .gr-6 {
+    width: 100%;
+  }
 }
 
 /* ------------------------------ */
@@ -1095,6 +1187,41 @@ footer .input-group-text {
   }
 
   .total-amount {
-    font-size: 16px; /* Adjust font size for total amount on smaller screens */
+    font-size: 16px;
+  }
+}
+
+/*  sort bar */
+
+/* Media Queries for smaller screens */
+@media (max-width: 767.98px) {
+  .filter-sort-grid {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .filter-sort-grid .d-flex {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .filter-sort-grid .d-flex:last-child {
+    margin-top: 1rem;
+  }
+
+  .filter-sort-grid .d-flex .form-control {
+    width: auto;
+  }
+}
+
+/* Media Queries for medium screens */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .filter-sort-grid .d-flex {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .filter-sort-grid .d-flex:last-child {
+    margin-top: 1rem;
   }
 }

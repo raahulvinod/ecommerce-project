@@ -58,7 +58,7 @@ const Orders = () => {
                             </div>
                             <div className="col-lg-2 col-md-6">
                               <h6>Color</h6>
-                              <ul className="colors">
+                              <ul className="colors p-0">
                                 <li
                                   style={{
                                     backgroundColor: i.color?.title,

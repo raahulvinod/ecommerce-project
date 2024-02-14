@@ -57,7 +57,7 @@ const OurStore = () => {
 
       <Container class1="store-wrapper home-wrapper-2 py-5">
         <div className="row">
-          <div className="col-3">
+          <div className="col-lg-3 col-md-12">
             <div className="filter-card mb-3">
               <h3 className="filter-title">Shop By Categories</h3>
               <div>
@@ -142,7 +142,7 @@ const OurStore = () => {
                         return (
                           <span
                             key={index}
-                            className="text-capitalize badge bg-light text-secondary rounded-3 py-2 px-3"
+                            className="text-capitalize badge bg-light text-secondary rounded-3 py-2 px-3 cursor-pointer"
                             onClick={() => setBrand(item)}
                           >
                             {item}
@@ -157,7 +157,7 @@ const OurStore = () => {
               <h3 className="filter-title">Random Product</h3>
               <div>
                 <div className="random-products mb-3 d-flex">
-                  <div className="w-50">
+                  <div className="w-20">
                     <img
                       src="images/camera.jpg"
                       className="img-fluid"
@@ -179,7 +179,7 @@ const OurStore = () => {
                   </div>
                 </div>
                 <div className="random-products d-flex">
-                  <div className="w-50">
+                  <div className="w-20">
                     <img
                       src="images/camera.jpg"
                       className="img-fluid"
@@ -203,7 +203,7 @@ const OurStore = () => {
               </div>
             </div>
           </div>
-          <div className="col-9">
+          <div className="col-lg-9 col-md-12">
             <div className="filter-sort-grid mb-4">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center gap-10">
@@ -225,8 +225,7 @@ const OurStore = () => {
                     <option value="createdAt">Date, old to new</option>
                   </select>
                 </div>
-                <div className="d-flex align-items-center gap-10">
-                  <p className="totalProducts mb-0">21 Products</p>
+                <div className="d-none d-lg-flex align-items-center gap-10">
                   <div className="d-flex gap-10 align-items-center grid">
                     <img
                       onClick={() => {
