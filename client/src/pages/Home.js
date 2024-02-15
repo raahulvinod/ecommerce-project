@@ -267,37 +267,35 @@ const Home = () => {
 
       <Container class1={'famous-wrapper py-5 home-wrapper-2'}>
         <div className="row">
-          <div className="row">
-            <div className="container famous-wrapper py-5 home-wrapper-2">
-              <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                {famousItemsData.map((item, index) => (
-                  <div className="col" key={index}>
-                    <div
-                      className="famous-card position-relative"
-                      onClick={() => navigate('/product')}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      <img
-                        src={item.imageSrc}
-                        alt="famous"
-                        className="img-fluid"
-                        style={{ maxWidth: '100%', height: 'auto' }}
-                      />
-                      <div className="famous-content position-absolute">
-                        <h5 className={`${item.color} fw-bold fs-6 mb-1`}>
-                          {item.title}
-                        </h5>
-                        <h6 className={`${item.color} fs-7 mb-2`}>
-                          {item.subTitle}
-                        </h6>
-                        <p className={`${item.color} fs-8 mb-0`}>
-                          {item.description}
-                        </p>
-                      </div>
+          <div className="container-fluid famous-wrapper py-5 home-wrapper-2">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pr-0">
+              {famousItemsData.map((item, index) => (
+                <div className="col" key={index}>
+                  <div
+                    className="famous-card"
+                    onClick={() => navigate('/product')}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <img
+                      src={item.imageSrc}
+                      alt="famous"
+                      className="img-fluid"
+                      style={{ maxWidth: '100%', height: 'auto' }}
+                    />
+                    <div className="famous-content position-absolute">
+                      <h5 className={`${item.color} fw-bold fs-6 mb-1`}>
+                        {item.title}
+                      </h5>
+                      <h6 className={`${item.color} fs-7 mb-2`}>
+                        {item.subTitle}
+                      </h6>
+                      <p className={`${item.color} fs-8 mb-0`}>
+                        {item.description}
+                      </p>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

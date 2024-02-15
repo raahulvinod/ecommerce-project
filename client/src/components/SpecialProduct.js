@@ -35,7 +35,7 @@ const SpecialProduct = (props) => {
                 ></div>
               </div>
             </div>
-            <Link className="button my-3" to={`/product/` + id}>
+            <Link className="button my-3 text-center" to={`/product/` + id}>
               View
             </Link>
           </div>

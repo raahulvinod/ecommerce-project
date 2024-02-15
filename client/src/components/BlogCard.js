@@ -20,7 +20,7 @@ const BlogCard = ({ id, title, description, image, date }) => {
               __html: description?.substr(0, 100) + '...',
             }}
           ></p>
-          <Link to={`/blog/${id}`} className="button">
+          <Link to={`/blog/${id}`} className="button text-center">
             Read More
           </Link>
         </div>
