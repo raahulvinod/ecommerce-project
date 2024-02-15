@@ -22,7 +22,7 @@ const MainBannerSlider = ({ mainBannersData }) => {
         <div key={index}>
           <div className="main-banner position-relative">
             <img
-              className="img-fluid rounded-3"
+              className="img-fluid rounded-3 mt-2"
               src={banner.image}
               alt={banner.alt}
             />
