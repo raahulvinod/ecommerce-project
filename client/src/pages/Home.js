@@ -20,6 +20,7 @@ import view from '../images/view.svg';
 import prodcompare from '../images/prodcompare.svg';
 import { getUserCart } from '../features/user/userSlice';
 import FamousSlider from '../components/FamousSlider';
+import MainBannerSlider from '../components/MainBannerSlider';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -80,6 +81,33 @@ const Home = () => {
     },
   ];
 
+  const mainBannersData = [
+    {
+      image: 'images/iphone-main.jpg',
+      alt: 'main banner 1',
+      title: 'NEW YEAR SALE',
+      subtitle: 'iPhone 15',
+      priceInfo: 'Shop Now!',
+      link: '/product',
+    },
+    {
+      image: 'images/main-banner.jpg',
+      alt: 'main banner 2',
+      title: 'New Arrivals',
+      subtitle: 'Spring Fashion',
+      priceInfo: 'Discover More',
+      link: '/product',
+    },
+    {
+      image: 'images/main-banner-1.jpg',
+      alt: 'main banner 3',
+      title: 'Limited Time Offer',
+      subtitle: 'Summer Essentials',
+      priceInfo: 'Get Yours Now!',
+      link: '/product',
+    },
+  ];
+
   const famousItemsData = [
     {
       imageSrc: '/images/famous-1.webp',
@@ -116,25 +144,7 @@ const Home = () => {
       <Container className="home-wrapper-1 py-5">
         <div className="row">
           <div className="col-lg-6">
-            <div className="main-banner position-relative">
-              <img
-                className="img-fluid rounded-3"
-                src="images/iphone-main.jpg"
-                alt="main banner"
-              />
-              <div className="main-banner-content position-absolute">
-                <h4>BIGGEST NEW YEAR DEAL</h4>
-                <h5>iPhone 15</h5>
-                <p>From ₹68,999* or Pay only ₹11,500/m </p>
-
-                <button
-                  className="button buy border-0 text-center"
-                  onClick={() => navigate('/product')}
-                >
-                  BUY NOW
-                </button>
-              </div>
-            </div>
+            <MainBannerSlider mainBannersData={mainBannersData} />
           </div>
           <div className="col-lg-6">
             <div className="d-flex flex-wrap gap-10 justify-content-between">
