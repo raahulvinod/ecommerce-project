@@ -146,7 +146,7 @@ const Home = () => {
           <div className="col-lg-6">
             <MainBannerSlider mainBannersData={mainBannersData} />
           </div>
-          <div className="col-lg-6">
+          <div className="col-lg-6 mt-4">
             <div className="d-flex flex-wrap gap-10 justify-content-between">
               {smallBanners.map((banner, index) => (
                 <div

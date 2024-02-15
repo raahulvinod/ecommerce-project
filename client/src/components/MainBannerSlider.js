@@ -8,7 +8,7 @@ const MainBannerSlider = ({ mainBannersData }) => {
   const navigate = useNavigate();
 
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     autoplay: true,
     autoplaySpeed: 5000,
