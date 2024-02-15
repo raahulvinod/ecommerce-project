@@ -19,6 +19,8 @@ import {
   getAllProducts,
 } from '../features/products/productSlice';
 import { addProdToCart, getUserCart } from '../features/user/userSlice';
+import FeaturedProduct from '../components/SimilarProduct';
+import SimilarProduct from '../components/SimilarProduct';
 
 const SingleProduct = () => {
   const [color, setColor] = useState(null);
@@ -374,11 +376,11 @@ const SingleProduct = () => {
         <Container class1="popular-wrapper py-5 home-wrapper-2">
           <div className="row">
             <div className="col-12">
-              <h3 className="section-heading">Similar products</h3>
+              <h3 className="section-heading">You might be interested in</h3>
             </div>
           </div>
           <div className="row">
-            <ProductCard data={popularProduct} />
+            <SimilarProduct productData={popularProduct} />
           </div>
         </Container>
       </Container>
