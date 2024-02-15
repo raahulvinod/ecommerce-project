@@ -96,7 +96,6 @@ const SingleProduct = () => {
   const [orderedProduct, setOrderedProduct] = useState(true);
 
   const copyToClipboard = (text) => {
-    console.log('text', text);
     var textField = document.createElement('textarea');
     textField.innerText = text;
     document.body.appendChild(textField);
@@ -186,17 +185,6 @@ const SingleProduct = () => {
                   <h3 className="product-heading">Availability:</h3>
                   <p className="product-data">In Stock</p>
                 </div>
-                {/* <div className="d-flex gap-10 flex-column my-2">
-                  <h3 className="product-heading">Size:</h3>
-                  <div className="d-flex flex-wrap gap-15">
-                    <span className="badge border border-1 bg-white text-dark border-secondary">
-                      S
-                    </span>
-                    <span className="badge border border-1 bg-white text-dark border-secondary">
-                      M
-                    </span>
-                  </div>
-                </div> */}
 
                 <div className="d-flex gap-10 flex-column mt-2 mb-3">
                   {alreadyAdded === false && (
@@ -247,19 +235,6 @@ const SingleProduct = () => {
                     >
                       {alreadyAdded ? 'Go to cart' : 'Add to cart'}
                     </button>
-                    {/* <button className="button signup">Buy Now</button> */}
-                  </div>
-                </div>
-                <div className="d-flex align-items-center gap-15">
-                  <div>
-                    <a href="/">
-                      <TbGitCompare className="fs-5 me-2" /> Add to Compare
-                    </a>
-                  </div>
-                  <div>
-                    <a href="/">
-                      <AiOutlineHeart className="fs-5 me-2" /> Add to Wishlist
-                    </a>
                   </div>
                 </div>
 
@@ -378,7 +353,6 @@ const SingleProduct = () => {
                       return (
                         <div key={index} className="review">
                           <div className="d-flex gap-10 align-items-center">
-                            {/* <h6 className="mb-0">{item?._id}</h6> */}
                             <ReactStars
                               value={item?.star}
                               edit={false}
@@ -400,7 +374,7 @@ const SingleProduct = () => {
         <Container class1="popular-wrapper py-5 home-wrapper-2">
           <div className="row">
             <div className="col-12">
-              <h3 className="section-heading">Our Popular Products</h3>
+              <h3 className="section-heading">Similar products</h3>
             </div>
           </div>
           <div className="row">

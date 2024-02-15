@@ -7,7 +7,7 @@ const SpecialProduct = (props) => {
 
   return (
     <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
-      <div className="special-product-card">
+      <div className="special-product-card" style={{ cursor: 'pointer' }}>
         <div className="d-flex flex-column flex-sm-row gap-3">
           <div>
             <img src={images} className="img-fluid" alt="mobile" />

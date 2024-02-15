@@ -8,10 +8,9 @@ import addcart from '../images/add-cart.svg';
 import view from '../images/view.svg';
 import { addToWishlist } from '../features/products/productSlice';
 
-const ProductCard = (props) => {
+const ProductCard = ({ grid, data }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { grid, data } = props;
 
   let location = useLocation();
 

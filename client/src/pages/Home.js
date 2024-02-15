@@ -126,7 +126,10 @@ const Home = () => {
                 <h5>iPhone 15</h5>
                 <p>From ₹68,999* or Pay only ₹11,500/m </p>
 
-                <button className="button buy border-0 text-center">
+                <button
+                  className="button buy border-0 text-center"
+                  onClick={() => navigate('/product')}
+                >
                   BUY NOW
                 </button>
               </div>
@@ -197,7 +200,10 @@ const Home = () => {
               if (item.tags === 'featured') {
                 return (
                   <div key={index} className="col-lg-3 col-md-4 col-sm-6 col-6">
-                    <div className="product-card position-relative mb-3">
+                    <div
+                      className="product-card position-relative mb-3"
+                      style={{ cursor: 'pointer' }}
+                    >
                       <div className="wishlist-icon position-absolute">
                         <button
                           className="border-0 bg-transparent"
@@ -266,7 +272,11 @@ const Home = () => {
               <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                 {famousItemsData.map((item, index) => (
                   <div className="col" key={index}>
-                    <div className="famous-card position-relative">
+                    <div
+                      className="famous-card position-relative"
+                      onClick={() => navigate('/product')}
+                      style={{ cursor: 'pointer' }}
+                    >
                       <img
                         src={item.imageSrc}
                         alt="famous"
@@ -336,7 +346,11 @@ const Home = () => {
                     key={index}
                     className={'col-lg-3 col-md-4 col-sm-6 col-6'}
                   >
-                    <div className="product-card position-relative">
+                    <div
+                      className="product-card position-relative"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => navigate(`/product/${item?._id}`)}
+                    >
                       <div className="wishlist-icon position-absolute">
                         <button
                           className="border-0 bg-transparent"
