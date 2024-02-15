@@ -103,6 +103,10 @@ a {
   background-color: var(--color-febd69);
 }
 
+.input-group-text {
+  background-color: var(--color-febd69);
+}
+
 .header-bottom {
   background-color: var(--color-232f3e);
 }
@@ -241,9 +245,12 @@ footer .input-group-text {
   .small-banner-content h5 {
     font-size: 12px;
     margin-bottom: 0;
+    line-height: 20px;
   }
   .small-banner-content p {
     font-size: 8px;
+    line-height: 16px;
+    letter-spacing: 0.2;
   }
 
   .main-banner-content h4 {
@@ -256,10 +263,6 @@ footer .input-group-text {
     font-size: 20px;
     line-height: 14px;
     letter-spacing: -2px;
-    font-weight: 500;
-    text-transform: none;
-    font-family: var(--font-family);
-    letter-spacing: 0.2px;
   }
 
   .main-banner-content p {
