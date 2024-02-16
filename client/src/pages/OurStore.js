@@ -55,10 +55,18 @@ const OurStore = () => {
       <BreadCrumb title="Our Store" />
 
       <Container class1="store-wrapper home-wrapper-2 py-5">
+        <button
+          type="button"
+          class="btn input-group-text d-lg-none mb-1"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          Shop By Categories
+        </button>
         <div className="row">
-          <div className="col-lg-3 col-md-12">
+          <div className="d-none d-lg-block col-lg-3 col-md-12">
             <div className="filter-card mb-3">
-              <h3 className="filter-title">Shop By Categories</h3>
+              <div className="filter-title">Shop By Categories</div>
               <div>
                 <ul className="ps-0">
                   {categories &&
@@ -222,6 +230,123 @@ const OurStore = () => {
           </div>
         </div>
       </Container>
+      {/* Modal  */}
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog d-lg-none">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">
+                Shop By Categories
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div className="filter-card mb-3">
+                <div>
+                  <ul className="ps-0">
+                    {categories &&
+                      [...new Set(categories)].map((item, index) => {
+                        return (
+                          <li key={index} onClick={() => setCategory(item)}>
+                            {item}
+                          </li>
+                        );
+                      })}
+                  </ul>
+                </div>
+              </div>
+              <div className="filter-card">
+                <h3 className="filter-title">Filter By</h3>
+
+                <h5 className="sub-title">Price</h5>
+                <div className="d-flex align-items-center gap-10">
+                  <div className="form-floating">
+                    <input
+                      type="number"
+                      className="form-control"
+                      id="floatingInput"
+                      placeholder="From"
+                      onChange={(e) => setminPrice(e.target.value)}
+                    />
+                    <label htmlFor="floatingInput">From</label>
+                  </div>
+                  <div className="form-floating">
+                    <input
+                      type="number"
+                      className="form-control"
+                      id="floatingInput1"
+                      placeholder="To"
+                      onChange={(e) => setmaxPrice(e.target.value)}
+                    />
+                    <label htmlFor="floatingInput1">To</label>
+                  </div>
+                </div>
+
+                <div className="mt-4 mb-3">
+                  <h3 className="sub-title">Product Tags</h3>
+                  <div>
+                    <div className="product-tags d-flex flex-wrap align-items-center gap-10">
+                      {tags &&
+                        [...new Set(tags)].map((item, index) => {
+                          return (
+                            <span
+                              key={index}
+                              className="text-capitalize badge bg-light text-secondary rounded-3 py-2 px-3"
+                              onClick={() => setTag(item)}
+                            >
+                              {item}
+                            </span>
+                          );
+                        })}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 mb-3">
+                  <h3 className="sub-title">Product Brands</h3>
+                  <div>
+                    <div className="product-tags d-flex flex-wrap align-items-center gap-10">
+                      {brands &&
+                        [...new Set(brands)].map((item, index) => {
+                          return (
+                            <span
+                              key={index}
+                              className="text-capitalize badge bg-light text-secondary rounded-3 py-2 px-3 cursor-pointer"
+                              onClick={() => setBrand(item)}
+                            >
+                              {item}
+                            </span>
+                          );
+                        })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                className="button border-0"
+                data-bs-dismiss="modal"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
