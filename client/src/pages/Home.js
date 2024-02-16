@@ -143,10 +143,10 @@ const Home = () => {
     <>
       <Container className="home-wrapper-1 py-5">
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg-6 mb-4">
             <MainBannerSlider mainBannersData={mainBannersData} />
           </div>
-          <div className="col-lg-6 mt-4">
+          <div className="col-lg-6 mt-2">
             <div className="d-flex flex-wrap gap-10 justify-content-between">
               {smallBanners.map((banner, index) => (
                 <div
