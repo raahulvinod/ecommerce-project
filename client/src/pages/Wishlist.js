@@ -34,10 +34,14 @@ const Wishlist = () => {
       <Meta title="Wishlist" />
       <BreadCrumb title="Wishlist" />
       <Container class1="wishlist-wrapper home-wrapper-2 py-5">
+        <div className="row justify-content-center">
+          <div className="col-md-6 col-lg-4">
+            {wishlistState && wishlistState.length === 0 && (
+              <div className="text-center fs-3">No Items</div>
+            )}
+          </div>
+        </div>
         <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
-          {wishlistState && wishlistState?.length === 0 && (
-            <div className="col text-center fs-3">No Items</div>
-          )}
           {wishlistState &&
             wishlistState?.map((item, index) => {
               return (
