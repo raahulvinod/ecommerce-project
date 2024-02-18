@@ -1,12 +1,13 @@
-const express = require('express');
-const {
+import express from 'express';
+import {
   createEnquiry,
   updateEnquiry,
   deleteEnquiry,
   getEnquiry,
   getAllEnquiry,
-} = require('../controller/enqCtrl');
-const { authMiddleware, isAdmin } = require('../middlewares/authMiddleware');
+} from '../controller/enqCtrl.js';
+import { authMiddleware, isAdmin } from '../middlewares/authMiddleware.js';
+
 const router = express.Router();
 
 router.post('/', createEnquiry);
@@ -15,4 +16,4 @@ router.delete('/:id', authMiddleware, isAdmin, deleteEnquiry);
 router.get('/:id', getEnquiry);
 router.get('/', getAllEnquiry);
 
-module.exports = router;
+export default router;

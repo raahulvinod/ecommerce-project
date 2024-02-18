@@ -1,12 +1,13 @@
-const express = require('express');
-const {
+import express from 'express';
+import {
   createBrand,
   updateBrand,
   deleteBrand,
   getBrand,
   getAllBrand,
-} = require('../controller/brandCtrl');
-const { authMiddleware, isAdmin } = require('../middlewares/authMiddleware');
+} from '../controller/brandCtrl.js';
+import { authMiddleware, isAdmin } from '../middlewares/authMiddleware.js';
+
 const router = express.Router();
 
 router.post('/', authMiddleware, isAdmin, createBrand);
@@ -15,4 +16,4 @@ router.delete('/:id', authMiddleware, isAdmin, deleteBrand);
 router.get('/:id', getBrand);
 router.get('/', getAllBrand);
 
-module.exports = router;
+export default router;

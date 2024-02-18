@@ -1,5 +1,5 @@
-const express = require('express');
-const {
+import express from 'express';
+import {
   createUser,
   loginUserCtrl,
   getAllUser,
@@ -27,11 +27,12 @@ const {
   getSingleOrder,
   updateOrder,
   emptyCart,
-} = require('../controller/userCtr');
+} from '../controller/userCtr.js';
 
-const { authMiddleware, isAdmin } = require('../middlewares/authMiddleware');
-const { forgotPasswordToken } = require('../controller/userCtr');
-const { checkout, paymentVerification } = require('../controller/paymentCtrl');
+import { authMiddleware, isAdmin } from '../middlewares/authMiddleware.js';
+import { forgotPasswordToken } from '../controller/userCtr.js';
+import { checkout, paymentVerification } from '../controller/paymentCtrl.js';
+
 const router = express.Router();
 
 router.post('/register', createUser);

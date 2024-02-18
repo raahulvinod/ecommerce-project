@@ -1,10 +1,8 @@
-const express = require('express');
-const { uploadImages, deleteImages } = require('../controller/uploadCtrl');
-const { isAdmin, authMiddleware } = require('../middlewares/authMiddleware');
-const {
-  uploadPhoto,
-  productImgResize,
-} = require('../middlewares/uploadImages');
+import express from 'express';
+import { uploadImages, deleteImages } from '../controller/uploadCtrl.js';
+import { isAdmin, authMiddleware } from '../middlewares/authMiddleware.js';
+import { uploadPhoto, productImgResize } from '../middlewares/uploadImages.js';
+
 const router = express.Router();
 
 router.post(
@@ -18,4 +16,4 @@ router.post(
 
 router.delete('/delete-img/:id', authMiddleware, isAdmin, deleteImages);
 
-module.exports = router;
+export default router;
