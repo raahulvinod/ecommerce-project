@@ -1,9 +1,9 @@
-const multer = require('multer');
-const sharp = require('sharp');
-const path = require('path');
-const fs = require('fs');
+import multer from 'multer';
+import sharp from 'sharp';
+import path from 'path';
+import fs from 'fs';
 
-const multerStorage = multer.diskStorage({
+export const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, '../public/images/'));
   },
@@ -13,7 +13,7 @@ const multerStorage = multer.diskStorage({
   },
 });
 
-const multerFilter = (req, file, cb) => {
+export const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image')) {
     cb(null, true);
   } else {
@@ -21,13 +21,13 @@ const multerFilter = (req, file, cb) => {
   }
 };
 
-const uploadPhoto = multer({
+export const uploadPhoto = multer({
   storage: multerStorage,
   fileFilter: multerFilter,
   limits: { fieldSize: 2000000 },
 });
 
-const productImgResize = async (req, res, next) => {
+export const productImgResize = async (req, res, next) => {
   if (!req.file) return next();
   await Promise.all(
     req.files.map(async (file) => {
@@ -42,7 +42,7 @@ const productImgResize = async (req, res, next) => {
   next();
 };
 
-const blogImgResize = async (req, res, next) => {
+export const blogImgResize = async (req, res, next) => {
   if (!req.file) return next();
   await Promise.all(
     req.files.map(async (file) => {
@@ -56,5 +56,3 @@ const blogImgResize = async (req, res, next) => {
   );
   next();
 };
-
-module.exports = { uploadPhoto, productImgResize, blogImgResize };

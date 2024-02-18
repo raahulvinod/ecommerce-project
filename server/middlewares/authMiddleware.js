@@ -1,15 +1,16 @@
-const User = require('../models/userModel');
-const asyncHandler = require('express-async-handler');
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
+import asyncHandler from 'express-async-handler';
 
-const authMiddleware = asyncHandler(async (req, res, next) => {
+import User from '../models/userModel.js';
+
+export const authMiddleware = asyncHandler(async (req, res, next) => {
   let token;
   if (req?.headers?.authorization?.startsWith('Bearer')) {
     token = req.headers.authorization.split(' ')[1];
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findById(decoded.id);
-      // console.log(user);
+
       req.user = user;
       next();
     } catch (error) {
@@ -20,7 +21,7 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
   }
 });
 
-const isAdmin = asyncHandler(async (req, res, next) => {
+export const isAdmin = asyncHandler(async (req, res, next) => {
   const { email } = req.user;
   const adminUser = await User.findOne({ email });
 
@@ -30,5 +31,3 @@ const isAdmin = asyncHandler(async (req, res, next) => {
     next();
   }
 });
-
-module.exports = { authMiddleware, isAdmin };
