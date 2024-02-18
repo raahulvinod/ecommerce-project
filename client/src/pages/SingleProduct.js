@@ -93,9 +93,8 @@ const SingleProduct = () => {
     zoomWidth: 600,
     img: productState?.images[0]?.url
       ? productState?.images[0]?.url
-      : 'https://cdn.shopify.com/s/files/1/0620/5082/8457/products/09_00_884x.jpg?v=1655095991',
+      : 'https://res.cloudinary.com/dxypazeq8/image/upload/v1708244291/screen_ifk5kw.png',
   };
-  const [orderedProduct, setOrderedProduct] = useState(true);
 
   const copyToClipboard = (text) => {
     var textField = document.createElement('textarea');
