@@ -1,19 +1,19 @@
-const User = require('../models/userModel');
-const Product = require('../models/productModel');
-const Cart = require('../models/cartModel');
-const Coupon = require('../models/couponModel');
-const Order = require('../models/orderModel');
+import asyncHandler from 'express-async-handler';
+import { Jwt } from 'jsonwebtoken';
+import crypto from 'crypto';
+import uniqueId from 'uniqueid';
 
-const asyncHandler = require('express-async-handler');
-const validateMongoDbId = require('../utils/validateMongodbid');
-const { generateToken } = require('../config/jwtToken');
-const { generateRefreshToken } = require('../config/refreshToken');
-const jwt = require('jsonwebtoken');
-const sendEmail = require('./emailCtrl');
-const crypto = require('crypto');
-const uniqueId = require('uniqueid');
+import { generateToken } from '../config/jwtToken';
+import { generateRefreshToken } from '../config/refreshToken';
+import sendEmail from './emailCtrl';
+import { validateMongoDbId } from '../utils/validateMongodbid';
+import User from '../models/userModel';
+import Cart from '../models/cartModel';
+import Coupon from '../models/couponModel';
+import Order from '../models/orderModel';
+import Product from '../models/productModel';
 
-const createUser = asyncHandler(async (req, res) => {
+export const createUser = asyncHandler(async (req, res) => {
   const email = req.body.email;
   const findUser = await User.findOne({ email });
 
@@ -28,8 +28,7 @@ const createUser = asyncHandler(async (req, res) => {
 });
 
 // Login a user
-
-const loginUserCtrl = asyncHandler(async (req, res) => {
+export const loginUserCtrl = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   // Check if user exists or not
@@ -62,8 +61,7 @@ const loginUserCtrl = asyncHandler(async (req, res) => {
 });
 
 // Admin login
-
-const loginAdmin = asyncHandler(async (req, res) => {
+export const loginAdmin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   // Check if admin exists or not
@@ -97,13 +95,14 @@ const loginAdmin = asyncHandler(async (req, res) => {
 });
 
 // Handle refresh token
-
-const handleRefreshToken = asyncHandler(async (req, res) => {
+export const handleRefreshToken = asyncHandler(async (req, res) => {
   const cookie = req.cookies;
+
   if (!cookie?.refreshToken) throw new Error('No Refresh Token in Cookies');
   const refreshToken = cookie.refreshToken;
-  // console.log(refreshToken);
+
   const user = await User.findOne({ refreshToken });
+
   if (!user) throw new Error('No Refresh token present in db or not matched');
   jwt.verify(refreshToken, process.env.JWT_SECRET, (err, decoded) => {
     if (err || user.id !== decoded.id) {
@@ -115,7 +114,7 @@ const handleRefreshToken = asyncHandler(async (req, res) => {
 });
 
 // Logout functionality
-const logout = asyncHandler(async (req, res) => {
+export const logout = asyncHandler(async (req, res) => {
   const cookie = req.cookies;
   if (!cookie?.refreshToken) throw new Error('No Refresh Token in Cookies');
   const refreshToken = cookie.refreshToken;
@@ -141,8 +140,7 @@ const logout = asyncHandler(async (req, res) => {
 });
 
 // Updata a user
-
-const updatedUser = asyncHandler(async (req, res) => {
+export const updatedUser = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   validateMongoDbId(_id);
   try {
@@ -165,8 +163,7 @@ const updatedUser = asyncHandler(async (req, res) => {
 });
 
 // Save user address
-
-const saveAddress = asyncHandler(async (req, res, next) => {
+export const saveAddress = asyncHandler(async (req, res, next) => {
   const { _id } = req.user;
   validateMongoDbId(_id);
   try {
@@ -186,8 +183,7 @@ const saveAddress = asyncHandler(async (req, res, next) => {
 });
 
 // Get all users
-
-const getAllUser = asyncHandler(async (req, res) => {
+export const getAllUser = asyncHandler(async (req, res) => {
   try {
     const getUsers = await User.find();
     res.json(getUsers);
@@ -197,8 +193,7 @@ const getAllUser = asyncHandler(async (req, res) => {
 });
 
 // Get a single user
-
-const getaUser = asyncHandler(async (req, res) => {
+export const getaUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
@@ -210,8 +205,7 @@ const getaUser = asyncHandler(async (req, res) => {
 });
 
 // Delete a user
-
-const deleteaUser = asyncHandler(async (req, res) => {
+export const deleteaUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
     const deleteaUser = await User.findByIdAndDelete(id);
@@ -222,8 +216,7 @@ const deleteaUser = asyncHandler(async (req, res) => {
 });
 
 // Block user
-
-const blockUser = asyncHandler(async (req, res) => {
+export const blockUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
@@ -243,9 +236,10 @@ const blockUser = asyncHandler(async (req, res) => {
   }
 });
 
-const unblockUser = asyncHandler(async (req, res) => {
+export const unblockUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
+
   try {
     const Unblock = await User.findByIdAndUpdate(
       id,
@@ -263,8 +257,7 @@ const unblockUser = asyncHandler(async (req, res) => {
 });
 
 // Update password
-
-const updatePassword = asyncHandler(async (req, res) => {
+export const updatePassword = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const { password } = req.body;
   validateMongoDbId(_id);
@@ -278,7 +271,7 @@ const updatePassword = asyncHandler(async (req, res) => {
   }
 });
 
-const forgotPasswordToken = asyncHandler(async (req, res) => {
+export const forgotPasswordToken = asyncHandler(async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email });
   if (!user) throw new Error('User not found with this email');
@@ -308,7 +301,7 @@ const forgotPasswordToken = asyncHandler(async (req, res) => {
   }
 });
 
-const resetPassword = asyncHandler(async (req, res) => {
+export const resetPassword = asyncHandler(async (req, res) => {
   const { password } = req.body;
   const { token } = req.params;
   const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
@@ -324,7 +317,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   res.json(user);
 });
 
-const getWishlist = asyncHandler(async (req, res) => {
+export const getWishlist = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   try {
     const findUser = await User.findById(_id).populate('wishlist');
@@ -334,7 +327,7 @@ const getWishlist = asyncHandler(async (req, res) => {
   }
 });
 
-const userCart = asyncHandler(async (req, res) => {
+export const userCart = asyncHandler(async (req, res) => {
   const { productId, color, quantity, price } = req.body;
   const { _id } = req.user;
   validateMongoDbId(_id);
@@ -352,7 +345,7 @@ const userCart = asyncHandler(async (req, res) => {
   }
 });
 
-const getUserCart = asyncHandler(async (req, res) => {
+export const getUserCart = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   validateMongoDbId(_id);
 
@@ -366,7 +359,7 @@ const getUserCart = asyncHandler(async (req, res) => {
   }
 });
 
-const removeProductFromCart = asyncHandler(async (req, res) => {
+export const removeProductFromCart = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const { cartItemId } = req.params;
   validateMongoDbId(_id);
@@ -383,7 +376,7 @@ const removeProductFromCart = asyncHandler(async (req, res) => {
   }
 });
 
-const emptyCart = asyncHandler(async (req, res) => {
+export const emptyCart = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   validateMongoDbId(_id);
 
@@ -398,7 +391,7 @@ const emptyCart = asyncHandler(async (req, res) => {
   }
 });
 
-const updateProductQuantityFromCart = asyncHandler(async (req, res) => {
+export const updateProductQuantityFromCart = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const { cartItemId, newQuantity } = req.params;
   validateMongoDbId(_id);
@@ -417,7 +410,7 @@ const updateProductQuantityFromCart = asyncHandler(async (req, res) => {
   }
 });
 
-const createOrder = asyncHandler(async (req, res) => {
+export const createOrder = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const {
     shippingInfo,
@@ -442,7 +435,7 @@ const createOrder = asyncHandler(async (req, res) => {
   }
 });
 
-const getMyOrders = asyncHandler(async (req, res) => {
+export const getMyOrders = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   try {
     const orders = await Order.find({ user: _id })
@@ -455,7 +448,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
   }
 });
 
-const getAllOrders = asyncHandler(async (req, res) => {
+export const getAllOrders = asyncHandler(async (req, res) => {
   try {
     const orders = await Order.find().populate('user');
     res.json({ orders });
@@ -464,7 +457,7 @@ const getAllOrders = asyncHandler(async (req, res) => {
   }
 });
 
-const getSingleOrder = asyncHandler(async (req, res) => {
+export const getSingleOrder = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
     const orders = await Order.findOne({ _id: id })
@@ -477,7 +470,7 @@ const getSingleOrder = asyncHandler(async (req, res) => {
   }
 });
 
-const updateOrder = asyncHandler(async (req, res) => {
+export const updateOrder = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
     const orders = await Order.findById(id);
@@ -489,7 +482,7 @@ const updateOrder = asyncHandler(async (req, res) => {
   }
 });
 
-const getMonthWiseOrderIncome = asyncHandler(async (req, res) => {
+export const getMonthWiseOrderIncome = asyncHandler(async (req, res) => {
   let monthNames = [
     'January',
     'February',
@@ -535,7 +528,7 @@ const getMonthWiseOrderIncome = asyncHandler(async (req, res) => {
   res.json(data);
 });
 
-const getYearlyTotalOrder = asyncHandler(async (req, res) => {
+export const getYearlyTotalOrder = asyncHandler(async (req, res) => {
   let monthNames = [
     'January',
     'February',
@@ -578,34 +571,3 @@ const getYearlyTotalOrder = asyncHandler(async (req, res) => {
 
   res.json(data);
 });
-
-module.exports = {
-  createUser,
-  loginUserCtrl,
-  getAllUser,
-  getaUser,
-  deleteaUser,
-  updatedUser,
-  blockUser,
-  unblockUser,
-  handleRefreshToken,
-  logout,
-  updatePassword,
-  forgotPasswordToken,
-  resetPassword,
-  loginAdmin,
-  getWishlist,
-  saveAddress,
-  userCart,
-  getUserCart,
-  createOrder,
-  removeProductFromCart,
-  updateProductQuantityFromCart,
-  getMyOrders,
-  getMonthWiseOrderIncome,
-  getYearlyTotalOrder,
-  getAllOrders,
-  getSingleOrder,
-  updateOrder,
-  emptyCart,
-};

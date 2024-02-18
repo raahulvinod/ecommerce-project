@@ -28,6 +28,7 @@ const {
   updateOrder,
   emptyCart,
 } = require('../controller/userCtr');
+
 const { authMiddleware, isAdmin } = require('../middlewares/authMiddleware');
 const { forgotPasswordToken } = require('../controller/userCtr');
 const { checkout, paymentVerification } = require('../controller/paymentCtrl');

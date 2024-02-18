@@ -1,8 +1,9 @@
-const Brand = require('../models/brandModel');
 const asyncHandler = require('express-async-handler');
-const validateMongoDbId = require('../utils/validateMongodbid');
 
-const createBrand = asyncHandler(async (req, res) => {
+import Brand from '../models/brandModel';
+import { validateMongoDbId } from '../utils/validateMongodbid';
+
+export const createBrand = asyncHandler(async (req, res) => {
   try {
     const newBrand = await Brand.create(req.body);
     res.json(newBrand);
@@ -11,7 +12,7 @@ const createBrand = asyncHandler(async (req, res) => {
   }
 });
 
-const updateBrand = asyncHandler(async (req, res) => {
+export const updateBrand = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
 
@@ -25,7 +26,7 @@ const updateBrand = asyncHandler(async (req, res) => {
   }
 });
 
-const deleteBrand = asyncHandler(async (req, res) => {
+export const deleteBrand = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
@@ -36,7 +37,7 @@ const deleteBrand = asyncHandler(async (req, res) => {
   }
 });
 
-const getBrand = asyncHandler(async (req, res) => {
+export const getBrand = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
@@ -47,7 +48,7 @@ const getBrand = asyncHandler(async (req, res) => {
   }
 });
 
-const getAllBrand = asyncHandler(async (req, res) => {
+export const getAllBrand = asyncHandler(async (req, res) => {
   try {
     const getAllBrand = await Brand.find();
     res.json(getAllBrand);
@@ -55,11 +56,3 @@ const getAllBrand = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
-
-module.exports = {
-  createBrand,
-  updateBrand,
-  deleteBrand,
-  getBrand,
-  getAllBrand,
-};

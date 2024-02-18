@@ -1,12 +1,11 @@
-const Product = require('../models/productModel');
-const User = require('../models/userModel');
-const asyncHandler = require('express-async-handler');
-const slugify = require('slugify');
-const validateMongoDbId = require('../utils/validateMongodbid');
+import asyncHandler from 'express-async-handler';
+import slugify from 'slugify';
+
+import Product from '../models/productModel';
+import User from '../models/userModel';
 
 // Create a product
-
-const createProduct = asyncHandler(async (req, res) => {
+export const createProduct = asyncHandler(async (req, res) => {
   try {
     if (req.body.title) {
       req.body.slug = slugify(req.body.title);
@@ -19,8 +18,7 @@ const createProduct = asyncHandler(async (req, res) => {
 });
 
 // update a product
-
-const updateProduct = asyncHandler(async (req, res) => {
+export const updateProduct = asyncHandler(async (req, res) => {
   const id = req.params._id;
 
   try {
@@ -37,8 +35,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 });
 
 // Delete a product
-
-const deleteProduct = asyncHandler(async (req, res) => {
+export const deleteProduct = asyncHandler(async (req, res) => {
   const id = req.params._id;
 
   try {
@@ -50,8 +47,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 });
 
 // Get a product
-
-const getaProduct = asyncHandler(async (req, res) => {
+export const getaProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
     const findProduct = await Product.findById(id).populate('color');
@@ -62,8 +58,7 @@ const getaProduct = asyncHandler(async (req, res) => {
 });
 
 // Get all products
-
-const getAllProduct = asyncHandler(async (req, res) => {
+export const getAllProduct = asyncHandler(async (req, res) => {
   try {
     // Filtering
     const queryObj = { ...req.query };
@@ -94,7 +89,6 @@ const getAllProduct = asyncHandler(async (req, res) => {
     }
 
     // Pagination
-
     const page = req.query.page;
     const limit = req.query.limit;
     const skip = (page - 1) * limit;
@@ -103,7 +97,6 @@ const getAllProduct = asyncHandler(async (req, res) => {
       const productCount = await Product.countDocuments();
       if (skip >= productCount) throw new Error('This Page does not exists');
     }
-    // console.log(page, limit, skip);
 
     const product = await query;
     res.json(product);
@@ -112,10 +105,10 @@ const getAllProduct = asyncHandler(async (req, res) => {
   }
 });
 
-const addToWishList = asyncHandler(async (req, res) => {
+export const addToWishList = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const { prodId } = req.body;
-  console.log(prodId, _id);
+
   try {
     const user = await User.findById(_id);
     const alreadyAdded = user.wishlist.find((id) => id.toString() === prodId);
@@ -143,7 +136,7 @@ const addToWishList = asyncHandler(async (req, res) => {
   }
 });
 
-const rating = asyncHandler(async (req, res) => {
+export const rating = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const { star, prodId, comment } = req.body;
   try {
@@ -198,13 +191,3 @@ const rating = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
-
-module.exports = {
-  createProduct,
-  getaProduct,
-  getAllProduct,
-  updateProduct,
-  deleteProduct,
-  addToWishList,
-  rating,
-};

@@ -1,11 +1,11 @@
-const Blog = require('../models/blogModel');
-const user = require('../models/userModel');
-const asyncHandler = require('express-async-handler');
-const validateMogoDbId = require('../utils/validateMongodbid');
-const cloudinaryUploadImg = require('../utils/cloudinary');
-const fs = require('fs');
+import asyncHandler from 'express-async-handler';
+import fs from 'fs';
 
-const createBlog = asyncHandler(async (req, res) => {
+import Blog from '../models/blogModel';
+import { validateMongoDbId } from '../utils/validateMongodbid';
+import { cloudinaryUploadImg } from '../utils/cloudinary';
+
+export const createBlog = asyncHandler(async (req, res) => {
   try {
     const newBlog = await Blog.create(req.body);
     res.json(newBlog);
@@ -14,9 +14,9 @@ const createBlog = asyncHandler(async (req, res) => {
   }
 });
 
-const updateBlog = asyncHandler(async (req, res) => {
+export const updateBlog = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  validateMogoDbId(id);
+  validateMongoDbId(id);
 
   try {
     const updateBlog = await Blog.findByIdAndUpdate(id, req.body, {
@@ -28,9 +28,9 @@ const updateBlog = asyncHandler(async (req, res) => {
   }
 });
 
-const getBlog = asyncHandler(async (req, res) => {
+export const getBlog = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  validateMogoDbId(id);
+  validateMongoDbId(id);
   try {
     const getBlog = await Blog.findById(id)
       .populate('likes')
@@ -42,7 +42,7 @@ const getBlog = asyncHandler(async (req, res) => {
   }
 });
 
-const getAllBlogs = asyncHandler(async (req, res) => {
+export const getAllBlogs = asyncHandler(async (req, res) => {
   try {
     const getBlogs = await Blog.find();
     res.json(getBlogs);
@@ -51,9 +51,9 @@ const getAllBlogs = asyncHandler(async (req, res) => {
   }
 });
 
-const deleteBlog = asyncHandler(async (req, res) => {
+export const deleteBlog = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  validateMogoDbId(id);
+  validateMongoDbId(id);
   try {
     const deletedBlog = await Blog.findByIdAndDelete(id);
     res.json(deletedBlog);
@@ -62,9 +62,9 @@ const deleteBlog = asyncHandler(async (req, res) => {
   }
 });
 
-const likeBlog = asyncHandler(async (req, res) => {
+export const likeBlog = asyncHandler(async (req, res) => {
   const { blogId } = req.body;
-  validateMogoDbId(blogId);
+  validateMongoDbId(blogId);
 
   // Find the blog which you want to be liked
   const blog = await Blog.findById(blogId);
@@ -111,9 +111,9 @@ const likeBlog = asyncHandler(async (req, res) => {
   }
 });
 
-const disLikeBlog = asyncHandler(async (req, res) => {
+export const disLikeBlog = asyncHandler(async (req, res) => {
   const { blogId } = req.body;
-  validateMogoDbId(blogId);
+  validateMongoDbId(blogId);
 
   // Find the blog which you want to be liked
   const blog = await Blog.findById(blogId);
@@ -160,9 +160,9 @@ const disLikeBlog = asyncHandler(async (req, res) => {
   }
 });
 
-const uploadImages = asyncHandler(async (req, res) => {
+export const uploadImages = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  validateMogoDbId(id);
+  validateMongoDbId(id);
   try {
     const uploader = (path) => cloudinaryUploadImg(path, 'images');
     const urls = [];
@@ -187,14 +187,3 @@ const uploadImages = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
-
-module.exports = {
-  createBlog,
-  updateBlog,
-  getBlog,
-  getAllBlogs,
-  deleteBlog,
-  likeBlog,
-  disLikeBlog,
-  uploadImages,
-};
