@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-var brandSchema = new mongoose.Schema(
+const { Schema, model } = mongoose;
+
+const brandSchema = new Schema(
   {
     title: {
       type: String,
@@ -12,4 +14,4 @@ var brandSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Brand', brandSchema);
+export default model('Brand', brandSchema);

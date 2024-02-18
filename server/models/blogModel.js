@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-var blogShema = new mongoose.Schema(
+const { Schema } = mongoose;
+
+const blogSchema = new Schema(
   {
     title: {
       type: String,
@@ -28,13 +30,13 @@ var blogShema = new mongoose.Schema(
     },
     likes: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User',
       },
     ],
     disLikes: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User',
       },
     ],
@@ -55,4 +57,4 @@ var blogShema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Blog', blogShema);
+export default mongoose.model('Blog', blogSchema);

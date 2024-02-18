@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-var enqSchema = new mongoose.Schema({
+const { Schema, model } = mongoose;
+
+const enqSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -24,4 +26,4 @@ var enqSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Enquiry', enqSchema);
+export default model('Enquiry', enqSchema);

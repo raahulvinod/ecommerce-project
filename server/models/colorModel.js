@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-var colorSchema = new mongoose.Schema(
+const { Schema, model } = mongoose;
+
+const colorSchema = new Schema(
   {
     title: {
       type: String,
@@ -12,4 +14,4 @@ var colorSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Color', colorSchema);
+export default model('Color', colorSchema);

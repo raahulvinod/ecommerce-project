@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-var prodcategorySchema = new mongoose.Schema(
+const { Schema, model } = mongoose;
+
+const prodcategorySchema = new Schema(
   {
     title: {
       type: String,
@@ -12,4 +14,4 @@ var prodcategorySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('ProductCategory', prodcategorySchema);
+export default model('ProductCategory', prodcategorySchema);

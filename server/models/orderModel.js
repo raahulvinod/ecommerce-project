@@ -1,9 +1,11 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-var orderSchema = new mongoose.Schema(
+const { Schema, model } = mongoose;
+
+const orderSchema = new Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
@@ -50,12 +52,12 @@ var orderSchema = new mongoose.Schema(
     orderItems: [
       {
         product: {
-          type: mongoose.Schema.Types.ObjectId,
+          type: Schema.Types.ObjectId,
           ref: 'Product',
           required: true,
         },
         color: {
-          type: mongoose.Schema.Types.ObjectId,
+          type: Schema.Types.ObjectId,
           ref: 'Color',
           required: true,
         },
@@ -71,11 +73,11 @@ var orderSchema = new mongoose.Schema(
     ],
     paidAt: {
       type: Date,
-      default: Date.now(),
+      default: Date.now,
     },
     month: {
       type: String,
-      default: new Date().getMonth(),
+      default: () => new Date().getMonth().toString(),
     },
     totalPrice: {
       type: Number,
@@ -95,4 +97,4 @@ var orderSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Order', orderSchema);
+export default model('Order', orderSchema);
