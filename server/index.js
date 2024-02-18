@@ -1,24 +1,28 @@
-const express = require('express');
-const dbConnect = require('./config/dbConnect');
-const { notFound, errorHandler } = require('./middlewares/errorHandler');
-const app = express();
-const dotenv = require('dotenv').config();
-const bodyParser = require('body-parser');
-const PORT = process.env.PORT || 4000;
-const cookieParser = require('cookie-parser');
-const morgan = require('morgan');
-const cors = require('cors');
+import express from 'express';
+import dbConnect from './config/dbConnect.js';
+import { notFound, errorHandler } from './middlewares/errorHandler.js';
+import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
+import cors from 'cors';
 
-const authRouter = require('./routes/authRoute');
-const productRouter = require('./routes/productRoute');
-const blogRouter = require('./routes/blogRoute');
-const categoryRouter = require('./routes/prodcategoryRoute');
-const blogCategoryRouter = require('./routes/blogCatRoute');
-const brandRouter = require('./routes/brandRoute');
-const colorRouter = require('./routes/colorRoute');
-const couponRouter = require('./routes/couponRoute');
-const enquiryRouter = require('./routes/enqRoute');
-const uploadRouter = require('./routes/uploadRoute');
+import authRouter from './routes/authRoute.js';
+import productRouter from './routes/productRoute.js';
+import blogRouter from './routes/blogRoute.js';
+import categoryRouter from './routes/prodcategoryRoute.js';
+import blogCategoryRouter from './routes/blogCatRoute.js';
+import brandRouter from './routes/brandRoute.js';
+import colorRouter from './routes/colorRoute.js';
+import couponRouter from './routes/couponRoute.js';
+import enquiryRouter from './routes/enqRoute.js';
+import uploadRouter from './routes/uploadRoute.js';
+
+dotenv.config();
+
+const PORT = process.env.PORT || 4000;
+const app = express();
+
 dbConnect();
 
 app.use(morgan('dev'));

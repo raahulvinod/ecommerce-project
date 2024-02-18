@@ -1,7 +1,7 @@
-const asyncHandler = require('express-async-handler');
+import asyncHandler from 'express-async-handler';
 
-import Brand from '../models/brandModel';
-import { validateMongoDbId } from '../utils/validateMongodbid';
+import Brand from '../models/brandModel.js';
+import { validateMongoDbId } from '../utils/validateMongodbid.js';
 
 export const createBrand = asyncHandler(async (req, res) => {
   try {

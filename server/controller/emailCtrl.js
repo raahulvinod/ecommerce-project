@@ -29,4 +29,4 @@ const sendEmail = asyncHandler(async (data, req, res) => {
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 });
 
-module.exports = sendEmail;
+export default sendEmail;

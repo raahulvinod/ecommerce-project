@@ -1,8 +1,8 @@
 import asyncHandler from 'express-async-handler';
 import slugify from 'slugify';
 
-import Product from '../models/productModel';
-import User from '../models/userModel';
+import Product from '../models/productModel.js';
+import User from '../models/userModel.js';
 
 // Create a product
 export const createProduct = asyncHandler(async (req, res) => {

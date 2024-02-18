@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 
-import Coupon from '../models/couponModel';
-import { validateMongoDbId } from '../utils/validateMongodbid';
+import Coupon from '../models/couponModel.js';
+import { validateMongoDbId } from '../utils/validateMongodbid.js';
 
 export const createCoupon = asyncHandler(async (req, res) => {
   try {

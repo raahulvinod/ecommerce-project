@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 
-import Enquiry from '../models/enqModel';
-import { validateMongoDbId } from '../utils/validateMongodbid';
+import Enquiry from '../models/enqModel.js';
+import { validateMongoDbId } from '../utils/validateMongodbid.js';
 
 export const createEnquiry = asyncHandler(async (req, res) => {
   try {

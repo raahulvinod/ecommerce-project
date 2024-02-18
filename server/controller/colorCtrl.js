@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 
-import Color from '../models/colorModel';
-import { validateMongoDbId } from '../utils/validateMongodbid';
+import Color from '../models/colorModel.js';
+import { validateMongoDbId } from '../utils/validateMongodbid.js';
 
 export const createColor = asyncHandler(async (req, res) => {
   try {

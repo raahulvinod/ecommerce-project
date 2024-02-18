@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 
-import Category from '../models/prodcategoryModel';
-import { validateMongoDbId } from '../utils/validateMongodbid';
+import Category from '../models/prodcategoryModel.js';
+import { validateMongoDbId } from '../utils/validateMongodbid.js';
 
 export const createCategory = asyncHandler(async (req, res) => {
   try {

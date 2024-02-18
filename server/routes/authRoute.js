@@ -1,4 +1,5 @@
 import express from 'express';
+
 import {
   createUser,
   loginUserCtrl,
@@ -86,4 +87,4 @@ router.put('/unblock-user/:id', authMiddleware, isAdmin, unblockUser);
 //   updateOrderStatus
 // );
 
-module.exports = router;
+export default router;

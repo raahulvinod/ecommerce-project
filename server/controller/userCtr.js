@@ -1,17 +1,13 @@
 import asyncHandler from 'express-async-handler';
-import { Jwt } from 'jsonwebtoken';
 import crypto from 'crypto';
-import uniqueId from 'uniqueid';
 
-import { generateToken } from '../config/jwtToken';
-import { generateRefreshToken } from '../config/refreshToken';
-import sendEmail from './emailCtrl';
-import { validateMongoDbId } from '../utils/validateMongodbid';
-import User from '../models/userModel';
-import Cart from '../models/cartModel';
-import Coupon from '../models/couponModel';
-import Order from '../models/orderModel';
-import Product from '../models/productModel';
+import { generateToken } from '../config/jwtToken.js';
+import { generateRefreshToken } from '../config/refreshToken.js';
+import sendEmail from './emailCtrl.js';
+import { validateMongoDbId } from '../utils/validateMongodbid.js';
+import User from '../models/userModel.js';
+import Cart from '../models/cartModel.js';
+import Order from '../models/orderModel.js';
 
 export const createUser = asyncHandler(async (req, res) => {
   const email = req.body.email;

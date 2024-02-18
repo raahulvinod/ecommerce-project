@@ -1,7 +1,10 @@
 import asyncHandler from 'express-async-handler';
 import fs from 'fs';
 
-import { cloudinaryUploadImg, cloudinaryDeleteImg } from '../utils/cloudinary';
+import {
+  cloudinaryUploadImg,
+  cloudinaryDeleteImg,
+} from '../utils/cloudinary.js';
 
 export const uploadImages = asyncHandler(async (req, res) => {
   try {

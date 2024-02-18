@@ -1,4 +1,5 @@
 import express from 'express';
+
 import { uploadImages, deleteImages } from '../controller/uploadCtrl.js';
 import { isAdmin, authMiddleware } from '../middlewares/authMiddleware.js';
 import { uploadPhoto, productImgResize } from '../middlewares/uploadImages.js';
