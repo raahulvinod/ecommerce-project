@@ -40,7 +40,11 @@ const ProductCard = ({ grid, data }) => {
                 </button>
               </div>
 
-              <div className="product-image">
+              <div
+                className="product-image"
+                onClick={() => navigate('/product/' + item?._id)}
+                style={{ cursor: 'pointer' }}
+              >
                 <img
                   src={item?.images[0]?.url}
                   alt="products"
