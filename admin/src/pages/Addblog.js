@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CustomInput from '../components/CustomInput';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -33,6 +33,9 @@ const Addblog = () => {
   const bCatState = useSelector((state) => state.bCategory.bCategories);
   const blogState = useSelector((state) => state.blog);
 
+  console.log('blogState', blogState);
+  console.log('imgState', imgState);
+
   const {
     isSuccess,
     isLoading,
@@ -45,16 +48,19 @@ const Addblog = () => {
     updatedBlog,
   } = blogState;
 
-  const img = [];
+  console.log('blog images', blogImages);
+
+  const img = useRef([]);
 
   useEffect(() => {
     if (getBlogId !== undefined) {
       dispatch(getABlog(getBlogId));
-      img.push(blogImages);
     } else {
       dispatch(resetState());
     }
   }, [getBlogId]);
+
+  console.log('img', img);
 
   useEffect(() => {
     dispatch(resetState());
@@ -74,12 +80,34 @@ const Addblog = () => {
     }
   }, [isSuccess, isLoading, isError]);
 
-  imgState.forEach((image) => {
-    img.push({
-      public_id: image.public_id,
-      url: image.url,
-    });
-  });
+  useEffect(() => {
+    if (getBlogId !== undefined) {
+      if (blogImages?.length > 0) {
+        // Update the img array when blogImages is updated
+        const updatedImg = [...img.current];
+        updatedImg.push(blogImages);
+        img.current = updatedImg;
+      }
+    }
+  }, [blogImages, getBlogId]);
+
+  // if (imgState) {
+  //   imgState?.forEach((image) => {
+  //     console.log('images', image);
+  //     img.current.push({
+  //       public_id: image?.public_id,
+  //       url: image?.url,
+  //     });
+  //   });
+  // }
+
+  useEffect(() => {
+    if (imgState.length) {
+      const updatedImg = [...img.current];
+      updatedImg.push(imgState);
+      img.current = updatedImg;
+    }
+  }, [imgState]);
 
   useEffect(() => {
     formik.values.images = img;
@@ -169,7 +197,7 @@ const Addblog = () => {
               onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
             >
               {({ getRootProps, getInputProps }) => (
-                <section>
+                <section style={{ cursor: 'pointer' }}>
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
                     <p>
@@ -181,7 +209,7 @@ const Addblog = () => {
             </Dropzone>
           </div>
           <div className="showimages d-flex flex-wrap gap-3">
-            {imgState?.map((image, index) => {
+            {img.current?.map((image, index) => {
               return (
                 <div key={index} className="position-relative">
                   <button
@@ -190,7 +218,12 @@ const Addblog = () => {
                     className="btn-close position-absolute"
                     style={{ top: '5px', right: '5px' }}
                   ></button>
-                  <img src={image.url} alt="" width={200} height={200} />
+                  <img
+                    src={image[index]?.url}
+                    alt=""
+                    width={200}
+                    height={200}
+                  />
                 </div>
               );
             })}
