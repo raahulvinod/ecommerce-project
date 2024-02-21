@@ -33,9 +33,6 @@ const Addblog = () => {
   const bCatState = useSelector((state) => state.bCategory.bCategories);
   const blogState = useSelector((state) => state.blog);
 
-  console.log('blogState', blogState);
-  console.log('imgState', imgState);
-
   const {
     isSuccess,
     isLoading,
@@ -48,8 +45,6 @@ const Addblog = () => {
     updatedBlog,
   } = blogState;
 
-  console.log('blog images', blogImages);
-
   const img = useRef([]);
 
   useEffect(() => {
@@ -59,8 +54,6 @@ const Addblog = () => {
       dispatch(resetState());
     }
   }, [getBlogId]);
-
-  console.log('img', img);
 
   useEffect(() => {
     dispatch(resetState());
@@ -83,35 +76,32 @@ const Addblog = () => {
   useEffect(() => {
     if (getBlogId !== undefined) {
       if (blogImages?.length > 0) {
-        // Update the img array when blogImages is updated
         const updatedImg = [...img.current];
-        updatedImg.push(blogImages);
+        updatedImg.push(
+          ...blogImages.map((image) => ({
+            public_id: image.public_id,
+            url: image.url,
+          }))
+        );
+        img.current = updatedImg;
+      }
+    } else {
+      if (imgState.length > 0) {
+        const updatedImg = [...img.current];
+        updatedImg.push(
+          ...imgState.map((image) => ({
+            public_id: image.public_id,
+            url: image.url,
+          }))
+        );
         img.current = updatedImg;
       }
     }
-  }, [blogImages, getBlogId]);
-
-  // if (imgState) {
-  //   imgState?.forEach((image) => {
-  //     console.log('images', image);
-  //     img.current.push({
-  //       public_id: image?.public_id,
-  //       url: image?.url,
-  //     });
-  //   });
-  // }
+  }, [blogImages, getBlogId, imgState]);
 
   useEffect(() => {
-    if (imgState.length) {
-      const updatedImg = [...img.current];
-      updatedImg.push(imgState);
-      img.current = updatedImg;
-    }
-  }, [imgState]);
-
-  useEffect(() => {
-    formik.values.images = img;
-  }, [imgState]);
+    formik.values.images = img.current;
+  }, [imgState, img.current, blogImages]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -124,12 +114,11 @@ const Addblog = () => {
     validationSchema: userSchema,
     onSubmit: (values) => {
       if (getBlogId !== undefined) {
-        console.log(values);
+        values.images = img.current;
         const data = { id: getBlogId, blogData: values };
         dispatch(updateABlog(data));
         dispatch(resetState());
       } else {
-        console.log(values);
         dispatch(createBlogs(values));
         formik.resetForm();
 
@@ -209,7 +198,7 @@ const Addblog = () => {
             </Dropzone>
           </div>
           <div className="showimages d-flex flex-wrap gap-3">
-            {img.current?.map((image, index) => {
+            {img.current.map((image, index) => {
               return (
                 <div key={index} className="position-relative">
                   <button
@@ -218,12 +207,7 @@ const Addblog = () => {
                     className="btn-close position-absolute"
                     style={{ top: '5px', right: '5px' }}
                   ></button>
-                  <img
-                    src={image[index]?.url}
-                    alt=""
-                    width={200}
-                    height={200}
-                  />
+                  <img src={image.url} alt="" width={200} height={200} />
                 </div>
               );
             })}
