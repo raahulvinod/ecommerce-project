@@ -56,7 +56,7 @@ const Productlist = () => {
       price: `₹ ${productState[i].price}`,
       actions: (
         <>
-          <Link to="/admin">
+          <Link to={`/admin/product/${productState[i]._id}`}>
             <FaRegEdit className="fs-3 text-danger" />
           </Link>
           <Link className="ms-3 fs-3 text-danger" to="/admin">

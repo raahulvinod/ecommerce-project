@@ -7,12 +7,17 @@ import { useFormik } from 'formik';
 import Dropzone from 'react-dropzone';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getBrands } from '../features/brand/brandSlice';
 import { getCategories } from '../features/pcategory/pcategorySlice';
 import { getcolors } from '../features/color/colorSlice';
 import { delImg, uploadImg } from '../features/upload/uploadSlice';
-import { createProducts, resetState } from '../features/product/productSlice';
+import {
+  createProducts,
+  getProduct,
+  resetState,
+  updateProducts,
+} from '../features/product/productSlice';
 
 let userSchema = Yup.object({
   title: Yup.string().required('Title is Required'),
@@ -29,9 +34,13 @@ let userSchema = Yup.object({
 
 const Addproduct = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const location = useLocation();
+
+  const productId = location.pathname.split('/')[3];
+
   const [color, setColor] = useState([]);
   const [images, setImages] = useState([]);
+  const [defaultColors, setDefaultColors] = useState([]);
 
   useEffect(() => {
     dispatch(getBrands());
@@ -39,13 +48,24 @@ const Addproduct = () => {
     dispatch(getcolors());
   }, []);
 
+  useEffect(() => {
+    if (productId !== undefined) {
+      dispatch(getProduct(productId));
+    } else {
+      dispatch(resetState());
+    }
+  }, [productId]);
+
   const brandState = useSelector((state) => state.brand.brands);
   const categoryState = useSelector((state) => state.pCategory.pCategories);
   const colorState = useSelector((state) => state.color.colors);
   const imgState = useSelector((state) => state.upload.images);
   const newProduct = useSelector((state) => state.product);
+  const productState = useSelector((state) => state.product.singleProduct);
 
   const { isSuccess, isLoading, isError, createdProduct } = newProduct;
+  const { title, tags, description, price, category, brand, quantity } =
+    productState || {};
 
   useEffect(() => {
     if (isSuccess && createdProduct) {
@@ -55,6 +75,16 @@ const Addproduct = () => {
       toast.error('something Went Wrong!');
     }
   }, [isSuccess, isLoading, isError]);
+
+  useEffect(() => {
+    if (productState?.color) {
+      const defaultColorIds = productState.color.map((color) => ({
+        label: color.title,
+        value: color._id,
+      }));
+      setDefaultColors(defaultColorIds);
+    }
+  }, [productState]);
 
   const colorOpt = [];
   colorState.forEach((color) => {
@@ -72,25 +102,24 @@ const Addproduct = () => {
     });
   });
 
-  useEffect(() => {
-    formik.values.color = color ? color : '';
-    formik.values.images = img;
-  }, [color, img]);
-
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      title: '',
-      description: '',
-      price: '',
-      brand: '',
-      category: '',
+      title: title || '',
+      description: description || '',
+      price: price || '',
+      brand: brand || '',
+      category: category || '',
       color: '',
-      quantity: '',
+      quantity: quantity || '',
       images: '',
-      tags: '',
+      tags: tags || '',
     },
     validationSchema: userSchema,
     onSubmit: (values) => {
+      values.color = color ? color : '';
+      values.images = img;
+
       dispatch(createProducts(values));
       formik.resetForm();
       setColor(null);
@@ -208,7 +237,7 @@ const Addproduct = () => {
             allowClear
             className="w-100"
             placeholder="select colors"
-            defaultValue={color}
+            value={defaultColors.map((color) => color.value)}
             onChange={(color) => handleColor(color)}
             options={colorOpt}
           />
