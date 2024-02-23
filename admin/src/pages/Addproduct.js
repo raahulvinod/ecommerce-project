@@ -39,9 +39,7 @@ const Addproduct = () => {
   const productId = location.pathname.split('/')[3];
 
   const [color, setColor] = useState([]);
-  const [images, setImages] = useState([]);
-
-  console.log(color);
+  const [image, setImage] = useState([]);
 
   useEffect(() => {
     // Fetch brands, categories, and colors
@@ -70,7 +68,7 @@ const Addproduct = () => {
   const productState = useSelector((state) => state.product.singleProduct);
 
   const { isSuccess, isLoading, isError, createdProduct } = newProduct;
-  const { title, tags, description, price, category, brand, quantity } =
+  const { title, tags, description, price, category, brand, quantity, images } =
     productState || {};
 
   useEffect(() => {
@@ -90,6 +88,14 @@ const Addproduct = () => {
       }));
       setColor(defaultColor);
     }
+
+    if (productState?.images) {
+      const defaultImages = productState.images.map((image) => ({
+        public_id: image.public_id,
+        url: image.url,
+      }));
+      setImage(defaultImages);
+    }
   }, [productState]);
 
   const colorOpt = [];
@@ -97,14 +103,6 @@ const Addproduct = () => {
     colorOpt.push({
       label: color.title,
       value: color._id,
-    });
-  });
-
-  const img = [];
-  imgState.forEach((image) => {
-    img.push({
-      public_id: image.public_id,
-      url: image.url,
     });
   });
 
@@ -118,26 +116,31 @@ const Addproduct = () => {
       category: category || '',
       color: color || '',
       quantity: quantity || '',
-      images: '',
+      images: image || '',
       tags: tags || '',
     },
     validationSchema: userSchema,
     onSubmit: (values) => {
-      values.color = color ? color : '';
-      values.images = img;
+      const colorValues = values.color.map((color) => color.value);
 
-      console.log('values', values);
+      const productData = {
+        ...values,
+        color: colorValues,
+      };
 
-      // dispatch(createProducts(values));
-      // formik.resetForm();
-      // setColor(null);
-      // setTimeout(() => {
-      //   dispatch(resetState());
-      // }, 3000);
+      if (productId !== undefined) {
+        dispatch(updateProducts({ id: productId, productData }));
+      } else {
+        dispatch(createProducts(values));
+        formik.resetForm();
+      }
+      setColor(null);
+      setImage([]);
+      setTimeout(() => {
+        dispatch(resetState());
+      }, 3000);
     },
   });
-
-  console.log('color', color);
 
   const handleColor = (e) => {
     setColor(e);
@@ -249,7 +252,6 @@ const Addproduct = () => {
             allowClear
             className="w-100"
             placeholder="select colors"
-            // value={defaultColors.map((color) => color.value)}
             value={color}
             onChange={(color) => handleColor(color)}
             options={colorOpt}
@@ -271,10 +273,19 @@ const Addproduct = () => {
           </div>
           <div className="bg-white border-1 p-5 text-center my-3">
             <Dropzone
-              onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
+              // onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
+              onDrop={(acceptedFiles) => {
+                dispatch(uploadImg(acceptedFiles)).then(() => {
+                  const newImages = acceptedFiles.map((file) => ({
+                    public_id: file.public_id,
+                    url: URL.createObjectURL(file),
+                  }));
+                  setImage((prevImages) => [...prevImages, ...newImages]);
+                });
+              }}
             >
               {({ getRootProps, getInputProps }) => (
-                <section>
+                <section style={{ cursor: 'pointer' }}>
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
                     <p>
@@ -286,7 +297,7 @@ const Addproduct = () => {
             </Dropzone>
           </div>
           <div className="showimages d-flex flex-wrap gap-3">
-            {imgState?.map((image, index) => {
+            {image?.map((image, index) => {
               return (
                 <div key={index} className="position-relative">
                   <button
@@ -301,7 +312,7 @@ const Addproduct = () => {
             })}
           </div>
           <button type="submit" className="button w-100 my-4 px-3">
-            Add Product
+            {productId !== undefined ? 'Edit Product' : 'Add Product'}
           </button>
         </form>
       </div>
