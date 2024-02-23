@@ -40,21 +40,27 @@ const Addproduct = () => {
 
   const [color, setColor] = useState([]);
   const [images, setImages] = useState([]);
-  const [defaultColors, setDefaultColors] = useState([]);
+
+  console.log(color);
 
   useEffect(() => {
+    // Fetch brands, categories, and colors
     dispatch(getBrands());
     dispatch(getCategories());
     dispatch(getcolors());
-  }, []);
 
-  useEffect(() => {
+    // If productId is defined, fetch product details
     if (productId !== undefined) {
       dispatch(getProduct(productId));
     } else {
       dispatch(resetState());
     }
-  }, [productId]);
+
+    // Cleanup function to reset color state when unmounting
+    return () => {
+      setColor([]);
+    };
+  }, [dispatch, productId]);
 
   const brandState = useSelector((state) => state.brand.brands);
   const categoryState = useSelector((state) => state.pCategory.pCategories);
@@ -78,11 +84,11 @@ const Addproduct = () => {
 
   useEffect(() => {
     if (productState?.color) {
-      const defaultColorIds = productState.color.map((color) => ({
+      const defaultColor = productState.color.map((color) => ({
         label: color.title,
         value: color._id,
       }));
-      setDefaultColors(defaultColorIds);
+      setColor(defaultColor);
     }
   }, [productState]);
 
@@ -110,7 +116,7 @@ const Addproduct = () => {
       price: price || '',
       brand: brand || '',
       category: category || '',
-      color: '',
+      color: color || '',
       quantity: quantity || '',
       images: '',
       tags: tags || '',
@@ -120,14 +126,18 @@ const Addproduct = () => {
       values.color = color ? color : '';
       values.images = img;
 
-      dispatch(createProducts(values));
-      formik.resetForm();
-      setColor(null);
-      setTimeout(() => {
-        dispatch(resetState());
-      }, 3000);
+      console.log('values', values);
+
+      // dispatch(createProducts(values));
+      // formik.resetForm();
+      // setColor(null);
+      // setTimeout(() => {
+      //   dispatch(resetState());
+      // }, 3000);
     },
   });
+
+  console.log('color', color);
 
   const handleColor = (e) => {
     setColor(e);
@@ -135,7 +145,9 @@ const Addproduct = () => {
 
   return (
     <div>
-      <h3 className="mb-4 title">Add Product</h3>
+      <h3 className="mb-4 title">
+        {productId !== undefined ? 'Edit Product' : 'Add Product'}
+      </h3>
       <div>
         <form onSubmit={formik.handleSubmit}>
           <CustomInput
@@ -237,7 +249,8 @@ const Addproduct = () => {
             allowClear
             className="w-100"
             placeholder="select colors"
-            value={defaultColors.map((color) => color.value)}
+            // value={defaultColors.map((color) => color.value)}
+            value={color}
             onChange={(color) => handleColor(color)}
             options={colorOpt}
           />
