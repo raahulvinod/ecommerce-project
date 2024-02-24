@@ -29,6 +29,8 @@ const Addblog = () => {
   const location = useLocation();
   const getBlogId = location.pathname.split('/')[3];
 
+  const [image, setImage] = useState([]);
+
   const imgState = useSelector((state) => state.upload.images);
   const bCatState = useSelector((state) => state.bCategory.bCategories);
   const blogState = useSelector((state) => state.blog);
@@ -45,20 +47,33 @@ const Addblog = () => {
     updatedBlog,
   } = blogState;
 
-  const img = useRef([]);
-
   useEffect(() => {
+    // Fetch blog categories
+    dispatch(getBlogCategories());
+    dispatch(resetState());
+
+    // If blogId is defined, fetch blog details
     if (getBlogId !== undefined) {
       dispatch(getABlog(getBlogId));
     } else {
       dispatch(resetState());
     }
-  }, [getBlogId]);
+
+    // Cleanup function to reset image state when unmounting
+    return () => {
+      setImage([]);
+    };
+  }, [dispatch, getBlogId]);
 
   useEffect(() => {
-    dispatch(resetState());
-    dispatch(getBlogCategories());
-  }, []);
+    if (blogState?.blogImages) {
+      const defaultImages = blogState.blogImages.map((image) => ({
+        public_id: image.public_id,
+        url: image.url,
+      }));
+      setImage(defaultImages);
+    }
+  }, [blogState]);
 
   useEffect(() => {
     if (isSuccess && createdBlog) {
@@ -66,42 +81,11 @@ const Addblog = () => {
     }
     if (isSuccess && updatedBlog) {
       toast.success('Blog Updated Successfully!');
-      navigate('/admin/blog-list');
     }
     if (isError) {
       toast.error('something Went Wrong!');
     }
   }, [isSuccess, isLoading, isError]);
-
-  useEffect(() => {
-    if (getBlogId !== undefined) {
-      if (blogImages?.length > 0) {
-        const updatedImg = [...img.current];
-        updatedImg.push(
-          ...blogImages.map((image) => ({
-            public_id: image.public_id,
-            url: image.url,
-          }))
-        );
-        img.current = updatedImg;
-      }
-    } else {
-      if (imgState.length > 0) {
-        const updatedImg = [...img.current];
-        updatedImg.push(
-          ...imgState.map((image) => ({
-            public_id: image.public_id,
-            url: image.url,
-          }))
-        );
-        img.current = updatedImg;
-      }
-    }
-  }, [blogImages, getBlogId, imgState]);
-
-  useEffect(() => {
-    formik.values.images = img.current;
-  }, [imgState, img.current, blogImages]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -109,23 +93,23 @@ const Addblog = () => {
       title: blogName || '',
       description: blogDescription || '',
       category: blogCategory || '',
-      images: '',
+      images: image || '',
     },
     validationSchema: userSchema,
     onSubmit: (values) => {
       if (getBlogId !== undefined) {
-        values.images = img.current;
         const data = { id: getBlogId, blogData: values };
         dispatch(updateABlog(data));
-        dispatch(resetState());
       } else {
         dispatch(createBlogs(values));
         formik.resetForm();
-
-        setTimeout(() => {
-          dispatch(resetState());
-        }, 300);
       }
+
+      setImage([]);
+      setTimeout(() => {
+        dispatch(resetState());
+        navigate('/admin/blog-list');
+      }, 3000);
     },
   });
 
@@ -183,7 +167,15 @@ const Addblog = () => {
           </div>
           <div className="bg-white border-1 p-5 text-center my-3">
             <Dropzone
-              onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
+              onDrop={(acceptedFiles) => {
+                dispatch(uploadImg(acceptedFiles)).then(() => {
+                  const newImages = acceptedFiles.map((file) => ({
+                    public_id: file.public_id,
+                    url: URL.createObjectURL(file),
+                  }));
+                  setImage((prevImages) => [...prevImages, ...newImages]);
+                });
+              }}
             >
               {({ getRootProps, getInputProps }) => (
                 <section style={{ cursor: 'pointer' }}>
@@ -198,7 +190,7 @@ const Addblog = () => {
             </Dropzone>
           </div>
           <div className="showimages d-flex flex-wrap gap-3">
-            {img.current.map((image, index) => {
+            {image?.map((image, index) => {
               return (
                 <div key={index} className="position-relative">
                   <button

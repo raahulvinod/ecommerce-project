@@ -284,7 +284,6 @@ const Addproduct = () => {
           </div>
           <div className="bg-white border-1 p-5 text-center my-3">
             <Dropzone
-              // onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
               onDrop={(acceptedFiles) => {
                 dispatch(uploadImg(acceptedFiles)).then(() => {
                   const newImages = acceptedFiles.map((file) => ({
