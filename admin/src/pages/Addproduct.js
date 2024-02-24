@@ -34,6 +34,7 @@ let userSchema = Yup.object({
 
 const Addproduct = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const productId = location.pathname.split('/')[3];
@@ -57,6 +58,7 @@ const Addproduct = () => {
     // Cleanup function to reset color state when unmounting
     return () => {
       setColor([]);
+      setImage([]);
     };
   }, [dispatch, productId]);
 
@@ -67,14 +69,20 @@ const Addproduct = () => {
   const newProduct = useSelector((state) => state.product);
   const productState = useSelector((state) => state.product.singleProduct);
 
-  const { isSuccess, isLoading, isError, createdProduct } = newProduct;
-  const { title, tags, description, price, category, brand, quantity, images } =
+  const { isSuccess, isLoading, isError, createdProduct, updatedProduct } =
+    newProduct;
+  const { title, tags, description, price, category, brand, quantity } =
     productState || {};
 
   useEffect(() => {
     if (isSuccess && createdProduct) {
       toast.success('Product Added Successfully!');
     }
+
+    if (isSuccess && updatedProduct) {
+      toast.success('Product updated Successfully!');
+    }
+
     if (isError) {
       toast.error('something Went Wrong!');
     }
@@ -134,10 +142,13 @@ const Addproduct = () => {
         dispatch(createProducts(values));
         formik.resetForm();
       }
+
       setColor(null);
       setImage([]);
+
       setTimeout(() => {
         dispatch(resetState());
+        navigate('/admin/list-product');
       }, 3000);
     },
   });
