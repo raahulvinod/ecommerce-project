@@ -9,7 +9,6 @@ const getBlogs = async () => {
 };
 
 const createBlog = async (blog) => {
-  // console.log(blog);
   const response = await axios.post(`${base_url}blog/`, blog, config);
 
   return response.data;

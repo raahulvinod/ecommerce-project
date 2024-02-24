@@ -45,6 +45,17 @@ export const updateProducts = createAsyncThunk(
   }
 );
 
+export const deleteProducts = createAsyncThunk(
+  'product/delete-products',
+  async (id, thunkAPI) => {
+    try {
+      return await productService.deleteProduct(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const resetState = createAction('Reset_all');
 
 const initialState = {
@@ -116,6 +127,21 @@ export const productSlice = createSlice({
         state.singleProduct = action.payload;
       })
       .addCase(getProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(deleteProducts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.deletedProduct = action.payload;
+      })
+      .addCase(deleteProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

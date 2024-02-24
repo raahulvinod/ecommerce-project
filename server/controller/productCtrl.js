@@ -40,10 +40,10 @@ export const updateProduct = asyncHandler(async (req, res) => {
 
 // Delete a product
 export const deleteProduct = asyncHandler(async (req, res) => {
-  const id = req.params._id;
+  const { id } = req.params;
 
   try {
-    const deleteProduct = await Product.findOneAndDelete(id);
+    const deleteProduct = await Product.findByIdAndDelete(id);
     res.json(deleteProduct);
   } catch (error) {
     throw new Error(error);

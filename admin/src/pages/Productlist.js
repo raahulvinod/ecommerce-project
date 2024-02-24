@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
-import { getProducts } from '../features/product/productSlice';
+import { deleteProducts, getProducts } from '../features/product/productSlice';
 import { Link } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
+
+import CustomModal from '../components/CustomModal';
 
 const columns = [
   {
@@ -39,7 +41,20 @@ const columns = [
 ];
 
 const Productlist = () => {
+  const [open, setOpen] = useState(false);
+  const [productId, setProductId] = useState('');
+
   const dispatch = useDispatch();
+
+  const showModal = (e) => {
+    setOpen(true);
+    setProductId(e);
+  };
+
+  const hideModal = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     dispatch(getProducts());
   }, []);
@@ -59,13 +74,24 @@ const Productlist = () => {
           <Link to={`/admin/product/${productState[i]._id}`}>
             <FaRegEdit className="fs-3 text-danger" />
           </Link>
-          <Link className="ms-3 fs-3 text-danger" to="/admin">
+          <button
+            className="ms-3 fs-3 text-danger border-0 bg-transparent"
+            onClick={() => showModal(productState[i]._id)}
+          >
             <AiFillDelete />
-          </Link>
+          </button>
         </>
       ),
     });
   }
+
+  const deleteProduct = (e) => {
+    dispatch(deleteProducts(e));
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getProducts());
+    }, 100);
+  };
 
   return (
     <div>
@@ -73,6 +99,12 @@ const Productlist = () => {
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModal
+        title="Are you sure want to delete this product?"
+        hideModal={hideModal}
+        open={open}
+        performAction={() => deleteProduct(productId)}
+      />
     </div>
   );
 };
