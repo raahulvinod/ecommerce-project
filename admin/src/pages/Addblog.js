@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
-import CustomInput from '../components/CustomInput';
+import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import Dropzone from 'react-dropzone';
-import { delImg, uploadImg } from '../features/upload/uploadSlice';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import Dropzone from 'react-dropzone';
+import CustomInput from '../components/CustomInput';
+import { delImg, uploadImg } from '../features/upload/uploadSlice';
 import { toast } from 'react-toastify';
 import {
   createBlogs,
@@ -31,7 +32,6 @@ const Addblog = () => {
 
   const [image, setImage] = useState([]);
 
-  const imgState = useSelector((state) => state.upload.images);
   const bCatState = useSelector((state) => state.bCategory.bCategories);
   const blogState = useSelector((state) => state.blog);
 
@@ -43,7 +43,6 @@ const Addblog = () => {
     blogName,
     blogDescription,
     blogCategory,
-    blogImages,
     updatedBlog,
   } = blogState;
 
@@ -190,16 +189,23 @@ const Addblog = () => {
             </Dropzone>
           </div>
           <div className="showimages d-flex flex-wrap gap-3">
-            {image?.map((image, index) => {
+            {image?.map((blogImage, index) => {
               return (
                 <div key={index} className="position-relative">
                   <button
                     type="button"
-                    onClick={() => dispatch(delImg(image.public_id))}
+                    onClick={() =>
+                      dispatch(delImg(blogImage.public_id)).then(() => {
+                        const updatedImage = image?.filter(
+                          (img) => img.public_id !== blogImage.public_id
+                        );
+                        setImage(updatedImage);
+                      })
+                    }
                     className="btn-close position-absolute"
                     style={{ top: '5px', right: '5px' }}
                   ></button>
-                  <img src={image.url} alt="" width={200} height={200} />
+                  <img src={blogImage.url} alt="" width={200} height={200} />
                 </div>
               );
             })}

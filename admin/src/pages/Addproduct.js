@@ -156,8 +156,6 @@ const Addproduct = () => {
     setColor(e);
   };
 
-  console.log(image);
-
   return (
     <div>
       <h3 className="mb-4 title">
