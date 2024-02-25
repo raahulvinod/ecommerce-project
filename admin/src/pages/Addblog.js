@@ -103,9 +103,9 @@ const Addblog = () => {
       } else {
         dispatch(createBlogs(values));
         formik.resetForm();
+        setImage([]);
       }
 
-      setImage([]);
       setTimeout(() => {
         dispatch(resetState());
         navigate('/admin/blog-list');
@@ -168,10 +168,10 @@ const Addblog = () => {
           <div className="bg-white border-1 p-5 text-center my-3">
             <Dropzone
               onDrop={(acceptedFiles) => {
-                dispatch(uploadImg(acceptedFiles)).then(() => {
-                  const newImages = acceptedFiles.map((file) => ({
+                dispatch(uploadImg(acceptedFiles)).then(({ payload }) => {
+                  const newImages = payload.map((file) => ({
                     public_id: file.public_id,
-                    url: URL.createObjectURL(file),
+                    url: file.url,
                   }));
                   setImage((prevImages) => [...prevImages, ...newImages]);
                 });

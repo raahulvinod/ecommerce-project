@@ -141,10 +141,9 @@ const Addproduct = () => {
       } else {
         dispatch(createProducts(values));
         formik.resetForm();
+        setColor(null);
+        setImage([]);
       }
-
-      setColor(null);
-      setImage([]);
 
       setTimeout(() => {
         dispatch(resetState());
@@ -156,6 +155,8 @@ const Addproduct = () => {
   const handleColor = (e) => {
     setColor(e);
   };
+
+  console.log(image);
 
   return (
     <div>
@@ -285,10 +286,10 @@ const Addproduct = () => {
           <div className="bg-white border-1 p-5 text-center my-3">
             <Dropzone
               onDrop={(acceptedFiles) => {
-                dispatch(uploadImg(acceptedFiles)).then(() => {
-                  const newImages = acceptedFiles.map((file) => ({
+                dispatch(uploadImg(acceptedFiles)).then(({ payload }) => {
+                  const newImages = payload.map((file) => ({
                     public_id: file.public_id,
-                    url: URL.createObjectURL(file),
+                    url: file.url,
                   }));
                   setImage((prevImages) => [...prevImages, ...newImages]);
                 });
