@@ -308,16 +308,23 @@ const Addproduct = () => {
             </Dropzone>
           </div>
           <div className="showimages d-flex flex-wrap gap-3">
-            {image?.map((image, index) => {
+            {image?.map((prodImage, index) => {
               return (
                 <div key={index} className="position-relative">
                   <button
                     type="button"
-                    onClick={() => dispatch(delImg(image.public_id))}
+                    onClick={() => {
+                      dispatch(delImg(prodImage.public_id)).then(() => {
+                        const updatedImage = image?.filter(
+                          (img) => img.public_id !== prodImage.public_id
+                        );
+                        setImage(updatedImage);
+                      });
+                    }}
                     className="btn-close position-absolute"
                     style={{ top: '5px', right: '5px' }}
                   ></button>
-                  <img src={image.url} alt="" width={200} height={200} />
+                  <img src={prodImage.url} alt="" width={200} height={200} />
                 </div>
               );
             })}
