@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { BiArrowBack } from 'react-icons/bi';
+
 import {
   getAEnquiry,
   resetState,
   updateAEnquiry,
 } from '../features/enquiry/enquirySlice';
-import { BiArrowBack } from 'react-icons/bi';
 
 const ViewEnquiry = () => {
   const location = useLocation();

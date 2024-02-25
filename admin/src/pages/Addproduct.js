@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import CustomInput from '../components/CustomInput';
 import ReactQuill from 'react-quill';
 import { toast } from 'react-toastify';
 import { Select } from 'antd';
@@ -8,6 +7,8 @@ import Dropzone from 'react-dropzone';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import CustomInput from '../components/CustomInput';
 import { getBrands } from '../features/brand/brandSlice';
 import { getCategories } from '../features/pcategory/pcategorySlice';
 import { getcolors } from '../features/color/colorSlice';
@@ -65,7 +66,6 @@ const Addproduct = () => {
   const brandState = useSelector((state) => state.brand.brands);
   const categoryState = useSelector((state) => state.pCategory.pCategories);
   const colorState = useSelector((state) => state.color.colors);
-  const imgState = useSelector((state) => state.upload.images);
   const newProduct = useSelector((state) => state.product);
   const productState = useSelector((state) => state.product.singleProduct);
 

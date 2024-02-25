@@ -1,6 +1,7 @@
 import React from 'react';
-import CustomInput from '../components/CustomInput';
 import { Link } from 'react-router-dom';
+
+import CustomInput from '../components/CustomInput';
 
 const Resetpassword = () => {
   return (

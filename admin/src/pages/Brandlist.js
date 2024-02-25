@@ -9,6 +9,7 @@ import {
 import { AiFillDelete } from 'react-icons/ai';
 import { FaRegEdit } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+
 import CustomModal from '../components/CustomModal';
 
 const columns = [

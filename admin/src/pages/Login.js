@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   getMonthlyData,
   getOrders,
@@ -11,7 +12,7 @@ import {
   login,
 } from '../features/auth/authSlice';
 
-let userSchema = Yup.object({
+const userSchema = Yup.object({
   email: Yup.string()
     .email('Invalid email address')
     .required('Email is Required'),

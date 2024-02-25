@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import CustomInput from '../components/CustomInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import {
   createCoupons,
   getACoupon,
   resetState,
   updateACoupon,
 } from '../features/coupon/couponSlice';
-import { useLocation, useNavigate } from 'react-router-dom';
+import CustomInput from '../components/CustomInput';
 
 let userSchema = Yup.object({
   name: Yup.string().required('Coupon name is required'),

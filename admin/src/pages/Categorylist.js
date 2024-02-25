@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  deleteAProductCategory,
-  getCategories,
-} from '../features/pcategory/pcategorySlice';
 import { Link } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
 import CustomModal from '../components/CustomModal';
 import { resetState } from '../features/brand/brandSlice';
+
+import {
+  deleteAProductCategory,
+  getCategories,
+} from '../features/pcategory/pcategorySlice';
 
 const columns = [
   {

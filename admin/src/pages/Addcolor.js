@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import CustomInput from '../components/CustomInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+
+import CustomInput from '../components/CustomInput';
 import {
   createColor,
   getAColor,

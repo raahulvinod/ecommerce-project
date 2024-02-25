@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   deleteAColor,
   getcolors,

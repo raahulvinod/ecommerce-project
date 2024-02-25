@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AiFillDelete } from 'react-icons/ai';
 import { FaRegEdit } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { deleteACoupon, getCoupons } from '../features/coupon/couponSlice';
-import CustomModal from '../components/CustomModal';
 import { resetState } from '../features/brand/brandSlice';
+
+import CustomModal from '../components/CustomModal';
+import { deleteACoupon, getCoupons } from '../features/coupon/couponSlice';
 
 const columns = [
   {
