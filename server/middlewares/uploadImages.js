@@ -13,7 +13,7 @@ const uploadDirectory =
 
 export const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/opt/render/project/src/public/images/');
+    cb(null, uploadDirectory);
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -25,7 +25,7 @@ export const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image')) {
     cb(null, true);
   } else {
-    cb({ message: 'Unsupported file format' }, false);
+    cb(new Error('Unsupported file format'), false); // Use Error constructor for consistent error handling
   }
 };
 
@@ -36,31 +36,43 @@ export const uploadPhoto = multer({
 });
 
 export const productImgResize = async (req, res, next) => {
-  if (!req.file) return next();
-  await Promise.all(
-    req.files.map(async (file) => {
-      await sharp(file.path)
-        .resize(300, 300)
-        .toFormat('jpeg')
-        .jpeg({ quality: 90 })
-        .toFile(`public/images/products/${file.filename}`);
-      fs.unlinkSync(`public/images/products/${file.filename}`);
-    })
-  );
-  next();
+  try {
+    if (!req.file) return next();
+
+    await Promise.all(
+      req.files.map(async (file) => {
+        await sharp(file.path)
+          .resize(300, 300)
+          .toFormat('jpeg')
+          .jpeg({ quality: 90 })
+          .toFile(path.join(uploadDirectory, 'products', file.filename)); // Use path.join to ensure correct directory structure
+        fs.unlinkSync(file.path);
+      })
+    );
+
+    next();
+  } catch (err) {
+    next(err); // Forward the error to the error handler
+  }
 };
 
 export const blogImgResize = async (req, res, next) => {
-  if (!req.file) return next();
-  await Promise.all(
-    req.files.map(async (file) => {
-      await sharp(file.path)
-        .resize(300, 300)
-        .toFormat('jpeg')
-        .jpeg({ quality: 90 })
-        .toFile(`public/images/blogs/${file.filename}`);
-      fs.unlinkSync(`public/images/blogs/${file.filename}`);
-    })
-  );
-  next();
+  try {
+    if (!req.file) return next();
+
+    await Promise.all(
+      req.files.map(async (file) => {
+        await sharp(file.path)
+          .resize(300, 300)
+          .toFormat('jpeg')
+          .jpeg({ quality: 90 })
+          .toFile(path.join(uploadDirectory, 'blogs', file.filename)); // Use path.join to ensure correct directory structure
+        fs.unlinkSync(file.path);
+      })
+    );
+
+    next();
+  } catch (err) {
+    next(err); // Forward the error to the error handler
+  }
 };
