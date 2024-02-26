@@ -13,7 +13,7 @@ const uploadDirectory =
 
 export const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadDirectory);
+    cb(null, '/opt/render/project/src/public/images/');
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
