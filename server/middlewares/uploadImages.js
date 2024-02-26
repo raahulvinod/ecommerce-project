@@ -33,18 +33,30 @@ export const uploadPhoto = multer({
 });
 
 export const productImgResize = async (req, res, next) => {
-  if (!req.file) return next();
-  await Promise.all(
-    req.files.map(async (file) => {
-      await sharp(file.path)
-        .resize(300, 300)
-        .toFormat('jpeg')
-        .jpeg({ quality: 90 })
-        .toFile(`public/images/products/${file.filename}`);
-      fs.unlinkSync(`public/images/products/${file.filename}`);
-    })
-  );
-  next();
+  try {
+    if (!req.file) return next();
+
+    await Promise.all(
+      req.files.map(async (file) => {
+        const inputPath = file.path;
+        const outputPath = `public/images/products/${file.filename}`;
+
+        await sharp(inputPath)
+          .resize(300, 300)
+          .toFormat('jpeg')
+          .jpeg({ quality: 90 })
+          .toFile(outputPath);
+
+        // Remove the original uploaded file
+        fs.unlinkSync(inputPath);
+      })
+    );
+
+    next();
+  } catch (err) {
+    console.error('Error resizing product image:', err);
+    next(err); // Forward the error to the next middleware
+  }
 };
 
 export const blogImgResize = async (req, res, next) => {
