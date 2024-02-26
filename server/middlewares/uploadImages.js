@@ -8,9 +8,12 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const uploadDirectory =
+  process.env.UPLOAD_DIRECTORY || path.join(__dirname, '../public/images/');
+
 export const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '../public/images/'));
+    cb(null, uploadDirectory);
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
