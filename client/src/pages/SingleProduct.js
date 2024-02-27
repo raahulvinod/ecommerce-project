@@ -62,7 +62,13 @@ const SingleProduct = () => {
           color,
           quantity,
         })
-      );
+      ).then(() => {
+        // Dispatch an action to fetch the latest cart state
+        dispatch(getUserCart());
+        // Reset color and quantity after successful addition to cart
+        setColor(null);
+        setQuantity(1);
+      });
     }
   };
 
