@@ -162,11 +162,7 @@ const SingleProduct = () => {
                   Write a Review
                 </a>
               </div>
-              <div className="py-3">
-                <div className="d-flex gap-10 align-items-center mt-2 mb-3">
-                  <h3 className="product-heading">Type:</h3>
-                  <p className="product-data">Watch</p>
-                </div>
+              <div className="py-2">
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Brand:</h3>
                   <p className="product-data">{productState?.brand}</p>

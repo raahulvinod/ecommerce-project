@@ -150,12 +150,6 @@ const Cart = () => {
           <div className="col-12 py-2 mt-4">
             <div className="d-flex flex-column justify-content-center align-items-center">
               {userCartState?.length !== 0 && (
-                <Link to="/" className="button mb-4 text-center">
-                  Continue To Shopping
-                </Link>
-              )}
-
-              {totalAmount !== 0 && (
                 <div className="total-amount text-center mb-2">
                   <h4>Total Amount: ₹ {totalAmount}</h4>
                   <p className="small-text">
@@ -165,8 +159,14 @@ const Cart = () => {
               )}
 
               {userCartState?.length !== 0 && (
-                <Link to="/checkout" className="button text-center">
+                <Link to="/checkout" className="button text-center mb-2">
                   Checkout
+                </Link>
+              )}
+
+              {userCartState?.length !== 0 && (
+                <Link to="/" className="button mb-4 text-center">
+                  Continue To Shopping
                 </Link>
               )}
             </div>

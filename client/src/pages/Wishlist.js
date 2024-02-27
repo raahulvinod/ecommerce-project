@@ -25,7 +25,6 @@ const Wishlist = () => {
 
   const removeFromWislist = (id) => {
     dispatch(addToWishlist(id));
-    toast.success('Item removed form wishlist');
     setTimeout(() => {
       dispatch(getUserProductWishlist());
     }, 300);
