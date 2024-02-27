@@ -11,41 +11,47 @@ const __dirname = dirname(__filename);
 const uploadDirectory =
   process.env.UPLOAD_DIRECTORY || path.join(__dirname, '../public/images/');
 
+const tempDir = path.join(__dirname, '../tmp/uploads');
 
-export const multerStorage = multer.diskStorage({
+if (!fs.existsSync(tempDir)) {
+  try {
+    fs.mkdirSync(tempDir, { recursive: true }); // Create directories recursively
+  } catch (error) {
+    console.error('Failed to create temporary directory:', error);
+    // Handle directory creation error appropriately (e.g., exit process)
+  }
+}
+
+const uploadStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadDirectory);
+    cb(null, tempDir);
   },
   filename: function (req, file, cb) {
+    // Sanitize filename before using it (replace with appropriate sanitization logic)
+    const sanitizedFilename = path
+      .parse(file.originalname)
+      .name.replace(/[^a-z0-9.-]/gi, '_');
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + '.jpeg');
+    cb(null, sanitizedFilename + '-' + uniqueSuffix + '.jpeg');
   },
 });
 
-export const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image')) {
-    cb(null, true);
-  } else {
-    cb({ message: 'Unsupported file format' }, false);
-  }
-};
-
-export const uploadPhoto = multer({
-  storage: multerStorage,
-  fileFilter: multerFilter,
-  limits: { fieldSize: 2000000 },
-});
+export const uploadPhoto = multer({ storage: uploadStorage });
 
 export const productImgResize = async (req, res, next) => {
   if (!req.file) return next();
   await Promise.all(
     req.files.map(async (file) => {
-      await sharp(file.path)
-        .resize(300, 300)
-        .toFormat('jpeg')
-        .jpeg({ quality: 90 })
-        .toFile(`public/images/products/${file.filename}`);
-      fs.unlinkSync(`public/images/products/${file.filename}`);
+      try {
+        await sharp(file.path)
+          .resize(300, 300)
+          .toFormat('jpeg')
+          .jpeg({ quality: 90 })
+          .toFile(`public/images/products/${file.filename}`);
+        fs.unlinkSync(file.path);
+      } catch (error) {
+        console.error('Error during image processing:', error);
+      }
     })
   );
   next();
@@ -55,12 +61,16 @@ export const blogImgResize = async (req, res, next) => {
   if (!req.file) return next();
   await Promise.all(
     req.files.map(async (file) => {
-      await sharp(file.path)
-        .resize(300, 300)
-        .toFormat('jpeg')
-        .jpeg({ quality: 90 })
-        .toFile(`public/images/blogs/${file.filename}`);
-      fs.unlinkSync(`public/images/blogs/${file.filename}`);
+      try {
+        await sharp(file.path)
+          .resize(300, 300)
+          .toFormat('jpeg')
+          .jpeg({ quality: 90 })
+          .toFile(`public/images/blogs/${file.filename}`);
+        fs.unlinkSync(file.path);
+      } catch (error) {
+        console.error('Error during image processing:', error);
+      }
     })
   );
   next();
