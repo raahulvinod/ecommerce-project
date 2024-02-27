@@ -10,6 +10,7 @@ import axios from 'axios';
 import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
 import { config } from '../utils/AxiosConfig';
+import { base_url } from '../utils/AxiosConfig';
 import {
   createAnOrder,
   deleteUserCart,
@@ -91,7 +92,7 @@ const Checkout = () => {
       return;
     }
     const result = await axios.post(
-      'http://localhost:5000/api/user/order/checkout',
+      `${base_url}user/order/checkout`,
       { amount: totalAmount },
       config
     );

@@ -10,7 +10,6 @@ import { toast } from 'react-toastify';
 
 import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
-import ProductCard from '../components/ProductCard';
 import Color from '../components/Color';
 import Container from '../components/Container';
 import {
@@ -19,7 +18,6 @@ import {
   getAllProducts,
 } from '../features/products/productSlice';
 import { addProdToCart, getUserCart } from '../features/user/userSlice';
-import FeaturedProduct from '../components/SimilarProduct';
 import SimilarProduct from '../components/SimilarProduct';
 
 const SingleProduct = () => {
@@ -65,7 +63,6 @@ const SingleProduct = () => {
           quantity,
         })
       );
-      navigate('/cart');
     }
   };
 

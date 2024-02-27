@@ -6,7 +6,8 @@ import BreadCrumb from '../components/BreadCrumb';
 import Container from '../components/Container';
 import { getUserProductWishlist } from '../features/user/userSlice';
 import { addToWishlist } from '../features/products/productSlice';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Wishlist = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const Wishlist = () => {
 
   const removeFromWislist = (id) => {
     dispatch(addToWishlist(id));
+    toast.success('Item removed form wishlist');
     setTimeout(() => {
       dispatch(getUserProductWishlist());
     }, 300);

@@ -4,6 +4,7 @@ import Marquee from 'react-fast-marquee';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import ReactStars from 'react-rating-stars-component';
+import { toast } from 'react-toastify';
 
 import BlogCard from '../components/BlogCard';
 import SpecialProduct from '../components/SpecialProduct';
@@ -38,6 +39,7 @@ const Home = () => {
 
   const addToWish = (id) => {
     dispatch(addToWishlist(id));
+    toast.success('Item added to wishlist!');
   };
 
   const getCartItems = () => {
