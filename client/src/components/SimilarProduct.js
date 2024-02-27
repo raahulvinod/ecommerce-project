@@ -38,7 +38,7 @@ const SimilarProduct = ({ productData }) => {
 
                   <div
                     className="product-image"
-                    onClick={() => navigate('/product/' + item?._id)}
+                    onClick={() => navigate(`/product/${item?._id}`)}
                   >
                     <img
                       src={item?.images[0]?.url}
@@ -70,14 +70,14 @@ const SimilarProduct = ({ productData }) => {
                       </button>
                       <button className="border-0 bg-transparent">
                         <img
-                          onClick={() => navigate('/product/' + item?._id)}
+                          onClick={() => navigate(`/product/${item?._id}`)}
                           src={view}
                           alt="view"
                         />
                       </button>
-                      <button className="border-0 bg-transparent">
+                      {/* <button className="border-0 bg-transparent">
                         <img src={addcart} alt="addcart" />
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>
