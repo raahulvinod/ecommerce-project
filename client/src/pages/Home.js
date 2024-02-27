@@ -265,9 +265,9 @@ const Home = () => {
                               alt="view"
                             />
                           </button>
-                          <button className="border-0 bg-transparent">
+                          {/* <button className="border-0 bg-transparent">
                             <img src={addcart} alt="addcart" />
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>
@@ -389,9 +389,9 @@ const Home = () => {
                               alt="view"
                             />
                           </button>
-                          <button className="border-0 bg-transparent">
+                          {/* <button className="border-0 bg-transparent">
                             <img src={addcart} alt="addcart" />
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>
