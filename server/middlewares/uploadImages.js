@@ -8,9 +8,6 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const uploadDirectory =
-  process.env.UPLOAD_DIRECTORY || path.join(__dirname, '../public/images/');
-
 const tempDir = path.join(__dirname, '../tmp/uploads');
 
 if (!fs.existsSync(tempDir)) {
@@ -18,7 +15,6 @@ if (!fs.existsSync(tempDir)) {
     fs.mkdirSync(tempDir, { recursive: true }); // Create directories recursively
   } catch (error) {
     console.error('Failed to create temporary directory:', error);
-    // Handle directory creation error appropriately (e.g., exit process)
   }
 }
 
