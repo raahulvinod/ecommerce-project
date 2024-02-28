@@ -6,6 +6,7 @@ import Meta from '../components/Meta';
 import ProductCard from '../components/ProductCard';
 import Container from '../components/Container';
 import { getAllProducts } from '../features/products/productSlice';
+import Loader from '../components/Loader';
 
 const OurStore = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const OurStore = () => {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   //Filter States
   const [tag, setTag] = useState(null);
@@ -44,9 +46,12 @@ const OurStore = () => {
   }, [productState]);
 
   const getProducts = () => {
-    dispatch(
-      getAllProducts({ sort, tag, brand, category, minPrice, maxPrice })
-    );
+    dispatch(getAllProducts({ sort, tag, brand, category, minPrice, maxPrice }))
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.error('Error fetching products:', error);
+        setLoading(false);
+      });
   };
 
   return (
@@ -223,9 +228,13 @@ const OurStore = () => {
               </div>
             </div>
             <div className="products-list pb-5">
-              <div className="d-flex gap-10 flex-wrap">
-                <ProductCard data={productState} grid={grid} />
-              </div>
+              {loading ? (
+                <Loader message={'Fetching products, please wait...'} />
+              ) : (
+                <div className="d-flex gap-10 flex-wrap">
+                  <ProductCard data={productState} grid={grid} />
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -137,7 +137,7 @@ const Checkout = () => {
       },
       prefill: {
         name: 'Trendfy',
-        email: 'Shopping@Trendfy.com',
+        email: 'Shopping@trendfy.com',
         contact: '9400273000',
       },
       notes: {
@@ -165,7 +165,6 @@ const Checkout = () => {
     },
     validationSchema: shippingSchema,
     onSubmit: (values) => {
-     
       localStorage.setItem('address', JSON.stringify(values));
       setTimeout(() => {
         checkoutHandler();
