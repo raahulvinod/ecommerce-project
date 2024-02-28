@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import wish from '../images/wish.svg';
 import addcart from '../images/add-cart.svg';
 import view from '../images/view.svg';
+import { toast } from 'react-toastify';
 
 const SimilarProduct = ({ productData }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const SimilarProduct = ({ productData }) => {
 
   const addToWish = (id) => {
     dispatch(addToWishlist(id));
+    toast.success('Item added to whishlist');
   };
 
   return (

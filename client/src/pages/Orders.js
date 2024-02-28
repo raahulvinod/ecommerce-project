@@ -18,6 +18,13 @@ const Orders = () => {
     <>
       <BreadCrumb title="My Orders" />
       <Container class1="cart-wrapper home-wrapper-2 py-5">
+        <div className="row justify-content-center">
+          <div className="col-md-6 col-lg-4">
+            {orderState && orderState.length === 0 && (
+              <div className="text-center fs-3">No Ordered Items</div>
+            )}
+          </div>
+        </div>
         <div className="row">
           <div className="col-12 mt-3">
             {orderState &&
