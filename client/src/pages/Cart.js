@@ -66,7 +66,7 @@ const Cart = () => {
     <>
       <Meta title="Your Cart" />
       <BreadCrumb title="Cart" />
-      <Container class1="cart-wrapper home-wrapper-2 py-5">
+      <Container class1="cart-wrapper home-wrapper-2">
         <div className="row">
           {loading ? (
             <Loader />
@@ -74,7 +74,7 @@ const Cart = () => {
             <>
               <div className="col-12">
                 {userCartState?.length !== 0 ? (
-                  <div className="cart-header py-3 d-flex justify-content-between align-items-center">
+                  <div className="cart-header py-3 d-none d-md-flex justify-content-between align-items-center">
                     <h4 className="cart-col-1">Product</h4>
                     <h4 className="cart-col-2">Price</h4>
                     <h4 className="cart-col-3">Quantity</h4>
