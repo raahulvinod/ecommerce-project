@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiFillDelete } from 'react-icons/ai';
 import Container from '../components/Container';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +18,7 @@ const Cart = () => {
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userCartState = useSelector((state) => state.auth.cartProducts);
 
@@ -97,7 +98,13 @@ const Cart = () => {
                         key={index}
                         className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center"
                       >
-                        <div className="cart-col-1 gap-15 d-flex align-items-center">
+                        <div
+                          className="cart-col-1 gap-15 d-flex align-items-center"
+                          onClick={() =>
+                            navigate(`/product/${item?.product?._id}`)
+                          }
+                          style={{ cursor: 'pointer' }}
+                        >
                           <div className="w-25">
                             <img
                               src={item?.productId?.images[0]?.url}

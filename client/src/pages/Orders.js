@@ -5,9 +5,11 @@ import BreadCrumb from '../components/BreadCrumb';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '../features/user/userSlice';
 import Loader from '../components/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const Orders = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +28,7 @@ const Orders = () => {
   return (
     <>
       <BreadCrumb title="My Orders" />
-      <Container class1="cart-wrapper home-wrapper-2 py-5">
+      <Container class1="cart-wrapper home-wrapper-2">
         {loading ? (
           <Loader />
         ) : (
@@ -51,7 +53,13 @@ const Orders = () => {
                         <div className="row bg-white p-3">
                           {item?.orderItems?.map((i, index) => (
                             <div key={index} className="col-lg-12 mb-3">
-                              <div className="row">
+                              <div
+                                className="row"
+                                onClick={() =>
+                                  navigate(`/product/${i.product?._id}`)
+                                }
+                                style={{ cursor: 'pointer' }}
+                              >
                                 <div className="col-lg-3 col-md-6">
                                   <h6>Product Details</h6>
                                   <p>{i.product?.title}</p>

@@ -174,6 +174,7 @@ const Home = () => {
                     src={banner.image}
                     alt={banner.alt}
                   />
+                   <div className="banner-overlay"></div>
                   <Link
                     to="/product"
                     className="small-banner-content position-absolute"
