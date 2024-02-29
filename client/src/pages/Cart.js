@@ -93,6 +93,7 @@ const Cart = () => {
 
                 {userCartState &&
                   userCartState?.map((item, index) => {
+                    console.log(item);
                     return (
                       <div
                         key={index}
@@ -101,7 +102,7 @@ const Cart = () => {
                         <div
                           className="cart-col-1 gap-15 d-flex align-items-center"
                           onClick={() =>
-                            navigate(`/product/${item?.product?._id}`)
+                            navigate(`/product/${item?.productId?._id}`)
                           }
                           style={{ cursor: 'pointer' }}
                         >
