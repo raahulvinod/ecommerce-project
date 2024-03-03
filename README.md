@@ -1,6 +1,6 @@
 # Full Stack MERN Ecommerce website : React, MongoDB, Node, Express, Bootstrap
 
-
+![Screenshot (291)](https://github.com/raahulvinod/ecommerce-project/assets/120365941/86d89e99-ff72-4115-881c-bb5a305a2144)
 
 This is a repository for a Full Stack Mern Ecommerce website with admin dashboard.
 
