@@ -23,6 +23,7 @@ const AddCoupon = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
   const getCouponId = location.pathname.split('/')[3];
   const newCoupon = useSelector((state) => state.coupon);
 
@@ -38,9 +39,11 @@ const AddCoupon = () => {
   } = newCoupon;
 
   const changeDateFormat = (date) => {
-    const newDate = new Date(date).toLocaleDateString();
-    const [month, day, year] = newDate.split('/');
-    return [year, month, day].join('-');
+    const newDate = new Date(date);
+    const year = newDate.getFullYear();
+    const month = String(newDate.getMonth() + 1).padStart(2, '0');
+    const day = String(newDate.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   useEffect(() => {
@@ -111,7 +114,7 @@ const AddCoupon = () => {
 
           <CustomInput
             type="date"
-            label="Enter coupon name"
+            label="Enter coupon expiry"
             name="expiry"
             onChng={formik.handleChange('expiry')}
             onBlr={formik.handleBlur('expiry')}
