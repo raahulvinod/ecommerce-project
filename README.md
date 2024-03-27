@@ -5,7 +5,7 @@
 This is a repository for a Full Stack Mern Ecommerce website with admin dashboard.
 Trendfy eCommerce Web Application: Leveraging Node.js Express and MongoDB for server-side operations, React and Bootstrap for frontend design. This comprehensive solution includes both admin and client websites. Admin functionalities encompass product, order, blog, user, brand, category, color, and coupon management. On the frontend, users can explore product details, select colors, add items to the cart, and utilize Razorpay for seamless payment processing. Additionally, the platform features a product review section, allows users to purchase products, adjust quantities, manage their cart, and utilize wishlist functionality. Stay organized and efficient with this versatile eCommerce solution.
 
-- **Client:** [Trendfy Client](https://trendfy.vercel.app)
+- **Client:** [Trendfy Store](https://trendfy.vercel.app)
 
 - **Admin Dashboard:** [Trendfy Admin](https://trendfy-admin.vercel.app)
 
