@@ -26,12 +26,13 @@ const app = express();
 dbConnect();
 
 app.use(morgan('dev'));
-app.use(
-  cors({
-    orgin: ['https://trendfy.vercel.app/', 'https://trendfy-admin.vercel.app/'],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     orgin: ['https://trendfy.vercel.app/', 'https://trendfy-admin.vercel.app/'],
+//     credentials: true,
+//   })
+// );
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

@@ -1,5 +1,8 @@
 // export const base_url = 'http://localhost:5000/api/';
-export const base_url = process.env.REACT_APP_BASE_URL;
+// export const base_url = process.env.REACT_APP_BASE_URL;
+
+export const base_url =
+  process.env.NODE_ENV === 'production' ? 'api/' : 'http://localhost:5000/api/';
 
 const getTokenFromLocalStorage = localStorage.getItem('customer')
   ? JSON.parse(localStorage.getItem('customer'))
