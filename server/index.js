@@ -28,11 +28,15 @@ dbConnect();
 app.use(morgan('dev'));
 app.use(
   cors({
-    orgin: ['https://trendfy.vercel.app/', 'https://trendfy-admin.vercel.app/', 'https://localhost:3000'],
+    orgin: [
+      'https://trendfy.vercel.app/',
+      'https://trendfy-admin.vercel.app/',
+      'https://localhost:3000',
+    ],
     credentials: true,
   })
 );
-// app.use(cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
